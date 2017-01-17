@@ -8,7 +8,7 @@ namespace DAL
 		public MainContext()
 			: base("MyToDo")
 		{
-			this.Configuration.LazyLoadingEnabled = true;
+			this.Configuration.LazyLoadingEnabled = false;
 
 		}
 
