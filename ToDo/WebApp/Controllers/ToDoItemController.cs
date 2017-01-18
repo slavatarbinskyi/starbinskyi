@@ -23,51 +23,92 @@ namespace WebApp.Controllers
 		/// Get All Items.
 		/// </summary>
 		/// <returns></returns>
-		public HttpResponseMessage GetAll()
+		public IHttpActionResult GetAll()
 		{
-			var items=toDoItemManager.GetAll();
-			return Request.CreateResponse(HttpStatusCode.OK,items);
-			//return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No product found for this id");
-			//return items;
+			try
+			{
+				var items = toDoItemManager.GetAll();
+				return Ok(items);
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
 		}
 		/// <summary>
 		/// Get All Not Completed Items.
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet]
-		public IEnumerable<ToDoItem> GetAllNotCompleted()
+		public IHttpActionResult GetAllNotCompleted()
 		{
-			var items = toDoItemManager.GetAllNotCompleted();
-			return items;
+			try
+			{
+				var items = toDoItemManager.GetAllNotCompleted();
+				return Ok(items);
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
 		}
 		/// <summary>
-		/// Mark item as completed in database;
+		/// Mark item as completed in database
 		/// </summary>
 		/// <param name="Id"></param>
 		[HttpPut]
-		public void MarkAsCompleted(int Id)
+		public IHttpActionResult MarkAsCompleted(int Id)
 		{
-			toDoItemManager.MarkAsCompleted(Id);
+			try
+			{
+				toDoItemManager.MarkAsCompleted(Id);
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
 		}
 
 		/// <summary>
-		/// Remove item from database;
+		/// Remove item from database
 		/// </summary>
 		/// <param name="item"></param>
 		[HttpDelete]
-		public void RemoveItem(ToDoItem item)
+		public IHttpActionResult RemoveItem(ToDoItem item)
 		{
-			toDoItemManager.RemoveItem(item);
+			try
+			{
+				toDoItemManager.RemoveItem(item);
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
 		}
 
 		/// <summary>
-		/// Update item in database;
+		/// Update item in database
 		/// </summary>
 		/// <param name="item"></param>
 		[HttpPut]
-		public void UpdateItem(ToDoItem item)
+		public IHttpActionResult UpdateItem(ToDoItem item)
 		{
-			toDoItemManager.UpdateItem(item);
+			try
+			{
+				toDoItemManager.UpdateItem(item);
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
 		}
 
 		/// <summary>
@@ -75,33 +116,35 @@ namespace WebApp.Controllers
 		/// </summary>
 		/// <param name="item"></param>
 		[HttpPost]
-		public void InsertItem(ToDoItem item)
+		public IHttpActionResult InsertItem(ToDoItem item)
 		{
 			try
 			{
 				toDoItemManager.InsertItem(item);
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
+		}
+		/// <summary>
+		/// Get by id item
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		public IHttpActionResult GetById(int Id)
+		{
+			try
+			{
+				var item = toDoItemManager.GetById(Id);
+				return Ok(item);
 			}
 			catch(Exception ex)
 			{
 				_logger.Error(ex.Message);
-				//throw new Exception(ex.Message);
-			}
-		}
-		/// <summary>
-		/// Get by id item;
-		/// </summary>
-		/// <param name="id"></param>
-		/// <returns></returns>
-		public ToDoItem GetById(int Id)
-		{
-			var item = toDoItemManager.GetById(Id);
-			if (item != null)
-			{
-				return item;
-			}
-			else
-			{
-				throw new Exception("No item found for this id");
+				return NotFound();
 			}
 		}
 

@@ -1,5 +1,6 @@
 ﻿using BAL.Interface;
 using Model.DB;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,53 +13,97 @@ namespace WebApp.Controllers
     public class UserController : ApiController
     {
 		private IUserManager userManager;
+		private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 		public UserController(IUserManager userManager)
 		{
 			this.userManager = userManager;
 		}
 		/// <summary>
-		/// Get All users from database;
+		/// Get All users from database
 		/// </summary>
-		public IEnumerable<User> GetAll()
+		public IHttpActionResult GetAll()
 		{
-			var users = userManager.GetAll();
-			return users;
+			try
+			{
+				var users = userManager.GetAll();
+				return Ok(users);
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
 		}
 		/// <summary>
-		/// Update user in database;
+		/// Update user in database
 		/// </summary>
 		/// <param name="user"></param>
 		[HttpPut]
-		public void UpdateUser(User user)
+		public IHttpActionResult UpdateUser(User user)
 		{
-			userManager.UpdateUser(user);
+			try
+			{
+				userManager.UpdateUser(user);
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
 		}
 		/// <summary>
-		/// Insert user in database;
+		/// Insert user in database
 		/// </summary>
 		/// <param name="user"></param>
 		[HttpPost]
-		public void InsertUser(User user)
+		public IHttpActionResult InsertUser(User user)
 		{
-			userManager.Insert(user);
+			try
+			{
+				userManager.Insert(user);
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
 		}
 		/// <summary>
-		/// Get user by email;
+		/// Get user by email
 		/// </summary>
 		/// <param name="email"></param>
 		/// <returns></returns>
-		public User GetByEmail(string email)
+		public IHttpActionResult GetByEmail(string email)
 		{
-			return userManager.GetByEmail(email);
+			try
+			{
+				return Ok(userManager.GetByEmail(email));
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
 		}
 		/// <summary>
-		/// Remove user from database;
+		/// Remove user from database
 		/// </summary>
 		/// <param name="user"></param>
 		[HttpDelete]
-		public void RemoveUser(User user)
+		public IHttpActionResult RemoveUser(User user)
 		{
-			userManager.RemoveUser(user);
+			try
+			{
+				userManager.RemoveUser(user);
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
 		}
 	}
 }

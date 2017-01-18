@@ -1,5 +1,6 @@
 ﻿using BAL.Interface;
 using Model.DB;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,51 +13,95 @@ namespace WebApp.Controllers
     public class ToDoListController : ApiController
     {
 		private IToDoListManager toDoListManager;
+		private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 		public ToDoListController(IToDoListManager toDoListManger)
 		{
 			this.toDoListManager = toDoListManger;
 		}
 
 		/// <summary>
-		/// Get All lists from database;
+		/// Get All lists from database
 		/// </summary>
-		public IEnumerable<ToDoList> GetAll()
+		public IHttpActionResult GetAll()
 		{
-			var lists = toDoListManager.GetAll();
-			return lists;
+			try
+			{
+				var lists = toDoListManager.GetAll();
+				return Ok(lists);
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
 		}
 		/// <summary>
-		/// Update list in database;
+		/// Update list in database
 		/// </summary>
 		[HttpPut]
-		public void UpdateList(ToDoList list)
+		public IHttpActionResult UpdateList(ToDoList list)
 		{
-			toDoListManager.UpdateList(list);
+			try
+			{
+				toDoListManager.UpdateList(list);
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
 		}
 		/// <summary>
-		/// Insert list in database;
+		/// Insert list in database
 		/// </summary>
 		[HttpPost]
-		public void InsertList(ToDoList list)
+		public IHttpActionResult InsertList(ToDoList list)
 		{
-			toDoListManager.InsertList(list);
+			try
+			{
+				toDoListManager.InsertList(list);
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
 		}
 		/// <summary>
-		/// Remove list from database;
+		/// Remove list from database
 		/// </summary>
 		[HttpDelete]
-		public void RemoveList(ToDoList list)
+		public IHttpActionResult RemoveList(ToDoList list)
 		{
-			toDoListManager.RemoveList(list);
+			try
+			{
+				toDoListManager.RemoveList(list);
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
 		}
 		/// <summary>
-		/// Get by id list;
+		/// Get by id list
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		public ToDoList GetById(int id)
+		public IHttpActionResult GetById(int id)
 		{
-			return toDoListManager.GetById(id);
+			try
+			{
+				return Ok(toDoListManager.GetById(id));
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
 		}
 	}
 }
