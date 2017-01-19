@@ -99,5 +99,11 @@ namespace BAL.Manager
 			uOW.UserRepo.Delete(userDb);
 			uOW.Save();
 		}
+
+		public User Find(string username, string password)
+		{
+			var user = uOW.UserRepo.All.FirstOrDefault(i=>i.UserName==username && i.Password==password);
+			return user;
+		}
 	}
 }
