@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace WebApp.Controllers
 {
@@ -21,6 +22,7 @@ namespace WebApp.Controllers
 		/// <summary>
 		/// Get All users from database
 		/// </summary>
+		[ResponseType(typeof(List<User>))]
 		public IHttpActionResult GetAll()
 		{
 			try
@@ -75,6 +77,7 @@ namespace WebApp.Controllers
 		/// </summary>
 		/// <param name="email"></param>
 		/// <returns></returns>
+		[ResponseType(typeof(User))]
 		public IHttpActionResult GetByEmail(string email)
 		{
 			try

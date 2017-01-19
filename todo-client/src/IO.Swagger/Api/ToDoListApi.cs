@@ -43,8 +43,8 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Object</returns>
-        Object ToDoListGetAll ();
+        /// <returns>List&lt;ToDoList&gt;</returns>
+        List<ToDoList> ToDoListGetAll ();
 
         /// <summary>
         /// Get All lists from database
@@ -53,8 +53,8 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> ToDoListGetAllWithHttpInfo ();
+        /// <returns>ApiResponse of List&lt;ToDoList&gt;</returns>
+        ApiResponse<List<ToDoList>> ToDoListGetAllWithHttpInfo ();
         /// <summary>
         /// Get by id list
         /// </summary>
@@ -63,8 +63,8 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Object</returns>
-        Object ToDoListGetById (int? id);
+        /// <returns>ToDoList</returns>
+        ToDoList ToDoListGetById (int? id);
 
         /// <summary>
         /// Get by id list
@@ -74,8 +74,8 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> ToDoListGetByIdWithHttpInfo (int? id);
+        /// <returns>ApiResponse of ToDoList</returns>
+        ApiResponse<ToDoList> ToDoListGetByIdWithHttpInfo (int? id);
         /// <summary>
         /// Insert list in database
         /// </summary>
@@ -148,8 +148,8 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> ToDoListGetAllAsync ();
+        /// <returns>Task of List&lt;ToDoList&gt;</returns>
+        System.Threading.Tasks.Task<List<ToDoList>> ToDoListGetAllAsync ();
 
         /// <summary>
         /// Get All lists from database
@@ -158,8 +158,8 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ToDoListGetAllAsyncWithHttpInfo ();
+        /// <returns>Task of ApiResponse (List&lt;ToDoList&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<ToDoList>>> ToDoListGetAllAsyncWithHttpInfo ();
         /// <summary>
         /// Get by id list
         /// </summary>
@@ -168,8 +168,8 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> ToDoListGetByIdAsync (int? id);
+        /// <returns>Task of ToDoList</returns>
+        System.Threading.Tasks.Task<ToDoList> ToDoListGetByIdAsync (int? id);
 
         /// <summary>
         /// Get by id list
@@ -179,8 +179,8 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ToDoListGetByIdAsyncWithHttpInfo (int? id);
+        /// <returns>Task of ApiResponse (ToDoList)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ToDoList>> ToDoListGetByIdAsyncWithHttpInfo (int? id);
         /// <summary>
         /// Insert list in database
         /// </summary>
@@ -360,10 +360,10 @@ namespace IO.Swagger.Api
         /// Get All lists from database 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Object</returns>
-        public Object ToDoListGetAll ()
+        /// <returns>List&lt;ToDoList&gt;</returns>
+        public List<ToDoList> ToDoListGetAll ()
         {
-             ApiResponse<Object> localVarResponse = ToDoListGetAllWithHttpInfo();
+             ApiResponse<List<ToDoList>> localVarResponse = ToDoListGetAllWithHttpInfo();
              return localVarResponse.Data;
         }
 
@@ -371,8 +371,8 @@ namespace IO.Swagger.Api
         /// Get All lists from database 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > ToDoListGetAllWithHttpInfo ()
+        /// <returns>ApiResponse of List&lt;ToDoList&gt;</returns>
+        public ApiResponse< List<ToDoList> > ToDoListGetAllWithHttpInfo ()
         {
 
             var localVarPath = "/api/ToDoList/GetAll";
@@ -415,9 +415,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<List<ToDoList>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (List<ToDoList>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ToDoList>)));
             
         }
 
@@ -425,10 +425,10 @@ namespace IO.Swagger.Api
         /// Get All lists from database 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> ToDoListGetAllAsync ()
+        /// <returns>Task of List&lt;ToDoList&gt;</returns>
+        public async System.Threading.Tasks.Task<List<ToDoList>> ToDoListGetAllAsync ()
         {
-             ApiResponse<Object> localVarResponse = await ToDoListGetAllAsyncWithHttpInfo();
+             ApiResponse<List<ToDoList>> localVarResponse = await ToDoListGetAllAsyncWithHttpInfo();
              return localVarResponse.Data;
 
         }
@@ -437,8 +437,8 @@ namespace IO.Swagger.Api
         /// Get All lists from database 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ToDoListGetAllAsyncWithHttpInfo ()
+        /// <returns>Task of ApiResponse (List&lt;ToDoList&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<ToDoList>>> ToDoListGetAllAsyncWithHttpInfo ()
         {
 
             var localVarPath = "/api/ToDoList/GetAll";
@@ -481,9 +481,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<List<ToDoList>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (List<ToDoList>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ToDoList>)));
             
         }
 
@@ -492,10 +492,10 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Object</returns>
-        public Object ToDoListGetById (int? id)
+        /// <returns>ToDoList</returns>
+        public ToDoList ToDoListGetById (int? id)
         {
-             ApiResponse<Object> localVarResponse = ToDoListGetByIdWithHttpInfo(id);
+             ApiResponse<ToDoList> localVarResponse = ToDoListGetByIdWithHttpInfo(id);
              return localVarResponse.Data;
         }
 
@@ -504,8 +504,8 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > ToDoListGetByIdWithHttpInfo (int? id)
+        /// <returns>ApiResponse of ToDoList</returns>
+        public ApiResponse< ToDoList > ToDoListGetByIdWithHttpInfo (int? id)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -552,9 +552,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<ToDoList>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (ToDoList) Configuration.ApiClient.Deserialize(localVarResponse, typeof(ToDoList)));
             
         }
 
@@ -563,10 +563,10 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> ToDoListGetByIdAsync (int? id)
+        /// <returns>Task of ToDoList</returns>
+        public async System.Threading.Tasks.Task<ToDoList> ToDoListGetByIdAsync (int? id)
         {
-             ApiResponse<Object> localVarResponse = await ToDoListGetByIdAsyncWithHttpInfo(id);
+             ApiResponse<ToDoList> localVarResponse = await ToDoListGetByIdAsyncWithHttpInfo(id);
              return localVarResponse.Data;
 
         }
@@ -576,8 +576,8 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ToDoListGetByIdAsyncWithHttpInfo (int? id)
+        /// <returns>Task of ApiResponse (ToDoList)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<ToDoList>> ToDoListGetByIdAsyncWithHttpInfo (int? id)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -624,9 +624,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<ToDoList>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (ToDoList) Configuration.ApiClient.Deserialize(localVarResponse, typeof(ToDoList)));
             
         }
 

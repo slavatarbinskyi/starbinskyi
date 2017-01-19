@@ -84,7 +84,7 @@ namespace IO.Swagger.Test
         {
             // TODO uncomment below to test the method and replace null with proper value
             //var response = instance.ToDoItemGetAll();
-            //Assert.IsInstanceOf<Object> (response, "response is Object");
+            //Assert.IsInstanceOf<List<ToDoItem>> (response, "response is List<ToDoItem>");
         }
         
         /// <summary>
@@ -95,7 +95,7 @@ namespace IO.Swagger.Test
         {
             // TODO uncomment below to test the method and replace null with proper value
             //var response = instance.ToDoItemGetAllNotCompleted();
-            //Assert.IsInstanceOf<Object> (response, "response is Object");
+            //Assert.IsInstanceOf<List<ToDoItem>> (response, "response is List<ToDoItem>");
         }
         
         /// <summary>
@@ -107,7 +107,7 @@ namespace IO.Swagger.Test
             // TODO uncomment below to test the method and replace null with proper value
             //int? id = null;
             //var response = instance.ToDoItemGetById(id);
-            //Assert.IsInstanceOf<Object> (response, "response is Object");
+            //Assert.IsInstanceOf<ToDoItem> (response, "response is ToDoItem");
         }
         
         /// <summary>

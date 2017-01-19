@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 <a name="todolistgetall"></a>
 # **ToDoListGetAll**
-> Object ToDoListGetAll ()
+> List<ToDoList> ToDoListGetAll ()
 
 Get All lists from database
 
@@ -37,7 +37,7 @@ namespace Example
             try
             {
                 // Get All lists from database
-                Object result = apiInstance.ToDoListGetAll();
+                List&lt;ToDoList&gt; result = apiInstance.ToDoListGetAll();
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -54,7 +54,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**Object**
+[**List<ToDoList>**](ToDoList.md)
 
 ### Authorization
 
@@ -69,7 +69,7 @@ No authorization required
 
 <a name="todolistgetbyid"></a>
 # **ToDoListGetById**
-> Object ToDoListGetById (int? id)
+> ToDoList ToDoListGetById (int? id)
 
 Get by id list
 
@@ -94,7 +94,7 @@ namespace Example
             try
             {
                 // Get by id list
-                Object result = apiInstance.ToDoListGetById(id);
+                ToDoList result = apiInstance.ToDoListGetById(id);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -114,7 +114,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**ToDoList**](ToDoList.md)
 
 ### Authorization
 

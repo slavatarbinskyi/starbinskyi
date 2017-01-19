@@ -43,8 +43,8 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Object</returns>
-        Object UserGetAll ();
+        /// <returns>List&lt;User&gt;</returns>
+        List<User> UserGetAll ();
 
         /// <summary>
         /// Get All users from database
@@ -53,8 +53,8 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> UserGetAllWithHttpInfo ();
+        /// <returns>ApiResponse of List&lt;User&gt;</returns>
+        ApiResponse<List<User>> UserGetAllWithHttpInfo ();
         /// <summary>
         /// Get user by email
         /// </summary>
@@ -63,8 +63,8 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email"></param>
-        /// <returns>Object</returns>
-        Object UserGetByEmail (string email);
+        /// <returns>User</returns>
+        User UserGetByEmail (string email);
 
         /// <summary>
         /// Get user by email
@@ -74,8 +74,8 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email"></param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> UserGetByEmailWithHttpInfo (string email);
+        /// <returns>ApiResponse of User</returns>
+        ApiResponse<User> UserGetByEmailWithHttpInfo (string email);
         /// <summary>
         /// Insert user in database
         /// </summary>
@@ -148,8 +148,8 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> UserGetAllAsync ();
+        /// <returns>Task of List&lt;User&gt;</returns>
+        System.Threading.Tasks.Task<List<User>> UserGetAllAsync ();
 
         /// <summary>
         /// Get All users from database
@@ -158,8 +158,8 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> UserGetAllAsyncWithHttpInfo ();
+        /// <returns>Task of ApiResponse (List&lt;User&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<User>>> UserGetAllAsyncWithHttpInfo ();
         /// <summary>
         /// Get user by email
         /// </summary>
@@ -168,8 +168,8 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email"></param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> UserGetByEmailAsync (string email);
+        /// <returns>Task of User</returns>
+        System.Threading.Tasks.Task<User> UserGetByEmailAsync (string email);
 
         /// <summary>
         /// Get user by email
@@ -179,8 +179,8 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email"></param>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> UserGetByEmailAsyncWithHttpInfo (string email);
+        /// <returns>Task of ApiResponse (User)</returns>
+        System.Threading.Tasks.Task<ApiResponse<User>> UserGetByEmailAsyncWithHttpInfo (string email);
         /// <summary>
         /// Insert user in database
         /// </summary>
@@ -360,10 +360,10 @@ namespace IO.Swagger.Api
         /// Get All users from database 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Object</returns>
-        public Object UserGetAll ()
+        /// <returns>List&lt;User&gt;</returns>
+        public List<User> UserGetAll ()
         {
-             ApiResponse<Object> localVarResponse = UserGetAllWithHttpInfo();
+             ApiResponse<List<User>> localVarResponse = UserGetAllWithHttpInfo();
              return localVarResponse.Data;
         }
 
@@ -371,8 +371,8 @@ namespace IO.Swagger.Api
         /// Get All users from database 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > UserGetAllWithHttpInfo ()
+        /// <returns>ApiResponse of List&lt;User&gt;</returns>
+        public ApiResponse< List<User> > UserGetAllWithHttpInfo ()
         {
 
             var localVarPath = "/api/User/GetAll";
@@ -415,9 +415,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<List<User>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (List<User>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<User>)));
             
         }
 
@@ -425,10 +425,10 @@ namespace IO.Swagger.Api
         /// Get All users from database 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> UserGetAllAsync ()
+        /// <returns>Task of List&lt;User&gt;</returns>
+        public async System.Threading.Tasks.Task<List<User>> UserGetAllAsync ()
         {
-             ApiResponse<Object> localVarResponse = await UserGetAllAsyncWithHttpInfo();
+             ApiResponse<List<User>> localVarResponse = await UserGetAllAsyncWithHttpInfo();
              return localVarResponse.Data;
 
         }
@@ -437,8 +437,8 @@ namespace IO.Swagger.Api
         /// Get All users from database 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> UserGetAllAsyncWithHttpInfo ()
+        /// <returns>Task of ApiResponse (List&lt;User&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<User>>> UserGetAllAsyncWithHttpInfo ()
         {
 
             var localVarPath = "/api/User/GetAll";
@@ -481,9 +481,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<List<User>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (List<User>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<User>)));
             
         }
 
@@ -492,10 +492,10 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email"></param>
-        /// <returns>Object</returns>
-        public Object UserGetByEmail (string email)
+        /// <returns>User</returns>
+        public User UserGetByEmail (string email)
         {
-             ApiResponse<Object> localVarResponse = UserGetByEmailWithHttpInfo(email);
+             ApiResponse<User> localVarResponse = UserGetByEmailWithHttpInfo(email);
              return localVarResponse.Data;
         }
 
@@ -504,8 +504,8 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email"></param>
-        /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > UserGetByEmailWithHttpInfo (string email)
+        /// <returns>ApiResponse of User</returns>
+        public ApiResponse< User > UserGetByEmailWithHttpInfo (string email)
         {
             // verify the required parameter 'email' is set
             if (email == null)
@@ -552,9 +552,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<User>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (User) Configuration.ApiClient.Deserialize(localVarResponse, typeof(User)));
             
         }
 
@@ -563,10 +563,10 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email"></param>
-        /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> UserGetByEmailAsync (string email)
+        /// <returns>Task of User</returns>
+        public async System.Threading.Tasks.Task<User> UserGetByEmailAsync (string email)
         {
-             ApiResponse<Object> localVarResponse = await UserGetByEmailAsyncWithHttpInfo(email);
+             ApiResponse<User> localVarResponse = await UserGetByEmailAsyncWithHttpInfo(email);
              return localVarResponse.Data;
 
         }
@@ -576,8 +576,8 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="email"></param>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> UserGetByEmailAsyncWithHttpInfo (string email)
+        /// <returns>Task of ApiResponse (User)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<User>> UserGetByEmailAsyncWithHttpInfo (string email)
         {
             // verify the required parameter 'email' is set
             if (email == null)
@@ -624,9 +624,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<User>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (User) Configuration.ApiClient.Deserialize(localVarResponse, typeof(User)));
             
         }
 

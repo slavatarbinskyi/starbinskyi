@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1E748CC0-6454-468D-818B-7DB42E4551EB}</ProjectGuid>
+    <ProjectGuid>{A402F601-65C7-4A0F-99F0-109AACE19256}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ConsoleApp</RootNamespace>
@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\src\IO.Swagger\IO.Swagger.csproj">
-      <Project>{10011E6C-F132-4A3E-B4AD-D43D5C7E5E62}</Project>
+      <Project>{c31f7a30-a1d5-4dc3-a976-cd6bdba18161}</Project>
       <Name>IO.Swagger</Name>
     </ProjectReference>
   </ItemGroup>

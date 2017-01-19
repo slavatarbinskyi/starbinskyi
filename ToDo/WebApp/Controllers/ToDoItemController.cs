@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using WebApp.Helpers;
 
 namespace WebApp.Controllers
@@ -23,6 +24,7 @@ namespace WebApp.Controllers
 		/// Get All Items.
 		/// </summary>
 		/// <returns></returns>
+		[ResponseType(typeof(List<ToDoItem>))]
 		public IHttpActionResult GetAll()
 		{
 			try
@@ -40,6 +42,7 @@ namespace WebApp.Controllers
 		/// Get All Not Completed Items.
 		/// </summary>
 		/// <returns></returns>
+		[ResponseType(typeof(List<ToDoItem>))]
 		[HttpGet]
 		public IHttpActionResult GetAllNotCompleted()
 		{
@@ -96,6 +99,7 @@ namespace WebApp.Controllers
 		/// Update item in database
 		/// </summary>
 		/// <param name="item"></param>
+		
 		[HttpPut]
 		public IHttpActionResult UpdateItem(ToDoItem item)
 		{
@@ -134,6 +138,7 @@ namespace WebApp.Controllers
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
+		[ResponseType(typeof(ToDoItem))]
 		public IHttpActionResult GetById(int Id)
 		{
 			try

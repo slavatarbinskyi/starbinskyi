@@ -84,7 +84,7 @@ namespace IO.Swagger.Test
         {
             // TODO uncomment below to test the method and replace null with proper value
             //var response = instance.UserGetAll();
-            //Assert.IsInstanceOf<Object> (response, "response is Object");
+            //Assert.IsInstanceOf<List<User>> (response, "response is List<User>");
         }
         
         /// <summary>
@@ -96,7 +96,7 @@ namespace IO.Swagger.Test
             // TODO uncomment below to test the method and replace null with proper value
             //string email = null;
             //var response = instance.UserGetByEmail(email);
-            //Assert.IsInstanceOf<Object> (response, "response is Object");
+            //Assert.IsInstanceOf<User> (response, "response is User");
         }
         
         /// <summary>

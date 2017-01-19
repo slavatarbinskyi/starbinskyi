@@ -84,7 +84,7 @@ namespace IO.Swagger.Test
         {
             // TODO uncomment below to test the method and replace null with proper value
             //var response = instance.ToDoListGetAll();
-            //Assert.IsInstanceOf<Object> (response, "response is Object");
+            //Assert.IsInstanceOf<List<ToDoList>> (response, "response is List<ToDoList>");
         }
         
         /// <summary>
@@ -96,7 +96,7 @@ namespace IO.Swagger.Test
             // TODO uncomment below to test the method and replace null with proper value
             //int? id = null;
             //var response = instance.ToDoListGetById(id);
-            //Assert.IsInstanceOf<Object> (response, "response is Object");
+            //Assert.IsInstanceOf<ToDoList> (response, "response is ToDoList");
         }
         
         /// <summary>

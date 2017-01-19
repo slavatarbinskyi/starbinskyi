@@ -43,8 +43,8 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Object</returns>
-        Object ToDoItemGetAll ();
+        /// <returns>List&lt;ToDoItem&gt;</returns>
+        List<ToDoItem> ToDoItemGetAll ();
 
         /// <summary>
         /// Get All Items.
@@ -53,8 +53,8 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> ToDoItemGetAllWithHttpInfo ();
+        /// <returns>ApiResponse of List&lt;ToDoItem&gt;</returns>
+        ApiResponse<List<ToDoItem>> ToDoItemGetAllWithHttpInfo ();
         /// <summary>
         /// Get All Not Completed Items.
         /// </summary>
@@ -62,8 +62,8 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Object</returns>
-        Object ToDoItemGetAllNotCompleted ();
+        /// <returns>List&lt;ToDoItem&gt;</returns>
+        List<ToDoItem> ToDoItemGetAllNotCompleted ();
 
         /// <summary>
         /// Get All Not Completed Items.
@@ -72,8 +72,8 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> ToDoItemGetAllNotCompletedWithHttpInfo ();
+        /// <returns>ApiResponse of List&lt;ToDoItem&gt;</returns>
+        ApiResponse<List<ToDoItem>> ToDoItemGetAllNotCompletedWithHttpInfo ();
         /// <summary>
         /// Get by id item
         /// </summary>
@@ -82,8 +82,8 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Object</returns>
-        Object ToDoItemGetById (int? id);
+        /// <returns>ToDoItem</returns>
+        ToDoItem ToDoItemGetById (int? id);
 
         /// <summary>
         /// Get by id item
@@ -93,8 +93,8 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object> ToDoItemGetByIdWithHttpInfo (int? id);
+        /// <returns>ApiResponse of ToDoItem</returns>
+        ApiResponse<ToDoItem> ToDoItemGetByIdWithHttpInfo (int? id);
         /// <summary>
         /// Insert Item
         /// </summary>
@@ -188,8 +188,8 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> ToDoItemGetAllAsync ();
+        /// <returns>Task of List&lt;ToDoItem&gt;</returns>
+        System.Threading.Tasks.Task<List<ToDoItem>> ToDoItemGetAllAsync ();
 
         /// <summary>
         /// Get All Items.
@@ -198,8 +198,8 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ToDoItemGetAllAsyncWithHttpInfo ();
+        /// <returns>Task of ApiResponse (List&lt;ToDoItem&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<ToDoItem>>> ToDoItemGetAllAsyncWithHttpInfo ();
         /// <summary>
         /// Get All Not Completed Items.
         /// </summary>
@@ -207,8 +207,8 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> ToDoItemGetAllNotCompletedAsync ();
+        /// <returns>Task of List&lt;ToDoItem&gt;</returns>
+        System.Threading.Tasks.Task<List<ToDoItem>> ToDoItemGetAllNotCompletedAsync ();
 
         /// <summary>
         /// Get All Not Completed Items.
@@ -217,8 +217,8 @@ namespace IO.Swagger.Api
         /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ToDoItemGetAllNotCompletedAsyncWithHttpInfo ();
+        /// <returns>Task of ApiResponse (List&lt;ToDoItem&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<ToDoItem>>> ToDoItemGetAllNotCompletedAsyncWithHttpInfo ();
         /// <summary>
         /// Get by id item
         /// </summary>
@@ -227,8 +227,8 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> ToDoItemGetByIdAsync (int? id);
+        /// <returns>Task of ToDoItem</returns>
+        System.Threading.Tasks.Task<ToDoItem> ToDoItemGetByIdAsync (int? id);
 
         /// <summary>
         /// Get by id item
@@ -238,8 +238,8 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ToDoItemGetByIdAsyncWithHttpInfo (int? id);
+        /// <returns>Task of ApiResponse (ToDoItem)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ToDoItem>> ToDoItemGetByIdAsyncWithHttpInfo (int? id);
         /// <summary>
         /// Insert Item
         /// </summary>
@@ -440,10 +440,10 @@ namespace IO.Swagger.Api
         /// Get All Items. 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Object</returns>
-        public Object ToDoItemGetAll ()
+        /// <returns>List&lt;ToDoItem&gt;</returns>
+        public List<ToDoItem> ToDoItemGetAll ()
         {
-             ApiResponse<Object> localVarResponse = ToDoItemGetAllWithHttpInfo();
+             ApiResponse<List<ToDoItem>> localVarResponse = ToDoItemGetAllWithHttpInfo();
              return localVarResponse.Data;
         }
 
@@ -451,8 +451,8 @@ namespace IO.Swagger.Api
         /// Get All Items. 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > ToDoItemGetAllWithHttpInfo ()
+        /// <returns>ApiResponse of List&lt;ToDoItem&gt;</returns>
+        public ApiResponse< List<ToDoItem> > ToDoItemGetAllWithHttpInfo ()
         {
 
             var localVarPath = "/api/ToDoItem/GetAll";
@@ -495,9 +495,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<List<ToDoItem>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (List<ToDoItem>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ToDoItem>)));
             
         }
 
@@ -505,10 +505,10 @@ namespace IO.Swagger.Api
         /// Get All Items. 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> ToDoItemGetAllAsync ()
+        /// <returns>Task of List&lt;ToDoItem&gt;</returns>
+        public async System.Threading.Tasks.Task<List<ToDoItem>> ToDoItemGetAllAsync ()
         {
-             ApiResponse<Object> localVarResponse = await ToDoItemGetAllAsyncWithHttpInfo();
+             ApiResponse<List<ToDoItem>> localVarResponse = await ToDoItemGetAllAsyncWithHttpInfo();
              return localVarResponse.Data;
 
         }
@@ -517,8 +517,8 @@ namespace IO.Swagger.Api
         /// Get All Items. 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ToDoItemGetAllAsyncWithHttpInfo ()
+        /// <returns>Task of ApiResponse (List&lt;ToDoItem&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<ToDoItem>>> ToDoItemGetAllAsyncWithHttpInfo ()
         {
 
             var localVarPath = "/api/ToDoItem/GetAll";
@@ -561,9 +561,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<List<ToDoItem>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (List<ToDoItem>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ToDoItem>)));
             
         }
 
@@ -571,10 +571,10 @@ namespace IO.Swagger.Api
         /// Get All Not Completed Items. 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Object</returns>
-        public Object ToDoItemGetAllNotCompleted ()
+        /// <returns>List&lt;ToDoItem&gt;</returns>
+        public List<ToDoItem> ToDoItemGetAllNotCompleted ()
         {
-             ApiResponse<Object> localVarResponse = ToDoItemGetAllNotCompletedWithHttpInfo();
+             ApiResponse<List<ToDoItem>> localVarResponse = ToDoItemGetAllNotCompletedWithHttpInfo();
              return localVarResponse.Data;
         }
 
@@ -582,8 +582,8 @@ namespace IO.Swagger.Api
         /// Get All Not Completed Items. 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > ToDoItemGetAllNotCompletedWithHttpInfo ()
+        /// <returns>ApiResponse of List&lt;ToDoItem&gt;</returns>
+        public ApiResponse< List<ToDoItem> > ToDoItemGetAllNotCompletedWithHttpInfo ()
         {
 
             var localVarPath = "/api/ToDoItem/GetAllNotCompleted";
@@ -626,9 +626,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<List<ToDoItem>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (List<ToDoItem>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ToDoItem>)));
             
         }
 
@@ -636,10 +636,10 @@ namespace IO.Swagger.Api
         /// Get All Not Completed Items. 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> ToDoItemGetAllNotCompletedAsync ()
+        /// <returns>Task of List&lt;ToDoItem&gt;</returns>
+        public async System.Threading.Tasks.Task<List<ToDoItem>> ToDoItemGetAllNotCompletedAsync ()
         {
-             ApiResponse<Object> localVarResponse = await ToDoItemGetAllNotCompletedAsyncWithHttpInfo();
+             ApiResponse<List<ToDoItem>> localVarResponse = await ToDoItemGetAllNotCompletedAsyncWithHttpInfo();
              return localVarResponse.Data;
 
         }
@@ -648,8 +648,8 @@ namespace IO.Swagger.Api
         /// Get All Not Completed Items. 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ToDoItemGetAllNotCompletedAsyncWithHttpInfo ()
+        /// <returns>Task of ApiResponse (List&lt;ToDoItem&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<ToDoItem>>> ToDoItemGetAllNotCompletedAsyncWithHttpInfo ()
         {
 
             var localVarPath = "/api/ToDoItem/GetAllNotCompleted";
@@ -692,9 +692,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<List<ToDoItem>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (List<ToDoItem>) Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ToDoItem>)));
             
         }
 
@@ -703,10 +703,10 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Object</returns>
-        public Object ToDoItemGetById (int? id)
+        /// <returns>ToDoItem</returns>
+        public ToDoItem ToDoItemGetById (int? id)
         {
-             ApiResponse<Object> localVarResponse = ToDoItemGetByIdWithHttpInfo(id);
+             ApiResponse<ToDoItem> localVarResponse = ToDoItemGetByIdWithHttpInfo(id);
              return localVarResponse.Data;
         }
 
@@ -715,8 +715,8 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>ApiResponse of Object</returns>
-        public ApiResponse< Object > ToDoItemGetByIdWithHttpInfo (int? id)
+        /// <returns>ApiResponse of ToDoItem</returns>
+        public ApiResponse< ToDoItem > ToDoItemGetByIdWithHttpInfo (int? id)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -763,9 +763,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<ToDoItem>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (ToDoItem) Configuration.ApiClient.Deserialize(localVarResponse, typeof(ToDoItem)));
             
         }
 
@@ -774,10 +774,10 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Task of Object</returns>
-        public async System.Threading.Tasks.Task<Object> ToDoItemGetByIdAsync (int? id)
+        /// <returns>Task of ToDoItem</returns>
+        public async System.Threading.Tasks.Task<ToDoItem> ToDoItemGetByIdAsync (int? id)
         {
-             ApiResponse<Object> localVarResponse = await ToDoItemGetByIdAsyncWithHttpInfo(id);
+             ApiResponse<ToDoItem> localVarResponse = await ToDoItemGetByIdAsyncWithHttpInfo(id);
              return localVarResponse.Data;
 
         }
@@ -787,8 +787,8 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Task of ApiResponse (Object)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ToDoItemGetByIdAsyncWithHttpInfo (int? id)
+        /// <returns>Task of ApiResponse (ToDoItem)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<ToDoItem>> ToDoItemGetByIdAsyncWithHttpInfo (int? id)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -835,9 +835,9 @@ namespace IO.Swagger.Api
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<ToDoItem>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+                (ToDoItem) Configuration.ApiClient.Deserialize(localVarResponse, typeof(ToDoItem)));
             
         }
 

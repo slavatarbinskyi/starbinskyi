@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 <a name="todoitemgetall"></a>
 # **ToDoItemGetAll**
-> Object ToDoItemGetAll ()
+> List<ToDoItem> ToDoItemGetAll ()
 
 Get All Items.
 
@@ -39,7 +39,7 @@ namespace Example
             try
             {
                 // Get All Items.
-                Object result = apiInstance.ToDoItemGetAll();
+                List&lt;ToDoItem&gt; result = apiInstance.ToDoItemGetAll();
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -56,7 +56,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**Object**
+[**List<ToDoItem>**](ToDoItem.md)
 
 ### Authorization
 
@@ -71,7 +71,7 @@ No authorization required
 
 <a name="todoitemgetallnotcompleted"></a>
 # **ToDoItemGetAllNotCompleted**
-> Object ToDoItemGetAllNotCompleted ()
+> List<ToDoItem> ToDoItemGetAllNotCompleted ()
 
 Get All Not Completed Items.
 
@@ -95,7 +95,7 @@ namespace Example
             try
             {
                 // Get All Not Completed Items.
-                Object result = apiInstance.ToDoItemGetAllNotCompleted();
+                List&lt;ToDoItem&gt; result = apiInstance.ToDoItemGetAllNotCompleted();
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -112,7 +112,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**Object**
+[**List<ToDoItem>**](ToDoItem.md)
 
 ### Authorization
 
@@ -127,7 +127,7 @@ No authorization required
 
 <a name="todoitemgetbyid"></a>
 # **ToDoItemGetById**
-> Object ToDoItemGetById (int? id)
+> ToDoItem ToDoItemGetById (int? id)
 
 Get by id item
 
@@ -152,7 +152,7 @@ namespace Example
             try
             {
                 // Get by id item
-                Object result = apiInstance.ToDoItemGetById(id);
+                ToDoItem result = apiInstance.ToDoItemGetById(id);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -172,7 +172,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**ToDoItem**](ToDoItem.md)
 
 ### Authorization
 

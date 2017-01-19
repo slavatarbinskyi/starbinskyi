@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace WebApp.Controllers
 {
@@ -22,6 +23,7 @@ namespace WebApp.Controllers
 		/// <summary>
 		/// Get All lists from database
 		/// </summary>
+		[ResponseType(typeof(List<ToDoList>))]
 		public IHttpActionResult GetAll()
 		{
 			try
@@ -91,6 +93,7 @@ namespace WebApp.Controllers
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
+		[ResponseType(typeof(ToDoList))]
 		public IHttpActionResult GetById(int id)
 		{
 			try

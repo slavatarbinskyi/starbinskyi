@@ -7,12 +7,19 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp
 {
-	class Programx
+	class Program
 	{
 		static void Main(string[] args)
 		{
-			ToDoItemApi toDoItemApi = new ToDoItemApi();
-			var items = toDoItemApi.ToDoItemGetAll();
+			{
+				var toDoItemApi = new ToDoItemApi();
+				var items = toDoItemApi.ToDoItemGetAll();
+				var random = new Random();
+				int r = random.Next(items.Count);
+				var id = items[r].Id;
+				toDoItemApi.ToDoItemMarkAsCompleted(id);
+
+			}
 		}
 	}
 }

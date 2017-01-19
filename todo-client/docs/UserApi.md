@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 <a name="usergetall"></a>
 # **UserGetAll**
-> Object UserGetAll ()
+> List<User> UserGetAll ()
 
 Get All users from database
 
@@ -37,7 +37,7 @@ namespace Example
             try
             {
                 // Get All users from database
-                Object result = apiInstance.UserGetAll();
+                List&lt;User&gt; result = apiInstance.UserGetAll();
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -54,7 +54,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**Object**
+[**List<User>**](User.md)
 
 ### Authorization
 
@@ -69,7 +69,7 @@ No authorization required
 
 <a name="usergetbyemail"></a>
 # **UserGetByEmail**
-> Object UserGetByEmail (string email)
+> User UserGetByEmail (string email)
 
 Get user by email
 
@@ -94,7 +94,7 @@ namespace Example
             try
             {
                 // Get user by email
-                Object result = apiInstance.UserGetByEmail(email);
+                User result = apiInstance.UserGetByEmail(email);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -114,7 +114,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**User**](User.md)
 
 ### Authorization
 
