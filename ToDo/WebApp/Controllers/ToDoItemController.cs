@@ -12,7 +12,8 @@ using WebApp.Helpers;
 
 namespace WebApp.Controllers
 {
-    public class ToDoItemController : ApiController
+	[Authorize]
+	public class ToDoItemController : ApiController
     {
 		private IToDoItemManager toDoItemManager;
 		private readonly Logger _logger =LogManager.GetCurrentClassLogger();
