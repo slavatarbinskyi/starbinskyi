@@ -14,8 +14,8 @@ namespace TestClient
     {
         static void Main(string[] args)
         {
-
-			var client = new RestClient("http://localhost:8778/");
+			var basepath = "http://localhost/ToDoWebApi";
+			var client = new RestClient(basepath);
 
 			RestRequest req = new RestRequest("Token", Method.POST);
 			req.AddParameter("username", "admin");
@@ -24,15 +24,10 @@ namespace TestClient
 			var resp=client.Execute(req);
 			dynamic data = JObject.Parse(resp.Content);
 			var token = data.access_token;
-			var itemApi = new ToDoItemApi();
             var apiCLient = new ApiClient();
 
-            //Configuration c = new Configuration(apiCLient);
-            //c.AccessToken = token;
-            itemApi = new ToDoItemApi();
+            var itemApi = new ToDoItemApi(basepath);
 			itemApi.AddDefaultHeader("Authorization", "bearer " + token);
-			//itemApi.Configuration.Username = "admin";
-			//itemApi.Configuration.Password = "1111";
 
 
 			var items = itemApi.ToDoItemGetAll();
@@ -41,9 +36,6 @@ namespace TestClient
             int id = rnd.Next(items.Count);
 
             itemApi.ToDoItemMarkAsCompleted(id);
-
-			var claimsApi = new ClaimsApi();
-			var claim=claimsApi.ClaimsGetClaims();
         }
     }
 }
