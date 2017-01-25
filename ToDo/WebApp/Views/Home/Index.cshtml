@@ -32,7 +32,7 @@
 		 text-decoration: line-through;
 	}
 </style>
-<div class="">
+<div class="stickTodo">
 	<ul class="list-inline toDoList" data-bind="foreach:toDoLists">
 		<li class="col-md-4 text-left">
 			<div class="stickHeader">
@@ -42,7 +42,7 @@
 
 					<li>
 						<input type="checkbox" data-bind="checked:IsCompleted" />
-						<span data-bind="text: Text,css:'completeditems'"></span>
+						<span data-bind="text: Text,css:{completeditems:IsCompleted}"></span>
 					</li>
 				</ul>
 			</div>
@@ -56,9 +56,14 @@
 
 @Scripts.Render("~/bundles/jquery")
 <script type="text/javascript" src="~/Scripts/knockout-3.4.1.js"></script>
+<script type="text/javascript" src="~/Scripts/knockout.mapping-latest.debug.js"></script>
 <script>
 	function viewModel() {
 		var self = this;
+
+		var mapping = {
+			'observe': ["Name", "Items"]
+		}
 
 		self.loadLists = function () {
 			$.ajax({
@@ -68,9 +73,10 @@
 				dataType: 'JSON',
 				success: function (data) {
 					$.each(data, function (index, element) {
-						console.log(element);
-
-						self.toDoLists.push(element);
+						
+						var model=ko.mapping.fromJS(element);
+						self.toDoLists.push(model);
+						console.log(model);
 
 					});
 				},
@@ -79,21 +85,14 @@
 				}
 			});
 		}
-		self.markItem=function()
-		{
+		self.markItem = function (model) {
 			$.ajax({
 				type: 'POST',
 				contentType: 'application/json',
-				url: '/Home/MarkAsCompleted',
+				url: '/Home/MarkItem',
 				dataType: 'JSON',
-				data:data,
+				data:model,
 				success: function (data) {
-					$.each(data, function (index, element) {
-						console.log(element);
-
-						self.toDoLists.push(element);
-
-					});
 				},
 				error: function () {
 					console.log('shit');
@@ -101,7 +100,11 @@
 			});
 		}
 		self.toDoLists = ko.observableArray([]);
-		
+		self.toDoLists.subscribe(function (changes) {
+			// For this example, we'll just print out the change info
+			console.log(changes);
+
+		}, null, "arrayChange");
 
 	}
 

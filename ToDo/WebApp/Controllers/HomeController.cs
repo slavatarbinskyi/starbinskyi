@@ -35,9 +35,9 @@ namespace WebApp.Controllers
 		}
 
 		[HttpPost]
-		public void MarkAsCompleted(string id)
+		public void MarkItem(ToDoItem model)
 		{
-			toDoItemManager.MarkAsCompleted(Convert.ToInt16(id));
+			toDoItemManager.UpdateItem(model);
 		}
 
 		[HttpGet]
