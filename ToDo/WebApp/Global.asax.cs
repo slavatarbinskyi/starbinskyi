@@ -4,6 +4,7 @@ using DAL;
 using DAL.Interface;
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
+using SimpleInjector.Integration.Web.Mvc;
 using SimpleInjector.Integration.WebApi;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,7 @@ namespace WebApp
 			container.Register<IToDoListManager, ToDoListManager>();
 			container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
 			GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
+			DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
 
 		}
 	}

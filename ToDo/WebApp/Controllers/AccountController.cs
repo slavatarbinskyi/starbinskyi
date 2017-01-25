@@ -16,6 +16,7 @@ using Microsoft.Owin.Security.OAuth;
 using WebApp.Models;
 using WebApp.Providers;
 using WebApp.Results;
+using BAL.Interface;
 
 namespace WebApp.Controllers
 {
@@ -25,17 +26,20 @@ namespace WebApp.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+		private IUserManager userDbManager;
 
         public AccountController()
         {
+			
         }
 
         public AccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+            ISecureDataFormat<AuthenticationTicket> accessTokenFormat, IUserManager userDbManager)
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
-        }
+			this.userDbManager = userDbManager;
+		}
 
         public ApplicationUserManager UserManager
         {
@@ -74,8 +78,30 @@ namespace WebApp.Controllers
             return Ok();
         }
 
-        // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
-        [Route("ManageInfo")]
+		// POST api/Account/Login
+		[Route("Login")]
+		public IHttpActionResult Login(string username,string password)
+		{
+			var userDb = userDbManager.Find(username,password);
+			ApplicationUser user = new ApplicationUser()
+			{
+				Id = userDb.Id.ToString(),
+				Email = userDb.Email,
+				UserName = userDb.UserName
+			};
+
+			ClaimsIdentity cookiesIdentity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationType, ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+			cookiesIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), ClaimValueTypes.String));
+			cookiesIdentity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email, ClaimValueTypes.String));
+			cookiesIdentity.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/201..",
+			"OWIN Provider", ClaimValueTypes.String));
+			Authentication.SignIn(cookiesIdentity);
+			return Ok();
+		}
+
+
+		// GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
+		[Route("ManageInfo")]
         public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());

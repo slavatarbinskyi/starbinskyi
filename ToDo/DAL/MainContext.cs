@@ -9,7 +9,7 @@ namespace DAL
 			: base("MyToDo")
 		{
 			this.Configuration.LazyLoadingEnabled = false;
-
+			this.Configuration.ProxyCreationEnabled = false;
 		}
 
 		public DbSet<ToDoItem> Items { get; set; }

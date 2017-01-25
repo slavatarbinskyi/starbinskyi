@@ -1,24 +1,114 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+﻿@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+	.stickHeader {
+		background-image: url('http://localhost:8778/stickhead.png');
+		background-repeat: repeat-y;
+		width: 390px;
+		margin-top: 20px;
+		margin-left: 10px;
+
+	}
+
+	.stickFooter {
+		background-image: url('http://localhost:8778/stickfooter.png');
+		width: 400px;
+		height: 300px;
+		background-repeat: no-repeat;
+	}
+
+	ul {
+		list-style-type: none;
+	}
+	.title
+	{
+		margin-left:150px;
+	}
+	.completeditems
+	{
+		 text-decoration: line-through;
+	}
+</style>
+<div class="">
+	<ul class="list-inline toDoList" data-bind="foreach:toDoLists">
+		<li class="col-md-4 text-left">
+			<div class="stickHeader">
+				<h1><strong  class="title" data-bind="text: Name"></strong></h1>
+
+				<ul class="items" data-bind="foreach: Items">
+
+					<li>
+						<input type="checkbox" data-bind="checked:IsCompleted" />
+						<span data-bind="text: Text,css:'completeditems'"></span>
+					</li>
+				</ul>
+			</div>
+			<div class="stickFooter"> </div>
+		</li>
+
+	</ul>
 </div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
-    </div>
-</div>
+
+
+
+@Scripts.Render("~/bundles/jquery")
+<script type="text/javascript" src="~/Scripts/knockout-3.4.1.js"></script>
+<script>
+	function viewModel() {
+		var self = this;
+
+		self.loadLists = function () {
+			$.ajax({
+				type: 'GET',
+				contentType: 'application/json',
+				url: '/Home/GetUsersList',
+				dataType: 'JSON',
+				success: function (data) {
+					$.each(data, function (index, element) {
+						console.log(element);
+
+						self.toDoLists.push(element);
+
+					});
+				},
+				error: function () {
+					console.log('shit');
+				}
+			});
+		}
+		self.markItem=function()
+		{
+			$.ajax({
+				type: 'POST',
+				contentType: 'application/json',
+				url: '/Home/MarkAsCompleted',
+				dataType: 'JSON',
+				data:data,
+				success: function (data) {
+					$.each(data, function (index, element) {
+						console.log(element);
+
+						self.toDoLists.push(element);
+
+					});
+				},
+				error: function () {
+					console.log('shit');
+				}
+			});
+		}
+		self.toDoLists = ko.observableArray([]);
+		
+
+	}
+
+	var vm = new viewModel();
+	vm.loadLists();
+
+	ko.applyBindings(vm);
+
+
+</script>

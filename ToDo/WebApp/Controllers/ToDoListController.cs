@@ -11,15 +11,17 @@ using System.Web.Http.Description;
 
 namespace WebApp.Controllers
 {
-    public class ToDoListController : ApiController
-    {
+	public class ToDoListController : ApiController
+	{
 		private IToDoListManager toDoListManager;
+		private IToDoItemManager toDoItemManager;
 		private readonly Logger _logger = LogManager.GetCurrentClassLogger();
-		public ToDoListController(IToDoListManager toDoListManger)
+		public ToDoListController(IToDoListManager toDoListManger, IToDoItemManager toDoItemManager)
 		{
 			this.toDoListManager = toDoListManger;
+			this.toDoItemManager = toDoItemManager;
 		}
-
+		
 		/// <summary>
 		/// Get All lists from database
 		/// </summary>

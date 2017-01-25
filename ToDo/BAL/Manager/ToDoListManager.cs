@@ -21,13 +21,7 @@ namespace BAL.Manager
 		/// <returns></returns>
 		public List<ToDoList> GetAll()
 		{
-			var lists = new List<ToDoList>();
-			foreach (var list in uOW.ToDoListRepo.All)
-			{
-				var List = uOW.ToDoListRepo.GetByID(list.Id);
-				lists.Add(List);
-			}
-			return lists;
+			return uOW.ToDoListRepo.Get(includeProperties:"Items").ToList();
 		}
 		/// <summary>
 		/// Insert list into db.
@@ -74,5 +68,6 @@ namespace BAL.Manager
 		{
 			return uOW.ToDoListRepo.GetByID(id);
 		}
+
 	}
 }
