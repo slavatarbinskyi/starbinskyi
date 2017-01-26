@@ -15,6 +15,19 @@ namespace BAL.Manager
         {
 		}
 
+
+
+		/// <summary>
+		/// Change IsCompleted value;
+		/// </summary>
+		/// <returns></returns>
+		public void ChangeIsCompletedValue(string id,string newValue)
+		{
+			var item = uOW.ToDoItemRepo.GetByID(Convert.ToInt32(id));
+			item.IsCompleted = Convert.ToBoolean(newValue);
+			uOW.ToDoItemRepo.Update(item);
+			uOW.Save();
+		}
 		/// <summary>
 		/// Get all items from db.
 		/// </summary>

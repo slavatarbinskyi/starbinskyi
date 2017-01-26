@@ -58,11 +58,27 @@
 <script type="text/javascript" src="~/Scripts/knockout-3.4.1.js"></script>
 <script type="text/javascript" src="~/Scripts/knockout.mapping-latest.debug.js"></script>
 <script>
+
 	function viewModel() {
 		var self = this;
 
+		var itemMapping = {
+			'ignore': ["Created", "Modified", "IsNotify", "Priority", "NextNotifyTime", "ToDoList_Id"],
+			'copy':["Id"]
+		}
+
 		var mapping = {
-			'observe': ["Name", "Items"]
+			'ignore': ["Created", "Modified", "User", "User_Id", "Id"],
+			"Items": {
+				create: function (options) {
+					var m = ko.mapping.fromJS(options.data, itemMapping);
+					m.IsCompleted.subscribe(function (newValue) {
+						self.markItem(m.Id, newValue);
+						console.log(newValue);
+					});
+					return m;
+				}
+			}
 		}
 
 		self.loadLists = function () {
@@ -74,7 +90,7 @@
 				success: function (data) {
 					$.each(data, function (index, element) {
 						
-						var model=ko.mapping.fromJS(element);
+						var model=ko.mapping.fromJS(element, mapping);
 						self.toDoLists.push(model);
 						console.log(model);
 
@@ -85,13 +101,17 @@
 				}
 			});
 		}
-		self.markItem = function (model) {
+		self.markItem = function (itemid, value) {
+			var data = JSON.stringify({
+				'id': itemid,
+				'newValue': value
+			});
 			$.ajax({
 				type: 'POST',
 				contentType: 'application/json',
 				url: '/Home/MarkItem',
 				dataType: 'JSON',
-				data:model,
+				data: data,
 				success: function (data) {
 				},
 				error: function () {
@@ -100,12 +120,6 @@
 			});
 		}
 		self.toDoLists = ko.observableArray([]);
-		self.toDoLists.subscribe(function (changes) {
-			// For this example, we'll just print out the change info
-			console.log(changes);
-
-		}, null, "arrayChange");
-
 	}
 
 	var vm = new viewModel();

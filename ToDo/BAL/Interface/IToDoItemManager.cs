@@ -16,6 +16,7 @@ namespace BAL.Interface
 		void MarkAsCompleted(int id);
 		List<ToDoItem> GetAllNotCompleted();
 		ToDoItem GetById(int id);
+		void ChangeIsCompletedValue(string id, string newValue);
 
 	}
 }

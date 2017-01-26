@@ -35,9 +35,9 @@ namespace WebApp.Controllers
 		}
 
 		[HttpPost]
-		public void MarkItem(ToDoItem model)
+		public void MarkItem(string id,string newvalue)
 		{
-			toDoItemManager.UpdateItem(model);
+			toDoItemManager.ChangeIsCompletedValue(id,newvalue);
 		}
 
 		[HttpGet]
