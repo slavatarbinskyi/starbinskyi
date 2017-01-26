@@ -1,131 +1,41 @@
 ﻿@{
-	ViewBag.Title = "Index";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = "";
 }
 
-<style>
-	.stickHeader {
-		background-image: url('http://localhost:8778/stickhead.png');
-		background-repeat: repeat-y;
-		width: 390px;
-		margin-top: 20px;
-		margin-left: 10px;
+@Styles.Render("~/Content/home")
+<link href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
+<body>
 
-	}
+	<ul class="toDoList" data-bind="foreach:toDoLists">
+		<li>
+			<a href="#">
 
-	.stickFooter {
-		background-image: url('http://localhost:8778/stickfooter.png');
-		width: 400px;
-		height: 300px;
-		background-repeat: no-repeat;
-	}
+				<h1 class="text-center"><strong class="title " data-bind="inline: Name"></strong></h1>
+				<button  class="icon">
+					<span class="glyphicon glyphicon-plus"></span>
+				</button>
 
-	ul {
-		list-style-type: none;
-	}
-	.title
-	{
-		margin-left:150px;
-	}
-	.completeditems
-	{
-		 text-decoration: line-through;
-	}
-</style>
-<div class="stickTodo">
-	<ul class="list-inline toDoList" data-bind="foreach:toDoLists">
-		<li class="col-md-4 text-left">
-			<div class="stickHeader">
-				<h1><strong  class="title" data-bind="text: Name"></strong></h1>
-
-				<ul class="items" data-bind="foreach: Items">
+				<ul class="items text-left" data-bind="foreach: Items">
 
 					<li>
 						<input type="checkbox" data-bind="checked:IsCompleted" />
-						<span data-bind="text: Text,css:{completeditems:IsCompleted}"></span>
+						<span data-bind="inline: Text,css:{lineThrough:IsCompleted}"></span>
+						<button data-bind="click: $parent.removeItem">Delete</button>
+
 					</li>
 				</ul>
-			</div>
-			<div class="stickFooter"> </div>
+			</a>
 		</li>
 
 	</ul>
-</div>
-
-
+</body>
 
 @Scripts.Render("~/bundles/jquery")
-<script type="text/javascript" src="~/Scripts/knockout-3.4.1.js"></script>
-<script type="text/javascript" src="~/Scripts/knockout.mapping-latest.debug.js"></script>
-<script>
-
-	function viewModel() {
-		var self = this;
-
-		var itemMapping = {
-			'ignore': ["Created", "Modified", "IsNotify", "Priority", "NextNotifyTime", "ToDoList_Id"],
-			'copy':["Id"]
-		}
-
-		var mapping = {
-			'ignore': ["Created", "Modified", "User", "User_Id", "Id"],
-			"Items": {
-				create: function (options) {
-					var m = ko.mapping.fromJS(options.data, itemMapping);
-					m.IsCompleted.subscribe(function (newValue) {
-						self.markItem(m.Id, newValue);
-						console.log(newValue);
-					});
-					return m;
-				}
-			}
-		}
-
-		self.loadLists = function () {
-			$.ajax({
-				type: 'GET',
-				contentType: 'application/json',
-				url: '/Home/GetUsersList',
-				dataType: 'JSON',
-				success: function (data) {
-					$.each(data, function (index, element) {
-						
-						var model=ko.mapping.fromJS(element, mapping);
-						self.toDoLists.push(model);
-						console.log(model);
-
-					});
-				},
-				error: function () {
-					console.log('shit');
-				}
-			});
-		}
-		self.markItem = function (itemid, value) {
-			var data = JSON.stringify({
-				'id': itemid,
-				'newValue': value
-			});
-			$.ajax({
-				type: 'POST',
-				contentType: 'application/json',
-				url: '/Home/MarkItem',
-				dataType: 'JSON',
-				data: data,
-				success: function (data) {
-				},
-				error: function () {
-					console.log('shit');
-				}
-			});
-		}
-		self.toDoLists = ko.observableArray([]);
-	}
-
-	var vm = new viewModel();
-	vm.loadLists();
-
-	ko.applyBindings(vm);
+@Scripts.Render("~/bundles/knockout")
+@Scripts.Render("~/bundles/homeko")
 
 
-</script>
+
+
+@*<script type="text/javascript" src="~/Scripts/knockout-3.4.1.js"></script>
+<script type="text/javascript" src="~/Scripts/knockout.mapping-latest.debug.js"></script>*@

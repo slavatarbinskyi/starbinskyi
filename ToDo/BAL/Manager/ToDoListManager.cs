@@ -16,6 +16,16 @@ namespace BAL.Manager
 		}
 
 		/// <summary>
+		/// Change Name value;
+		/// </summary>
+		/// <returns></returns>
+		public void SetName(int id, string newName)
+		{
+			var item = uOW.ToDoListRepo.GetByID(id);
+			item.Name = newName;
+			uOW.Save();
+		}
+		/// <summary>
 		/// Get all lists from db.
 		/// </summary>
 		/// <returns></returns>

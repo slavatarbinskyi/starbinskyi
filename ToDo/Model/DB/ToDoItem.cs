@@ -20,6 +20,7 @@ namespace Model.DB
 
 		[ForeignKey("ToDoList_Id")]
 		public virtual ToDoList ToDoList { get; set; }
+		[Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 		public DateTime Created { get; set; }
 		public DateTime? Modified { get; set; }
 		public int ToDoList_Id { get; set; }

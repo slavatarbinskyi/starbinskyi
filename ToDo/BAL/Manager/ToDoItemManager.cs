@@ -14,18 +14,25 @@ namespace BAL.Manager
 		public ToDoItemManager(IUnitOfWork uOW)	: base(uOW)
         {
 		}
-
-
+		/// <summary>
+		/// Change Name value;
+		/// </summary>
+		/// <returns></returns>
+		public void SetText(int id, string newText)
+		{
+			var item = uOW.ToDoItemRepo.GetByID(id);
+			item.Text = newText;
+			uOW.Save();
+		}
 
 		/// <summary>
 		/// Change IsCompleted value;
 		/// </summary>
 		/// <returns></returns>
-		public void ChangeIsCompletedValue(string id,string newValue)
+		public void ChangeIsCompletedValue(int id,bool newValue)
 		{
-			var item = uOW.ToDoItemRepo.GetByID(Convert.ToInt32(id));
-			item.IsCompleted = Convert.ToBoolean(newValue);
-			uOW.ToDoItemRepo.Update(item);
+			var item = uOW.ToDoItemRepo.GetByID(id);
+			item.IsCompleted = newValue;
 			uOW.Save();
 		}
 		/// <summary>
@@ -34,13 +41,7 @@ namespace BAL.Manager
 		/// <returns></returns>
 		public List<ToDoItem> GetAll()
 		{
-			var items = new List<ToDoItem>();
-			foreach (var item in uOW.ToDoItemRepo.All)
-			{
-				var Item = uOW.ToDoItemRepo.GetByID(item.Id);
-				items.Add(Item);
-			}
-			return items;
+			return uOW.ToDoItemRepo.All.ToList();
 		}
 		/// <summary>
 		/// Get All not completed items;
@@ -48,13 +49,7 @@ namespace BAL.Manager
 		/// <returns></returns>
 		public List<ToDoItem> GetAllNotCompleted()
 		{
-			var items = new List<ToDoItem>();
-			foreach (var item in uOW.ToDoItemRepo.All.Where(i=>i.IsCompleted==false))
-			{
-				var Item = uOW.ToDoItemRepo.GetByID(item.Id);
-				items.Add(Item);
-			}
-			return items;
+			return uOW.ToDoItemRepo.All.Where(i=>i.IsCompleted==false).ToList();
 		}
 
 		/// <summary>

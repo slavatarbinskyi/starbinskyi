@@ -14,5 +14,6 @@ namespace BAL.Interface
 		void UpdateList(ToDoList list);
 		void RemoveList(ToDoList list);
 		ToDoList GetById(int id);
+		void SetName(int id, string newName);
 	}
 }

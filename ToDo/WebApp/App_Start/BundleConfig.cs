@@ -10,8 +10,13 @@ namespace WebApp
 		{
 			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
 						"~/Scripts/jquery-{version}.js"));
-			bundles.Add(new ScriptBundle("~/bundles/mapping").Include(
-			"~/Scripts/knockout.mapping-latest.debug.js"));
+
+			bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
+				"~/Scripts/knockout-{version}.js",
+				"~/Scripts/knockout.mapping-latest.debug.js"));
+
+			bundles.Add(new ScriptBundle("~/bundles/homeko").Include(
+				"~/Scripts/Homeko.js"));
 
 
 			// Use the development version of Modernizr to develop with and learn from. Then, when you're
@@ -26,6 +31,10 @@ namespace WebApp
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 					  "~/Content/bootstrap.css",
 					  "~/Content/site.css"));
+
+			bundles.Add(new StyleBundle("~/Content/home").Include(
+		  "~/Content/home.css"));
+
 		}
 	}
 }

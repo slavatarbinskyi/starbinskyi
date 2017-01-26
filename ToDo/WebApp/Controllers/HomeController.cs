@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
-
+using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
 using webApiTask.Controllers;
 using WebApp.Models;
@@ -35,15 +35,27 @@ namespace WebApp.Controllers
 		}
 
 		[HttpPost]
-		public void MarkItem(string id,string newvalue)
+		public void MarkItem(int id,bool newvalue)
 		{
 			toDoItemManager.ChangeIsCompletedValue(id,newvalue);
 		}
+		[HttpPost]
+		public void SetName(int id, string newName)
+		{
+			toDoListManager.SetName(id,newName);
+		}
+		[HttpPost]
+		public void SetText(int id,string newText)
+		{
+			toDoItemManager.SetText(id,newText);
+		}
+
 
 		[HttpGet]
 		public JsonResult GetUsersList()
 		{
-			var lists = toDoListManager.GetAll().Where(i => i.User_Id == 1);
+			var userid = Convert.ToInt32(User.Identity.GetUserId());
+			var lists = toDoListManager.GetAll().Where(i => i.User_Id == userid);
 			return Json(lists, JsonRequestBehavior.AllowGet);
 		}
 
@@ -60,8 +72,6 @@ namespace WebApp.Controllers
 			AuthenticationManager.SignOut(CookieAuthenticationDefaults.AuthenticationType);
 			return RedirectToAction("Index", "Home");
 		}
-
-
 		[HttpGet]
 		public ActionResult Login()
 		{

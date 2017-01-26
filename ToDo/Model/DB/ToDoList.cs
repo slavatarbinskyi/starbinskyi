@@ -13,6 +13,7 @@ namespace Model.DB
 		[Key]
 		public int Id { get; set; }
 		public string Name { get; set; }
+		[Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 		public DateTime Created { get; set; }
 		public DateTime? Modified { get; set; }
 		public virtual List<ToDoItem> Items { get; set; }
