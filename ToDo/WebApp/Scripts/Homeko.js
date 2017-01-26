@@ -104,11 +104,8 @@
 	self.setName = function (itemid, value) {
 		$.ajax({
 			type: 'POST',
-			contentType: 'application/json',
 			url: '/Home/SetName',
-			dataType: 'JSON',
-			data: {'id': itemid,
-			'newName': value},
+			data: {'id': itemid,'newName': value},
 			success: function (data) {
 			},
 			error: function () {
