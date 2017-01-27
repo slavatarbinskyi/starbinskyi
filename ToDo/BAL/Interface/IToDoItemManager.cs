@@ -9,7 +9,7 @@ namespace BAL.Interface
 {
 	public interface IToDoItemManager
 	{
-		void InsertItem(ToDoItem item);
+		ToDoItem InsertItem(ToDoItem item);
 		List<ToDoItem> GetAll();
 		void UpdateItem(ToDoItem item);
 		void RemoveItem(int? id);

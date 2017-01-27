@@ -56,11 +56,12 @@ namespace BAL.Manager
 		/// Insert item into db;
 		/// </summary>
 		/// <param name="item"></param>
-		public void InsertItem(ToDoItem item)
+		public ToDoItem InsertItem(ToDoItem item)
 		{
-			if (item == null) return;
+			if (item == null) return null;
 			uOW.ToDoItemRepo.Insert(item);
 			uOW.Save();
+			return item;
 		}
 		/// <summary>
 		/// Mark item as completed in db;

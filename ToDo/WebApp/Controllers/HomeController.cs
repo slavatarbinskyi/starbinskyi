@@ -42,9 +42,8 @@ namespace WebApp.Controllers
 		[HttpPost]
 		public JsonResult AddItem(ToDoItem item)
 		{
-			toDoItemManager.InsertItem(item);
-			var id = toDoItemManager.GetAll().Where(i => i.Text == item.Text).OrderBy(i => i.Created).Last().Id;
-			return Json(id,JsonRequestBehavior.AllowGet);
+			var model=toDoItemManager.InsertItem(item);
+			return Json(model,JsonRequestBehavior.AllowGet);
 
 		}
 		[HttpPost]
