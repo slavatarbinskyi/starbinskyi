@@ -1,41 +1,35 @@
 ﻿@{
-	Layout = "";
+//Layout = "";
 }
 
 @Styles.Render("~/Content/home")
 <link href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
 <body>
+	<span data-bind="click:$root.addList" class="btn btn-lg glyphicon icon glyphicon-plus"></span>
+	<div class="notes-board">
+		<ul class="toDoList" data-bind="foreach:toDoLists">
+			<li>
+				<a href="#">
 
-	<ul class="toDoList" data-bind="foreach:toDoLists">
-		<li>
-			<a href="#">
+					<span data-bind="click: $root.removeList" class="btn btn-xs icon glyphicon glyphicon-remove"></span>
+					<h1 class="text-center"><strong class="title " data-bind="inline: Name"></strong></h1>
+					<span data-bind="click: $root.addItem.bind($data)" class="btn btn-xs glyphicon icon glyphicon-plus"></span>
+				
+					<ul class="items text-left" data-bind="foreach: Items">
+						
+						<li>
+							<input type="checkbox" data-bind="checked:IsCompleted" />
+							<span data-bind="inline: Text,css:{lineThrough:IsCompleted}"></span>
+							<span data-bind="click: $root.removeItem.bind($data,$parent)" class="btn btn-xs icon delicon glyphicon glyphicon-remove"></span>
+						</li>
+					</ul>
+				</a>
+			</li>
 
-				<h1 class="text-center"><strong class="title " data-bind="inline: Name"></strong></h1>
-				<button  class="icon">
-					<span class="glyphicon glyphicon-plus"></span>
-				</button>
-
-				<ul class="items text-left" data-bind="foreach: Items">
-
-					<li>
-						<input type="checkbox" data-bind="checked:IsCompleted" />
-						<span data-bind="inline: Text,css:{lineThrough:IsCompleted}"></span>
-						<button data-bind="click: $parent.removeItem">Delete</button>
-
-					</li>
-				</ul>
-			</a>
-		</li>
-
-	</ul>
+		</ul>
+	</div>
 </body>
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/knockout")
 @Scripts.Render("~/bundles/homeko")
-
-
-
-
-@*<script type="text/javascript" src="~/Scripts/knockout-3.4.1.js"></script>
-<script type="text/javascript" src="~/Scripts/knockout.mapping-latest.debug.js"></script>*@

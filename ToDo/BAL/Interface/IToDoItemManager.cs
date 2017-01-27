@@ -12,7 +12,7 @@ namespace BAL.Interface
 		void InsertItem(ToDoItem item);
 		List<ToDoItem> GetAll();
 		void UpdateItem(ToDoItem item);
-		void RemoveItem(ToDoItem item);
+		void RemoveItem(int? id);
 		void MarkAsCompleted(int id);
 		List<ToDoItem> GetAllNotCompleted();
 		ToDoItem GetById(int id);

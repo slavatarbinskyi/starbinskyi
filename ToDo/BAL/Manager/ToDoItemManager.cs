@@ -9,10 +9,10 @@ using Model.DB;
 
 namespace BAL.Manager
 {
-	public class ToDoItemManager : BaseManager,IToDoItemManager
+	public class ToDoItemManager : BaseManager, IToDoItemManager
 	{
-		public ToDoItemManager(IUnitOfWork uOW)	: base(uOW)
-        {
+		public ToDoItemManager(IUnitOfWork uOW) : base(uOW)
+		{
 		}
 		/// <summary>
 		/// Change Name value;
@@ -29,7 +29,7 @@ namespace BAL.Manager
 		/// Change IsCompleted value;
 		/// </summary>
 		/// <returns></returns>
-		public void ChangeIsCompletedValue(int id,bool newValue)
+		public void ChangeIsCompletedValue(int id, bool newValue)
 		{
 			var item = uOW.ToDoItemRepo.GetByID(id);
 			item.IsCompleted = newValue;
@@ -49,7 +49,7 @@ namespace BAL.Manager
 		/// <returns></returns>
 		public List<ToDoItem> GetAllNotCompleted()
 		{
-			return uOW.ToDoItemRepo.All.Where(i=>i.IsCompleted==false).ToList();
+			return uOW.ToDoItemRepo.All.Where(i => i.IsCompleted == false).ToList();
 		}
 
 		/// <summary>
@@ -59,7 +59,6 @@ namespace BAL.Manager
 		public void InsertItem(ToDoItem item)
 		{
 			if (item == null) return;
-			item.Created = DateTime.Now;
 			uOW.ToDoItemRepo.Insert(item);
 			uOW.Save();
 		}
@@ -79,12 +78,15 @@ namespace BAL.Manager
 		/// Remove item from db;
 		/// </summary>
 		/// <param name="item"></param>
-		public void RemoveItem(ToDoItem item)
+		public void RemoveItem(int? id)
 		{
-			if (item == null) return;
-			var itemDb = uOW.ToDoItemRepo.GetByID(item.Id);
-			if (itemDb == null) return;
-			uOW.ToDoListRepo.Delete(itemDb);
+			if (id == null) return;
+			var item = new ToDoItem()
+			{
+				Id = id.Value
+			};
+			
+			uOW.ToDoItemRepo.Delete(item);
 			uOW.Save();
 		}
 		/// <summary>

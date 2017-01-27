@@ -12,7 +12,7 @@ namespace BAL.Interface
 		void InsertList(ToDoList list);
 		List<ToDoList> GetAll();
 		void UpdateList(ToDoList list);
-		void RemoveList(ToDoList list);
+		void RemoveList(int id);
 		ToDoList GetById(int id);
 		void SetName(int id, string newName);
 	}

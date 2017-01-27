@@ -13,10 +13,10 @@ namespace Model.DB
 		[Key]
 		public int Id { get; set; }
 		public string Text { get; set; }
-		public int Priority { get; set; }
+		public int? Priority { get; set; }
 		public bool IsCompleted { get; set; }
-		public bool IsNotify { get; set; }
-		public DateTime NextNotifyTime { get; set; }
+		public bool? IsNotify { get; set; }
+		public DateTime? NextNotifyTime { get; set; }
 
 		[ForeignKey("ToDoList_Id")]
 		public virtual ToDoList ToDoList { get; set; }

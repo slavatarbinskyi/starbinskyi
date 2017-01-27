@@ -20,7 +20,7 @@ namespace WebApp.Controllers
 		private IUserManager userManager;
 		private IToDoListManager toDoListManager;
 		private IToDoItemManager toDoItemManager;
-		public HomeController(IUserManager userManager,IToDoItemManager toDoItemManager,IToDoListManager toDoListManager)
+		public HomeController(IUserManager userManager, IToDoItemManager toDoItemManager, IToDoListManager toDoListManager)
 		{
 			this.userManager = userManager;
 			this.toDoItemManager = toDoItemManager;
@@ -33,21 +33,44 @@ namespace WebApp.Controllers
 				return HttpContext.GetOwinContext().Authentication;
 			}
 		}
-
 		[HttpPost]
-		public void MarkItem(int id,bool newvalue)
+		public void AddList(ToDoList list)
 		{
-			toDoItemManager.ChangeIsCompletedValue(id,newvalue);
+			list.User_Id = Convert.ToInt32(User.Identity.GetUserId());
+			toDoListManager.InsertList(list);
+		}
+		[HttpPost]
+		public JsonResult AddItem(ToDoItem item)
+		{
+			toDoItemManager.InsertItem(item);
+			var id = toDoItemManager.GetAll().Where(i => i.Text == item.Text).OrderBy(i => i.Created).Last().Id;
+			return Json(id,JsonRequestBehavior.AllowGet);
+
+		}
+		[HttpPost]
+		public void RemoveList(int id)
+		{
+			toDoListManager.RemoveList(id);
+		}
+		[HttpPost]
+		public void RemoveItem(int? id)
+		{
+			toDoItemManager.RemoveItem(id);
+		}
+		[HttpPost]
+		public void MarkItem(int id, bool newvalue)
+		{
+			toDoItemManager.ChangeIsCompletedValue(id, newvalue);
 		}
 		[HttpPost]
 		public void SetName(int id, string newName)
 		{
-			toDoListManager.SetName(id,newName);
+			toDoListManager.SetName(id, newName);
 		}
 		[HttpPost]
-		public void SetText(int id,string newText)
+		public void SetText(int id, string newText)
 		{
-			toDoItemManager.SetText(id,newText);
+			toDoItemManager.SetText(id, newText);
 		}
 
 
@@ -83,7 +106,7 @@ namespace WebApp.Controllers
 		[HttpPost]
 		public ActionResult Login(LoginModel loguser)
 		{
-			var userDb = userManager.Find(loguser.Name,loguser.Password);
+			var userDb = userManager.Find(loguser.Name, loguser.Password);
 			ApplicationUser user = new ApplicationUser()
 			{
 				Id = userDb.Id.ToString(),

@@ -80,13 +80,13 @@ namespace WebApp.Controllers
 		/// <summary>
 		/// Remove item from database
 		/// </summary>
-		/// <param name="item"></param>
+		/// <param name="id"></param>
 		[HttpDelete]
-		public IHttpActionResult RemoveItem(ToDoItem item)
+		public IHttpActionResult RemoveItem(int id)
 		{
 			try
 			{
-				toDoItemManager.RemoveItem(item);
+				toDoItemManager.RemoveItem(id);
 				return Ok();
 			}
 			catch (Exception ex)

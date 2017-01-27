@@ -77,11 +77,11 @@ namespace WebApp.Controllers
 		/// Remove list from database
 		/// </summary>
 		[HttpDelete]
-		public IHttpActionResult RemoveList(ToDoList list)
+		public IHttpActionResult RemoveList(int id)
 		{
 			try
 			{
-				toDoListManager.RemoveList(list);
+				toDoListManager.RemoveList(id);
 				return Ok();
 			}
 			catch (Exception ex)

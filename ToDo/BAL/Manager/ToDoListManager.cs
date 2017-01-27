@@ -48,10 +48,10 @@ namespace BAL.Manager
 		/// Remove list from db;
 		/// </summary>
 		/// <param name="list"></param>
-		public void RemoveList(ToDoList list)
+		public void RemoveList(int id)
 		{
-			if (list == null) return;
-			var listDb = uOW.ToDoListRepo.GetByID(list.Id);
+			if (id == 0) return;
+			var listDb = uOW.ToDoListRepo.GetByID(id);
 			if (listDb == null) return;
 			uOW.ToDoListRepo.Delete(listDb);
 			uOW.Save();
