@@ -5,13 +5,13 @@
 @Styles.Render("~/Content/home")
 <link href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
 <body>
-	<span data-bind="click:$root.addList" class="btn btn-lg glyphicon icon glyphicon-plus"></span>
+	<span data-bind="click:$root.addList" class="btn btn-lg glyphicon icon glyphicon-plus">Add new list</span>
 	<div class="notes-board">
 		<ul class="toDoList" data-bind="foreach:toDoLists">
 			<li>
 				<a href="#">
 
-					<span data-bind="click: $root.removeList" class="btn btn-xs icon glyphicon glyphicon-remove"></span>
+					<span data-bind="click: $root.removeList" class="btn btn-xs ">X</span>
 					<h1 class="text-center"><strong class="title " data-bind="inline: Name"></strong></h1>
 					<span data-bind="click: $root.addItem.bind($data)" class="btn btn-xs glyphicon icon glyphicon-plus"></span>
 				
