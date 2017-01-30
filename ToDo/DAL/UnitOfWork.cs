@@ -2,7 +2,9 @@
 using DAL.Repositories;
 using Model.DB;
 using System;
+using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.Linq;
 
 namespace DAL
 {
@@ -63,11 +65,21 @@ namespace DAL
 		{
 			try
 			{
+				UpdateTrackedEntities();
 				return context.SaveChanges();
 			}
 			catch (DbEntityValidationException ex)
 			{
 			    return 0;
+			}
+		}
+		private void UpdateTrackedEntities()
+		{
+			var entities = context.ChangeTracker.Entries().Where(x=>x.State == EntityState.Modified);
+
+			foreach (var ent in entities)
+			{
+					((BaseEntity)ent.Entity).Modified = DateTime.UtcNow;
 			}
 		}
 

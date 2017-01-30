@@ -63,7 +63,6 @@ namespace BAL.Manager
 			UserDb.UserName = user.UserName;
             UserDb.Password = user.Password;
             UserDb.Email = user.Email;
-            UserDb.Modified = DateTime.Now;
             uOW.Save();
         }
 
@@ -74,7 +73,6 @@ namespace BAL.Manager
         public void Insert(User user)
         {
             if (user == null) return;
-			user.Created = DateTime.Now;
             uOW.UserRepo.Insert(user);
             uOW.Save();
         }

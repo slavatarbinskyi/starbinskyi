@@ -100,7 +100,6 @@ namespace BAL.Manager
 			if (ItemDb == null) return;
 			ItemDb.Text = item.Text;
 			ItemDb.Priority = item.Priority;
-			ItemDb.Modified = DateTime.Now;
 			uOW.Save();
 		}
 		/// <summary>

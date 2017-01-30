@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Model.DB
 {
-	public class ToDoItem
+	public class ToDoItem:BaseEntity
 	{
 		[Key]
 		public int Id { get; set; }
@@ -22,7 +22,6 @@ namespace Model.DB
 		public virtual ToDoList ToDoList { get; set; }
 		[Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 		public DateTime Created { get; set; }
-		public DateTime? Modified { get; set; }
 		public int ToDoList_Id { get; set; }
 	}
 }

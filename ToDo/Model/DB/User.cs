@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Model.DB
 {
-	public class User
+	public class User:BaseEntity
 	{
 		[Key]
 		public int Id { get; set; }
@@ -20,14 +20,11 @@ namespace Model.DB
 		[DataType(DataType.Password)]
 		[MinLength(4)]
 		public string Password { get; set; }
-
 		[Required]
 		[EmailAddress]
 		public string Email { get; set; }
 		[Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 		public DateTime Created { get; set; }
-		public DateTime? Modified { get; set; }
-
 		public List<ToDoList> ToDoLists { get; set; }
 	}
 }

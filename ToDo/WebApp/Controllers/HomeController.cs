@@ -34,10 +34,11 @@ namespace WebApp.Controllers
 			}
 		}
 		[HttpPost]
-		public void AddList(ToDoList list)
+		public JsonResult AddList(ToDoList list)
 		{
 			list.User_Id = Convert.ToInt32(User.Identity.GetUserId());
 			toDoListManager.InsertList(list);
+			return Json(list, JsonRequestBehavior.AllowGet);
 		}
 		[HttpPost]
 		public JsonResult AddItem(ToDoItem item)

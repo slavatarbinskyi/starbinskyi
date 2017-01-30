@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace Model.DB
 {
-	public class ToDoList
+	public class ToDoList:BaseEntity
 	{
 		[Key]
 		public int Id { get; set; }
 		public string Name { get; set; }
 		[Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 		public DateTime Created { get; set; }
-		public DateTime? Modified { get; set; }
 		public virtual List<ToDoItem> Items { get; set; }
 		[ForeignKey("User_Id")]
 		public virtual User User { get; set; }

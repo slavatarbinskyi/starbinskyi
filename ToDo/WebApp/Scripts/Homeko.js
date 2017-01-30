@@ -98,7 +98,6 @@ function viewModel() {
 
 	};
 	self.addList = function (data) {
-		self.toDoLists.push(new ToDoList("DefaultTitle", [new Item("newItem", false)]))
 		var data =
 			JSON.stringify({
 				'Name': "DefaultTitle",
@@ -115,7 +114,10 @@ function viewModel() {
 			contentType: 'application/json',
 			data: data,
 			dataType: 'JSON',
-			success: function (data) {
+			success: function (list) {
+				var model = ko.mapping.fromJS(list, mapping);
+				self.toDoLists.push(model);
+
 			},
 			error: function () {
 			}

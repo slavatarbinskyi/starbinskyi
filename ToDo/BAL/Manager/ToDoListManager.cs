@@ -40,7 +40,6 @@ namespace BAL.Manager
 		public void InsertList(ToDoList list)
 		{
 			if (list == null) return;
-			list.Created = DateTime.Now;
 			uOW.ToDoListRepo.Insert(list);
 			uOW.Save();
 		}
@@ -66,7 +65,6 @@ namespace BAL.Manager
 			if (ListDb == null) return;
 			ListDb.Items = list.Items;
 			ListDb.Name = list.Name;
-			ListDb.Modified = DateTime.Now;
 			uOW.Save();
 		}
 		/// <summary>
