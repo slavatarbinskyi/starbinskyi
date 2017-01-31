@@ -16,7 +16,6 @@ namespace Model.DB
 		[Required]
 		[MinLength(4)]
 		public string UserName { get; set; }
-		public byte[] ProfilePicture { get; set; }
 		[DataType(DataType.Password)]
 		[MinLength(4)]
 		public string Password { get; set; }

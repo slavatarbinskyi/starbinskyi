@@ -40,10 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interface\IEmailService.cs" />
+    <Compile Include="Interface\IInviteUserManager.cs" />
     <Compile Include="Interface\IToDoItemManager.cs" />
     <Compile Include="Interface\IToDoListManager.cs" />
     <Compile Include="Interface\IUserManager.cs" />
     <Compile Include="Manager\BaseManager.cs" />
+    <Compile Include="Manager\EmailService.cs" />
+    <Compile Include="Manager\InviteUserManager.cs" />
     <Compile Include="Manager\ToDoItemManager.cs" />
     <Compile Include="Manager\ToDoListManager.cs" />
     <Compile Include="Manager\UserManager.cs" />

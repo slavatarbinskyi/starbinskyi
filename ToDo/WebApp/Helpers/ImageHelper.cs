@@ -21,7 +21,7 @@ namespace WebApp.Helpers
 		}
 		public string GetImagePath(string id)
 		{
-			var path = ConfigurationManager.AppSettings["imageroot"];
+			var path = ConfigurationManager.AppSettings["cdn"];
 			return path + id + "/photo.jpeg";
 		}
 

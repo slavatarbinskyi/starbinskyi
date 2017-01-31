@@ -15,5 +15,6 @@ namespace DAL
 		public DbSet<ToDoItem> Items { get; set; }
 		public DbSet<ToDoList> Lists { get; set; }
 		public DbSet<User> Users { get; set; }
+		public DbSet<InviteUser> InviteUsers { get; set; }
 	}
 }

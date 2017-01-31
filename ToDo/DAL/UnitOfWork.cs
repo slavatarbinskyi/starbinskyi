@@ -17,19 +17,29 @@ namespace DAL
 		private IGenericRepository<User> userRepo;
 		private IGenericRepository<ToDoItem> toDoItemRepo;
 		private IGenericRepository<ToDoList> toDoListRepo;
+		private IGenericRepository<InviteUser> inviteUserRepo;
+
 
 		#endregion Private Repositories
 
 		public UnitOfWork()
 		{
 			context = new MainContext();
-
+			inviteUserRepo = new GenericRepository<InviteUser>(context);
 			userRepo = new GenericRepository<User>(context);
 			toDoItemRepo = new GenericRepository<ToDoItem>(context);
 			toDoListRepo = new GenericRepository<ToDoList>(context);
 		}
 
 		#region Repositories Getters
+		public IGenericRepository<InviteUser> InviteUserRepo
+		{
+			get
+			{
+				if (inviteUserRepo == null) inviteUserRepo = new GenericRepository<InviteUser>(context);
+				return inviteUserRepo;
+			}
+		}
 		public IGenericRepository<User> UserRepo
 		{
 			get

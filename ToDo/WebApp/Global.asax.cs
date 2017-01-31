@@ -37,6 +37,8 @@ namespace WebApp
 			container.Register<IUserManager, UserManager>();
 			container.Register<IToDoItemManager, ToDoItemManager>();
 			container.Register<IToDoListManager, ToDoListManager>();
+			container.Register<IInviteUserManager, InviteUserManager>();
+			container.Register<IEmailService, EmailService>();
 			container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
 			GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
 			DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));

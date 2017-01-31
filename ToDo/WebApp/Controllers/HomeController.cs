@@ -24,8 +24,12 @@ namespace WebApp.Controllers
 		private IUserManager userManager;
 		private IToDoListManager toDoListManager;
 		private IToDoItemManager toDoItemManager;
-		public HomeController(IUserManager userManager, IToDoItemManager toDoItemManager, IToDoListManager toDoListManager)
+		private IInviteUserManager inviteUserManager;
+		private IEmailService emailService;
+		public HomeController(IUserManager userManager, IToDoItemManager toDoItemManager, IToDoListManager toDoListManager,IInviteUserManager inviteUserManager, IEmailService emailService)
 		{
+			this.emailService = emailService;
+			this.inviteUserManager = inviteUserManager;
 			this.userManager = userManager;
 			this.toDoItemManager = toDoItemManager;
 			this.toDoListManager = toDoListManager;
@@ -94,9 +98,10 @@ namespace WebApp.Controllers
 		public ActionResult Photo()
 		{
 			var id=User.Identity.GetUserId();
+			if (id == null) { return null; }
 			var imghelper = new ImageHelper();
 			var path=imghelper.GetImagePath(id);
-			return File(path, "image/jpeg");
+			return View(new UserModel() { UserImgUrl = path });
 		}
 
 		[HttpPost]
@@ -108,6 +113,7 @@ namespace WebApp.Controllers
 			userManager.UpdateUser(user);
 			return RedirectToAction("Index", "Home");
 		}
+
 
 		[HttpGet]
 		public JsonResult GetUsersList()
@@ -131,6 +137,59 @@ namespace WebApp.Controllers
 			return RedirectToAction("Index", "Home");
 		}
 		[HttpGet]
+		public ActionResult RegisterInvitedUser(string guid)
+		{
+			User userDb=null;
+			var invitedUser = inviteUserManager.GetByGuId(guid);
+			if (invitedUser != null)
+			{
+				userDb = userManager.GetByEmail(invitedUser.Email);
+				if(userDb==null)
+				{
+					userDb = new User()
+					{
+						Email = invitedUser.Email
+					};
+				}
+			}
+			return View(userDb);
+		}
+		[HttpPost]
+		public ActionResult RegisterUser(User user)
+		{
+			userManager.Insert(user);
+			return RedirectToAction("Index", "Home");
+		}
+
+
+		[HttpGet]
+		public ActionResult InviteUser()
+		{
+			return View();
+		}
+		[HttpPost]
+		public ActionResult SendInvite(string email)
+		{
+			var user = new InviteUser()
+			{
+				Email = email
+			};
+			var usersend = new User()
+			{
+				Email = user.Email
+			};
+			var guid=inviteUserManager.CreateInvite(user);
+			var email_s = ConfigurationManager.AppSettings["Email"];
+			var pass_s = ConfigurationManager.AppSettings["Password"];
+			emailService.SendEmail(usersend, "localhost/ToDoWebApi/Home/RegisterInvitedUser/?guid="+guid, email_s, pass_s);
+			
+
+
+			return RedirectToAction("Index", "Home");
+		}
+
+
+		[HttpGet]
 		public ActionResult Login()
 		{
 			var model = new LoginModel();
@@ -146,7 +205,7 @@ namespace WebApp.Controllers
 			{
 				Id = userDb.Id.ToString(),
 				Email = userDb.Email,
-				UserName = userDb.UserName
+				UserName = userDb.Email
 			};
 
 			ClaimsIdentity cookiesIdentity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationType, ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
