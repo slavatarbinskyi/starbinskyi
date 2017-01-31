@@ -63,8 +63,14 @@ namespace BAL.Manager
 			UserDb.UserName = user.UserName;
             UserDb.Password = user.Password;
             UserDb.Email = user.Email;
+			UserDb.ProfilePicture = user.ProfilePicture;
             uOW.Save();
         }
+
+		public User GetById(int id)
+		{
+			return uOW.UserRepo.GetByID(id);
+		}
 
         /// <summary>
         /// Insert user into database

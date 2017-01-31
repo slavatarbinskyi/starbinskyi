@@ -41,7 +41,7 @@ function viewModel() {
 		data.Items.remove(item);
 		$.ajax({
 			type: 'POST',
-			url: '/Home/RemoveItem',
+			url: appContext.buildUrl('/Home/RemoveItem'),
 			data: { 'id': item.Id },
 			success: function (data) {
 			},
@@ -53,7 +53,7 @@ function viewModel() {
 		self.toDoLists.remove(list);
 		$.ajax({
 			type: 'POST',
-			url: '/Home/RemoveList',
+			url: appContext.buildUrl('/Home/RemoveList'),
 			data: { 'id': list.Id },
 			success: function (data) {
 			},
@@ -84,7 +84,7 @@ function viewModel() {
 
 		$.ajax({
 			type: 'POST',
-			url: '/Home/AddItem',
+			url: appContext.buildUrl('/Home/AddItem'),
 			data: { 'ToDoList_Id': listid, 'Text': "newItem", 'IsCompleted': false },
 			success: function (item) {
 
@@ -110,7 +110,7 @@ function viewModel() {
 			});
 		$.ajax({
 			type: 'POST',
-			url: '/Home/AddList',
+			url: appContext.buildUrl('/Home/AddList'),
 			contentType: 'application/json',
 			data: data,
 			dataType: 'JSON',
@@ -158,7 +158,7 @@ function viewModel() {
 		$.ajax({
 			type: 'GET',
 			contentType: 'application/json',
-			url: '/Home/GetUsersList',
+			url: appContext.buildUrl('/Home/GetUsersList'),
 			dataType: 'JSON',
 			success: function (data) {
 				$.each(data, function (index, element) {
@@ -181,7 +181,7 @@ function viewModel() {
 		$.ajax({
 			type: 'POST',
 			contentType: 'application/json',
-			url: '/Home/SetText',
+			url: appContext.buildUrl('/Home/SetText'),
 			dataType: 'JSON',
 			data: data,
 			success: function (data) {
@@ -193,7 +193,7 @@ function viewModel() {
 	self.setName = function (itemid, value) {
 		$.ajax({
 			type: 'POST',
-			url: '/Home/SetName',
+			url: appContext.buildUrl('/Home/SetName'),
 			data: { 'id': itemid, 'newName': value },
 			success: function (data) {
 			},
@@ -209,7 +209,7 @@ function viewModel() {
 		$.ajax({
 			type: 'POST',
 			contentType: 'application/json',
-			url: '/Home/MarkItem',
+			url: appContext.buildUrl('/Home/MarkItem'),
 			dataType: 'JSON',
 			data: data,
 			success: function (data) {

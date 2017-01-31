@@ -12,6 +12,10 @@ using Microsoft.AspNet.Identity;
 using System.Web.Mvc;
 using webApiTask.Controllers;
 using WebApp.Models;
+using System.IO;
+using System.Drawing;
+using System.Configuration;
+using WebApp.Helpers;
 
 namespace WebApp.Controllers
 {
@@ -33,6 +37,7 @@ namespace WebApp.Controllers
 				return HttpContext.GetOwinContext().Authentication;
 			}
 		}
+		
 		[HttpPost]
 		public JsonResult AddList(ToDoList list)
 		{
@@ -73,6 +78,36 @@ namespace WebApp.Controllers
 			toDoItemManager.SetText(id, newText);
 		}
 
+		[HttpGet]
+		public ActionResult ConfigureUser()
+		{
+			var userid = Convert.ToInt32(User.Identity.GetUserId());
+			if(userid==0)
+			{
+				return HttpNotFound();
+			}
+			var user = userManager.GetById(userid);
+
+			return View(user);
+		}
+
+		public ActionResult Photo()
+		{
+			var id=User.Identity.GetUserId();
+			var imghelper = new ImageHelper();
+			var path=imghelper.GetImagePath(id);
+			return File(path, "image/jpeg");
+		}
+
+		[HttpPost]
+		public ActionResult ConfiguringUser(User user, HttpPostedFileBase image)
+		{
+			var path = ConfigurationManager.AppSettings["imageroot"];
+			var imghelper = new ImageHelper();
+			imghelper.SaveImage(User.Identity.GetUserId(), image, path);
+			userManager.UpdateUser(user);
+			return RedirectToAction("Index", "Home");
+		}
 
 		[HttpGet]
 		public JsonResult GetUsersList()

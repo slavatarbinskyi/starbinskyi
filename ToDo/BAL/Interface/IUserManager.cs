@@ -13,6 +13,7 @@ namespace BAL.Interface
 		User GetByEmail(string email);
 		void RemoveUser(User user);
 		User Find(string username, string password);
+		User GetById(int id);
 
 	}
 }

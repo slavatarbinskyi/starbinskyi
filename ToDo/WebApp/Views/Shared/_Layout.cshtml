@@ -6,6 +6,17 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+	<script>
+        var appContext = {};
+        function mainAppInit() {
+            appContext.baseUrl = "@HttpRuntime.AppDomainAppVirtualPath";
+            appContext.buildUrl = function(url){
+                return appContext.baseUrl + url;
+            }
+
+        }
+        mainAppInit();
+	</script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">

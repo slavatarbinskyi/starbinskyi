@@ -77,6 +77,10 @@
     <Compile Include="Migrations\201701301013514_AddedBaseEntity.Designer.cs">
       <DependentUpon>201701301013514_AddedBaseEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701301337095_addedprofilepicture.cs" />
+    <Compile Include="Migrations\201701301337095_addedprofilepicture.Designer.cs">
+      <DependentUpon>201701301337095_addedprofilepicture.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
@@ -111,6 +115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701301013514_AddedBaseEntity.resx">
       <DependentUpon>201701301013514_AddedBaseEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701301337095_addedprofilepicture.resx">
+      <DependentUpon>201701301337095_addedprofilepicture.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
