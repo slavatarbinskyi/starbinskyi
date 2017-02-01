@@ -16,6 +16,7 @@ using System.IO;
 using System.Drawing;
 using System.Configuration;
 using WebApp.Helpers;
+using System.Drawing.Imaging;
 
 namespace WebApp.Controllers
 {
@@ -105,16 +106,14 @@ namespace WebApp.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult ConfiguringUser(User user, HttpPostedFileBase image)
+		public ActionResult ConfiguringUser(User user,string basestring)
 		{
 			var path = ConfigurationManager.AppSettings["imageroot"];
 			var imghelper = new ImageHelper();
-			imghelper.SaveImage(User.Identity.GetUserId(), image, path);
+			imghelper.SaveImage(User.Identity.GetUserId(),basestring,path);
 			userManager.UpdateUser(user);
 			return RedirectToAction("Index", "Home");
 		}
-
-
 		[HttpGet]
 		public JsonResult GetUsersList()
 		{
