@@ -4,14 +4,16 @@
 	ViewBag.Title = "ConfigureUser";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+	input[type="text"], input[type="password"],input[type="email"],input[type="submit"] {
+    font-size: 24px !important;
+}
+</style>
 
-<h2>Configure User</h2>
 
 @using (Html.BeginForm("ConfiguringUser", "Home", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data", @id = "form" }))
 {
 	<div class="form-horizontal">
-		<h4>User</h4>
-		<hr />
 		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 		@Html.HiddenFor(model => model.Id)
@@ -40,10 +42,10 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="Profile" class="control-label col-md-2">FileName:</label>
+			<label for="Imagepost" class="control-label col-md-2">FileName:</label>
 			<div class="col-md-10">
 
-				<input name="image" id="image" type="file" onchange="readFile(this)" />
+				<input name="Imagepost" id="Imagepost" type="file" onchange="readFile(this)" />
 
 				<div id="crop_image" style="width: 300px;">
 					<img class="my-img hidden" id="img" src="#" width="200" height="200" />
@@ -51,6 +53,8 @@
 			</div>
 		</div>
 		<input id="basestring" class="hidden" name="basestring" />
+		<input id="points" class="hidden" name="points" />
+		<input id="zoom" class="hidden" name="zoom" />
 		<div class="form-group">
 
 			<div class="col-md-offset-2 col-md-10">
@@ -70,7 +74,7 @@
 
 		if (input.files && input.files[0]) {
 			if (input.files[0].size > 2500000) {
-				alert('Image have very big size');
+				alert('big size');
 				return;
 			}
 			var reader = new FileReader();
@@ -93,18 +97,22 @@
 	var crop = function (src) {
 
 		var c = new Croppie(document.getElementById('crop_image'), {
-			viewport: { width: 200, height: 200, type: 'circle' },
+			viewport: { width: 200, height: 200, type: 'square' },
 			boundary: { width: 300, height: 300 },
 			showZoom: false
 		});
 		c.bind(src).then(function () {
 		});
 		$("#form").on('submit', function () {
+			var pos = c.get();
+			console.log(c.get());
+			$("#points").val(pos.points);
+			$("#zoom").val(pos.zoom);
 			c.result("base64", "viewport").then(function (resp) {
-				console.log(resp);
 				$("#basestring").val(resp);
-			})
-		})
+			});
+		});
+		
 	}
 </script>
 

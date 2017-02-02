@@ -5,13 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>InviteUser</h2>
 
 @using (Html.BeginForm("SendInvite", "Home", FormMethod.Post))
 {  
     <div class="form-horizontal">
-        <h4>InviteUser</h4>
-        <hr />
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -27,7 +24,3 @@
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

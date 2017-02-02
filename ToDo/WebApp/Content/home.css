@@ -4,12 +4,13 @@
 }
 
 body {
+	font-size: 28px !important;
 	font-family: 'Reenie Beanie',serif;
-	font-size: 28px;
 	margin: 3em;
 	background: #666;
 	color: #fff;
 }
+
 
 .notes-board .lineThrough {
 	text-decoration: line-through;

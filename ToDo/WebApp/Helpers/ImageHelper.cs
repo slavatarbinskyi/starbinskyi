@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -23,6 +24,13 @@ namespace WebApp.Helpers
 			imgToSave.Save(pathToFile, ImageFormat.Png);
 			Directory.CreateDirectory(path + id);
 		}
+		public void CropAndSavePoints(string id,string path,Image originalImage,int x, int y, int wh)
+		{
+			var img = CropImage(originalImage,x,y,wh);
+			var pathToFile = path + id + "/photo.png";
+			img.Save(pathToFile, ImageFormat.Png);
+			Directory.CreateDirectory(path + id);
+		}
 		public string GetImagePath(string id)
 		{
 			var path = ConfigurationManager.AppSettings["cdn"];
@@ -39,6 +47,14 @@ namespace WebApp.Helpers
 			ms.Write(imageBytes, 0, imageBytes.Length);
 			Image image = Image.FromStream(ms, true);
 			return image;
+		}
+
+
+		public static Image CropImage(Image originalImage,int x,int y,int wh)
+		{
+			Rectangle rect = new Rectangle(x, y, wh, wh);
+			Bitmap bmpImage = new Bitmap(originalImage);
+			return bmpImage.Clone(rect, bmpImage.PixelFormat);
 		}
 
 	}

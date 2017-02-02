@@ -106,11 +106,19 @@ namespace WebApp.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult ConfiguringUser(User user,string basestring)
+		public ActionResult ConfiguringUser(User user,string basestring,string points,HttpPostedFileBase Imagepost)
 		{
-			var path = ConfigurationManager.AppSettings["imageroot"];
 			var imghelper = new ImageHelper();
-			imghelper.SaveImage(User.Identity.GetUserId(),basestring,path);
+			var path = ConfigurationManager.AppSettings["imageroot"];
+			string[] pointsArray = points.Split(',');
+			var wh = Convert.ToInt32(pointsArray[2])-Convert.ToInt32(pointsArray[0]);
+			var x = Convert.ToInt32(pointsArray[0]);
+			var y = Convert.ToInt32(pointsArray[1]);
+			var originalimage=Image.FromStream(Imagepost.InputStream, true, true);
+			imghelper.CropAndSavePoints(User.Identity.GetUserId(), path,originalimage,x,y,wh);
+
+			//imghelper.SaveImage(User.Identity.GetUserId(),basestring,path);
+
 			userManager.UpdateUser(user);
 			return RedirectToAction("Index", "Home");
 		}
