@@ -4,7 +4,13 @@
 	ViewBag.Title = "ConfigureUser";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Styles.Render("~/Content/uni")
+<style>
+	input[type="text"], input[type="password"],input[type="email"],input[type="submit"] {
+    font-size: 24px !important;
+}
+</style>
+
+
 @using (Html.BeginForm("ConfiguringUser", "Home", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data", @id = "form" }))
 {
 	<div class="form-horizontal">

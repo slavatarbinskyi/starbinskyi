@@ -32,9 +32,6 @@ namespace WebApp
 					  "~/Content/bootstrap.css",
 					  "~/Content/site.css"));
 
-			bundles.Add(new StyleBundle("~/Content/uni").Include(
-		  "~/Content/uni.css"));
-
 			bundles.Add(new StyleBundle("~/Content/home").Include(
 		  "~/Content/home.css"));
 
