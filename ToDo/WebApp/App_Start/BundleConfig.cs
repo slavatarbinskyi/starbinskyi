@@ -35,6 +35,9 @@ namespace WebApp
 			bundles.Add(new StyleBundle("~/Content/home").Include(
 		  "~/Content/home.css"));
 
+			bundles.Add(new StyleBundle("~/Content/uni").Include(
+		  "~/Content/uni.css"));
+
 		}
 	}
 }
