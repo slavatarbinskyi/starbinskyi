@@ -15,6 +15,5 @@ namespace Model.DB
 		public string Name { get; set; }
 		[Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 		public DateTime Created { get; set; }
-		public virtual ICollection<ToDoList> ToDoLists { get; set; }
 	}
 }

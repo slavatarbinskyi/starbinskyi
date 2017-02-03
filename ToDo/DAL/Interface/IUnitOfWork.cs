@@ -9,6 +9,7 @@ namespace DAL.Interface
 		IGenericRepository<ToDoItem> ToDoItemRepo { get; }
 		IGenericRepository<InviteUser> InviteUserRepo { get; }
 		IGenericRepository<Tag> TagRepo { get; }
+		IGenericRepository<TagToDoLists> TagToDoListsRepo { get; }
 
 		void Dispose();
 
