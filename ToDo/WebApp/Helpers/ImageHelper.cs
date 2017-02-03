@@ -50,7 +50,7 @@ namespace WebApp.Helpers
 		}
 
 
-		public static Image CropImage(Image originalImage,int x,int y,int wh)
+		public  Image CropImage(Image originalImage,int x,int y,int wh)
 		{
 			Rectangle rect = new Rectangle(x, y, wh, wh);
 			Bitmap bmpImage = new Bitmap(originalImage);
