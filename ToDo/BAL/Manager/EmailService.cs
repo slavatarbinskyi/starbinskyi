@@ -33,13 +33,13 @@ namespace BAL.Manager
 
 				client.Credentials = new NetworkCredential(_email, pass);
 				client.DeliveryMethod = SmtpDeliveryMethod.Network;
-
+				string bodymail="To login on todoweb follow the link " + link;
 				var from = _email;
 				var to = model.Email;
 				MailMessage message = new MailMessage(from, to);
-				string mailBody = link;
 				message.Subject = "Invite to ToDo";
 				message.IsBodyHtml = true;
+				message.Body = bodymail;
 
 				client.Send(message);
 			}

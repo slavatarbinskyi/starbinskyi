@@ -8,21 +8,13 @@ using System.Threading.Tasks;
 
 namespace Model.DB
 {
-	public class ToDoList:BaseEntity
+	public class Tag:BaseEntity
 	{
 		[Key]
 		public int Id { get; set; }
 		public string Name { get; set; }
 		[Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 		public DateTime Created { get; set; }
-		public virtual List<ToDoItem> Items { get; set; }
-		[ForeignKey("User_Id")]
-		public virtual User User { get; set; }
-		public int User_Id { get; set; }
-		public ToDoList()
-		{
-			Items = new List<ToDoItem>();
-		}
-		public virtual ICollection<Tag> Tags { get; set; }
+		public virtual ICollection<ToDoList> ToDoLists { get; set; }
 	}
 }

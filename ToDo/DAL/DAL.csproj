@@ -89,6 +89,14 @@
     <Compile Include="Migrations\201701310953435_deleted_profilepicture.Designer.cs">
       <DependentUpon>201701310953435_deleted_profilepicture.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702031033216_Added_tags.cs" />
+    <Compile Include="Migrations\201702031033216_Added_tags.Designer.cs">
+      <DependentUpon>201702031033216_Added_tags.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702031035013_added_created_tags.cs" />
+    <Compile Include="Migrations\201702031035013_added_created_tags.Designer.cs">
+      <DependentUpon>201702031035013_added_created_tags.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
@@ -132,6 +140,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701310953435_deleted_profilepicture.resx">
       <DependentUpon>201701310953435_deleted_profilepicture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702031033216_Added_tags.resx">
+      <DependentUpon>201702031033216_Added_tags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702031035013_added_created_tags.resx">
+      <DependentUpon>201702031035013_added_created_tags.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

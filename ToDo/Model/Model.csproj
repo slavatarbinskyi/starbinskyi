@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="DB\BaseEntity.cs" />
     <Compile Include="DB\InviteUser.cs" />
+    <Compile Include="DB\Tag.cs" />
     <Compile Include="DB\ToDoItem.cs" />
     <Compile Include="DB\ToDoList.cs" />
     <Compile Include="DB\User.cs" />
