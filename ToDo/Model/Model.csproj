@@ -48,6 +48,7 @@
     <Compile Include="DB\ToDoItem.cs" />
     <Compile Include="DB\ToDoList.cs" />
     <Compile Include="DB\User.cs" />
+    <Compile Include="DTO\ListTagsDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

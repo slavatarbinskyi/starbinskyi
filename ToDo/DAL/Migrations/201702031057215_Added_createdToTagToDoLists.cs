@@ -7,7 +7,7 @@ namespace DAL.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.TagToDoLists", "Created", c => c.DateTime(nullable: false));
+            AddColumn("dbo.TagToDoLists", "Created", c => c.DateTime(nullable: false,defaultValueSql: "GETUTCDATE()"));
         }
         
         public override void Down()

@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,20 +44,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoMapperConfig.cs" />
     <Compile Include="Interface\IEmailService.cs" />
     <Compile Include="Interface\IInviteUserManager.cs" />
+    <Compile Include="Interface\ITagManager.cs" />
     <Compile Include="Interface\IToDoItemManager.cs" />
     <Compile Include="Interface\IToDoListManager.cs" />
     <Compile Include="Interface\IUserManager.cs" />
     <Compile Include="Manager\BaseManager.cs" />
     <Compile Include="Manager\EmailService.cs" />
     <Compile Include="Manager\InviteUserManager.cs" />
+    <Compile Include="Manager\TagManager.cs" />
     <Compile Include="Manager\ToDoItemManager.cs" />
     <Compile Include="Manager\ToDoListManager.cs" />
     <Compile Include="Manager\UserManager.cs" />
+    <Compile Include="MappingProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{C4AE9B5C-209E-4FEC-9463-70AB9AB435E6}</Project>

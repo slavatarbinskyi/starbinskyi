@@ -109,6 +109,14 @@
     <Compile Include="Migrations\201702031057215_Added_createdToTagToDoLists.Designer.cs">
       <DependentUpon>201702031057215_Added_createdToTagToDoLists.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702031404176_fix_cr.cs" />
+    <Compile Include="Migrations\201702031404176_fix_cr.Designer.cs">
+      <DependentUpon>201702031404176_fix_cr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702031404455_added_created.cs" />
+    <Compile Include="Migrations\201702031404455_added_created.Designer.cs">
+      <DependentUpon>201702031404455_added_created.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
@@ -167,6 +175,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702031057215_Added_createdToTagToDoLists.resx">
       <DependentUpon>201702031057215_Added_createdToTagToDoLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702031404176_fix_cr.resx">
+      <DependentUpon>201702031404176_fix_cr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702031404455_added_created.resx">
+      <DependentUpon>201702031404455_added_created.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

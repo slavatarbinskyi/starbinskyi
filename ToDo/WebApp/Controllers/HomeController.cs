@@ -47,8 +47,8 @@ namespace WebApp.Controllers
 		public JsonResult AddList(ToDoList list)
 		{
 			list.User_Id = Convert.ToInt32(User.Identity.GetUserId());
-			toDoListManager.InsertList(list);
-			return Json(list, JsonRequestBehavior.AllowGet);
+			var result=toDoListManager.InsertList(list);
+			return Json(result, JsonRequestBehavior.AllowGet);
 		}
 		[HttpPost]
 		public JsonResult AddItem(ToDoItem item)
@@ -126,7 +126,7 @@ namespace WebApp.Controllers
 		public JsonResult GetUsersList()
 		{
 			var userid = Convert.ToInt32(User.Identity.GetUserId());
-			var lists = toDoListManager.GetAll().Where(i => i.User_Id == userid);
+			var lists = toDoListManager.GetAll().Where(i=>i.User_Id==userid).ToList();
 			return Json(lists, JsonRequestBehavior.AllowGet);
 		}
 

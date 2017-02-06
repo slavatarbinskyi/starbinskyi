@@ -1,4 +1,5 @@
-﻿using BAL.Interface;
+﻿using BAL;
+using BAL.Interface;
 using BAL.Manager;
 using DAL;
 using DAL.Interface;
@@ -28,6 +29,7 @@ namespace WebApp
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
+			AutoMapperConfig.Configure();
 		}
 		private void InjectorContainer()
 		{
@@ -38,6 +40,7 @@ namespace WebApp
 			container.Register<IToDoItemManager, ToDoItemManager>();
 			container.Register<IToDoListManager, ToDoListManager>();
 			container.Register<IInviteUserManager, InviteUserManager>();
+			container.Register<ITagManager, TagManager>();
 			container.Register<IEmailService, EmailService>();
 			container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
 			GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);

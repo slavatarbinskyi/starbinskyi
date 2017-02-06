@@ -17,6 +17,10 @@ namespace WebApp
 
 			bundles.Add(new ScriptBundle("~/bundles/homeko").Include(
 				"~/Scripts/Homeko.js"));
+			bundles.Add(new ScriptBundle("~/bundles/tageditor").Include(
+			"~/Scripts/jquery.tag-editor.min.js",
+			"~/Scripts/jquery.tag-editor.js",
+			"~/Scripts/jquery.caret.min.js"));
 
 
 			// Use the development version of Modernizr to develop with and learn from. Then, when you're
@@ -37,6 +41,9 @@ namespace WebApp
 
 			bundles.Add(new StyleBundle("~/Content/uni").Include(
 		  "~/Content/uni.css"));
+
+			bundles.Add(new StyleBundle("~/Content/TagEditor").Include(
+		"~/Content/jquery.tag-editor.css"));
 
 		}
 	}

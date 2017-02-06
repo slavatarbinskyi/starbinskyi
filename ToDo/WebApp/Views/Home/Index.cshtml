@@ -3,31 +3,45 @@
 }
 @Styles.Render("~/Content/uni")
 @Styles.Render("~/Content/home")
+@Styles.Render("~/Content/TagEditor")
 <link href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
 <body>
-	<span data-bind="click:$root.addList" class="btn btn-lg newlist">Add new list</span>
-	<div class="notes-board">
-		<ul class="toDoList" data-bind="foreach:toDoLists">
-			<li>
-				<a href="#">
-
-					<span data-bind="click: $root.removeList" class="btn btn-xs icon deleteicon">X</span>
-					<h1 class="text-center"><strong class="title " data-bind="inline: Name"></strong></h1>
-					<span data-bind="click: $root.addItem.bind($data)" class="btn btn-xs glyphicon left glyphicon-plus"></span>		
-					<ul class="items text-left" data-bind="foreach: Items">				
-						<li>
-							<input type="checkbox" data-bind="checked:IsCompleted" />
-							<span data-bind="inline: Text,css:{lineThrough:IsCompleted}"></span>
-							<span data-bind="click: $root.removeItem.bind($data,$parent)" class="btn btn-xs icon delicon glyphicon glyphicon-remove"></span>
-						</li>
-					</ul>
-				</a>
-			</li>
-
-		</ul>
+	
+	<div data-bind="template:{name:'sticker-board', data:$data}">
 	</div>
-</body>
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/knockout")
+
+	<script type="text/html" id="sticker-board">	
+		<span data-bind="click:$root.addList" class="btn btn-lg newlist">Add new list</span>
+		<div class="notes-board">
+			<ul class="toDoList" data-bind="foreach:{data: toDoLists}">
+				<li>
+					<a href="#">
+
+						<span data-bind="click: $root.removeList" class="btn btn-xs icon deleteicon">X</span>
+						<h1 class="text-center"><strong class="title " data-bind="inline: Name"></strong></h1>
+
+						<div data-bind="template: { afterRender: bindTagsEditor }">
+							<input type="text" class="tag-editor" />
+						</div>
+
+						<span data-bind="click: $root.addItem.bind($data)" class="btn btn-xs glyphicon left glyphicon-plus"></span>
+						<ul class="items text-left" data-bind="foreach: Items">
+							<li>
+								<input type="checkbox" data-bind="checked:IsCompleted" />
+								<span data-bind="inline: Text,css:{lineThrough:IsCompleted}"></span>
+								<span data-bind="click: $root.removeItem.bind($data,$parent)" class="btn btn-xs icon delicon glyphicon glyphicon-remove"></span>
+							</li>
+						</ul>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</script>
+</body>
+@section scripts{
+
 @Scripts.Render("~/bundles/homeko")
+@Scripts.Render("~/bundles/tageditor")
+@Scripts.Render("~/bundles/knockout")
+}

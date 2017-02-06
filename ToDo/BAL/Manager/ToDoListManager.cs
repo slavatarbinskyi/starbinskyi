@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Model.DB;
+using Model.DTO;
+using AutoMapper;
 
 namespace BAL.Manager
 {
@@ -29,19 +31,36 @@ namespace BAL.Manager
 		/// Get all lists from db.
 		/// </summary>
 		/// <returns></returns>
-		public List<ToDoList> GetAll()
+		public List<ListTagsDTO> GetAll()
 		{
-			return uOW.ToDoListRepo.Get(includeProperties:"Items").ToList();
+			var result = new List<ListTagsDTO>();
+			List<ToDoList> toDoLists = uOW.ToDoListRepo.Get(includeProperties: "Items").ToList();
+
+			foreach (var list in toDoLists)
+			{
+				var listTag = Mapper.Map<ListTagsDTO>(list);
+				//get ids of tags with list
+				var ids = uOW.TagToDoListsRepo.All.Where(i => i.ToDoListId == list.Id).Select(i => i.TagId).ToList();
+				//get tags with list
+				var tags = uOW.TagRepo.All.Where(m => ids.Contains(m.Id)).ToList();
+
+				listTag.Tags.AddRange(tags);
+
+				result.Add(listTag);
+			}
+			return result;
 		}
 		/// <summary>
 		/// Insert list into db.
 		/// </summary>
 		/// <param name="list"></param>
-		public void InsertList(ToDoList list)
+		public ListTagsDTO InsertList(ToDoList list)
 		{
-			if (list == null) return;
+			if (list == null) return null;
 			uOW.ToDoListRepo.Insert(list);
 			uOW.Save();
+			var listmap = Mapper.Map<ListTagsDTO>(list);
+			return listmap;
 		}
 		/// <summary>
 		/// Remove list from db;

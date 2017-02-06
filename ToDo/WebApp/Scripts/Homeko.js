@@ -1,21 +1,31 @@
 ﻿
+//ToDoList model
 function ToDoList(Name, Items) {
 	this.Name = ko.observable(Name);
 	this.Items = ko.observableArray(Items);
 }
-function Item(Text,isCompleted) {
+//Item model
+function Item(Text, isCompleted) {
 	this.Text = ko.observable(Text);
 	this.IsCompleted = ko.observable(isCompleted);
 }
+//viewmodel
 function viewModel() {
 	var self = this;
 
+
+	//mappings
 	var itemMapping = {
 		'ignore': ["Created", "Modified", "IsNotify", "Priority", "NextNotifyTime", "ToDoList_Id"],
 		'copy': ["Id"]
 	}
+	var tagMapping =
+		{
+			'ignore': ["Created", "Modified"],
+			'copy': ["Id"]
+		}
 
-	var mapping = {
+	var listmapping = {
 		'ignore': ["Created", "Modified", "User", "User_Id"],
 		"Items": {
 			create: function (options) {
@@ -33,10 +43,16 @@ function viewModel() {
 				});
 				return m;
 			}
+		},
+		'Tags': {
+			create: function (options) {
+				var m = newTag(options.data);
+				return m;
+			}
 		}
-
 	}
 
+	//function to remove item
 	self.removeItem = function (data, item) {
 		data.Items.remove(item);
 		$.ajax({
@@ -49,6 +65,8 @@ function viewModel() {
 			}
 		});
 	};
+
+	//function to remove list
 	self.removeList = function (list) {
 		self.toDoLists.remove(list);
 		$.ajax({
@@ -62,7 +80,7 @@ function viewModel() {
 		});
 	};
 
-
+	//map new Item and subscribe
 	var newItem = function (data) {
 		var m = ko.mapping.fromJS(data, itemMapping);
 
@@ -77,7 +95,37 @@ function viewModel() {
 		return m;
 	};
 
+	//map new Tag and subscribes
+	var newList = function (data) {
+		var m = ko.mapping.fromJS(data, listmapping);
 
+		var tags = [];
+		$.each(m.Tags(), function (index, elem) {
+			tags.push(elem.Name());
+		});
+		m.bindTagsEditor = function (elements) {
+			$.each(elements, function (index, elem) {
+				if (elem.nodeName == "INPUT") {
+					$(elem).tagEditor({
+						initialTags: tags,
+						placeholder: 'Enter tags ...'
+					});
+				}
+			});
+		}
+
+		return m;
+	};
+
+
+	//map new Tag and subscribes
+	var newTag = function (data) {
+		var m = ko.mapping.fromJS(data, tagMapping);
+		return m;
+	};
+
+
+	//function to add new Item
 	self.addItem = function (data) {
 
 		var listid = data.Id;
@@ -97,6 +145,8 @@ function viewModel() {
 
 
 	};
+
+	//function to add list
 	self.addList = function (data) {
 		var data =
 			JSON.stringify({
@@ -115,7 +165,7 @@ function viewModel() {
 			data: data,
 			dataType: 'JSON',
 			success: function (list) {
-				var model = ko.mapping.fromJS(list, mapping);
+				var model = newList(list);
 				self.toDoLists.push(model);
 
 			},
@@ -124,6 +174,7 @@ function viewModel() {
 		});
 	};
 
+	//Binding for edit name
 	ko.bindingHandlers.inline = {
 		init: function (element, valueAccessor) {
 			var span = $(element);
@@ -154,6 +205,7 @@ function viewModel() {
 		}
 	};
 
+	//init load of all lists
 	self.loadLists = function () {
 		$.ajax({
 			type: 'GET',
@@ -163,9 +215,8 @@ function viewModel() {
 			success: function (data) {
 				$.each(data, function (index, element) {
 
-					var model = ko.mapping.fromJS(element, mapping);
+					var model = newList(element);
 					self.toDoLists.push(model);
-					console.log(model);
 
 				});
 			},
@@ -173,6 +224,7 @@ function viewModel() {
 			}
 		});
 	}
+	//function to change name
 	self.setText = function (itemid, value) {
 		var data = JSON.stringify({
 			'id': itemid,
@@ -190,6 +242,8 @@ function viewModel() {
 			}
 		});
 	}
+
+	//function to change name
 	self.setName = function (itemid, value) {
 		$.ajax({
 			type: 'POST',
@@ -201,6 +255,7 @@ function viewModel() {
 			}
 		});
 	}
+	//function for marking item as completed
 	self.markItem = function (itemid, value) {
 		var data = JSON.stringify({
 			'id': itemid,
@@ -218,12 +273,16 @@ function viewModel() {
 			}
 		});
 	}
+
+
 	self.toDoLists = ko.observableArray([]);
 }
 
+
+
 $(function () {
+
 	var vm = new viewModel();
 	vm.loadLists();
-
 	ko.applyBindings(vm);
 });
