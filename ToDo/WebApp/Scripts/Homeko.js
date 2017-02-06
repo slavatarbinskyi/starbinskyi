@@ -108,7 +108,13 @@ function viewModel() {
 				if (elem.nodeName == "INPUT") {
 					$(elem).tagEditor({
 						initialTags: tags,
-						placeholder: 'Enter tags ...'
+						placeholder: 'Enter tags ...',
+						beforeTagSave: function (field, editor, tags, tag, val) {
+							self.AddTag(val,m.Id);
+						},
+						beforeTagDelete: function (field, editor, tags, val) {
+							self.deleteTag(val,m.Id);
+						}
 					});
 				}
 			});
@@ -124,6 +130,33 @@ function viewModel() {
 		return m;
 	};
 
+	//function to add new tag
+	self.AddTag = function (data,id) {
+		$.ajax({
+			type: 'POST',
+			url: appContext.buildUrl('/Home/AddTag'),
+			data: { 'Name': data,'listId':id },
+			success: function (data) {
+
+			},
+			error: function () {
+			}
+		});
+	};
+
+	//function to delete tag
+	self.deleteTag = function (data,id) {
+		$.ajax({
+			type: 'POST',
+			url: appContext.buildUrl('/Home/RemoveTag'),
+			data: { 'Name': data,'listId': id },
+			success: function (data) {
+
+			},
+			error: function () {
+			}
+		});
+	};
 
 	//function to add new Item
 	self.addItem = function (data) {

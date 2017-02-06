@@ -27,13 +27,15 @@ namespace WebApp.Controllers
 		private IToDoItemManager toDoItemManager;
 		private IInviteUserManager inviteUserManager;
 		private IEmailService emailService;
-		public HomeController(IUserManager userManager, IToDoItemManager toDoItemManager, IToDoListManager toDoListManager,IInviteUserManager inviteUserManager, IEmailService emailService)
+		private ITagManager tagManager;
+		public HomeController(IUserManager userManager, ITagManager tagManager, IToDoItemManager toDoItemManager, IToDoListManager toDoListManager, IInviteUserManager inviteUserManager, IEmailService emailService)
 		{
 			this.emailService = emailService;
 			this.inviteUserManager = inviteUserManager;
 			this.userManager = userManager;
 			this.toDoItemManager = toDoItemManager;
 			this.toDoListManager = toDoListManager;
+			this.tagManager = tagManager;
 		}
 		private IAuthenticationManager AuthenticationManager
 		{
@@ -42,41 +44,89 @@ namespace WebApp.Controllers
 				return HttpContext.GetOwinContext().Authentication;
 			}
 		}
-		
+		/// <summary>
+		/// Method for adding list to db.
+		/// </summary>
+		/// <param name="list"></param>
+		/// <returns></returns>
 		[HttpPost]
 		public JsonResult AddList(ToDoList list)
 		{
 			list.User_Id = Convert.ToInt32(User.Identity.GetUserId());
-			var result=toDoListManager.InsertList(list);
+			var result = toDoListManager.InsertList(list);
 			return Json(result, JsonRequestBehavior.AllowGet);
 		}
+		/// <summary>
+		/// Method for adding item to db
+		/// </summary>
+		/// <param name="item"></param>
+		/// <returns></returns>
 		[HttpPost]
 		public JsonResult AddItem(ToDoItem item)
 		{
-			var model=toDoItemManager.InsertItem(item);
-			return Json(model,JsonRequestBehavior.AllowGet);
-
+			var model = toDoItemManager.InsertItem(item);
+			return Json(model, JsonRequestBehavior.AllowGet);
 		}
+		/// <summary>
+		/// Method for removing list from db.
+		/// </summary>
+		/// <param name="id"></param>
 		[HttpPost]
 		public void RemoveList(int id)
 		{
 			toDoListManager.RemoveList(id);
 		}
+		/// <summary>
+		/// Method for removing item from db.
+		/// </summary>
+		/// <param name="id"></param>
 		[HttpPost]
 		public void RemoveItem(int? id)
 		{
 			toDoItemManager.RemoveItem(id);
 		}
+		/// <summary>
+		/// Method to mark item as completed
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="newvalue"></param>
 		[HttpPost]
 		public void MarkItem(int id, bool newvalue)
 		{
 			toDoItemManager.ChangeIsCompletedValue(id, newvalue);
 		}
+		/// <summary>
+		/// Method for changing name of list.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="newName"></param>
 		[HttpPost]
 		public void SetName(int id, string newName)
 		{
 			toDoListManager.SetName(id, newName);
 		}
+
+		[HttpPost]
+		public void AddTag(string Name,int listId)
+		{
+			var tag = new Tag() {Name=Name};
+			tagManager.AttachTag(tag,listId);
+		}
+
+		/// <summary>
+		/// Method for removing tag from db;
+		/// </summary>
+		/// <param name="Name"></param>
+		[HttpPost]
+		public void RemoveTag(string Name,int listId)
+		{
+			tagManager.RemoveTagList(Name,listId);
+		}
+		/// <summary>
+		/// Method for changing text of item.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="newText"></param>
 		[HttpPost]
 		public void SetText(int id, string newText)
 		{
@@ -87,7 +137,7 @@ namespace WebApp.Controllers
 		public ActionResult ConfigureUser()
 		{
 			var userid = Convert.ToInt32(User.Identity.GetUserId());
-			if(userid==0)
+			if (userid == 0)
 			{
 				return HttpNotFound();
 			}
@@ -95,38 +145,45 @@ namespace WebApp.Controllers
 
 			return View(user);
 		}
-
+		/// <summary>
+		/// Method for getting photo path.
+		/// </summary>
+		/// <returns></returns>
 		public ActionResult Photo()
 		{
-			var id=User.Identity.GetUserId();
+			var id = User.Identity.GetUserId();
 			if (id == null) { return null; }
 			var imghelper = new ImageHelper();
-			var path=imghelper.GetImagePath(id);
+			var path = imghelper.GetImagePath(id);
 			return View(new UserModel() { UserImgUrl = path });
 		}
 
 		[HttpPost]
-		public ActionResult ConfiguringUser(User user,string basestring,string points,HttpPostedFileBase Imagepost)
+		public ActionResult ConfiguringUser(User user, string basestring, string points, HttpPostedFileBase Imagepost)
 		{
 			var imghelper = new ImageHelper();
 			var path = ConfigurationManager.AppSettings["imageroot"];
 			string[] pointsArray = points.Split(',');
-			var wh = Convert.ToInt32(pointsArray[2])-Convert.ToInt32(pointsArray[0]);
+			var wh = Convert.ToInt32(pointsArray[2]) - Convert.ToInt32(pointsArray[0]);
 			var x = Convert.ToInt32(pointsArray[0]);
 			var y = Convert.ToInt32(pointsArray[1]);
-			var originalimage=Image.FromStream(Imagepost.InputStream, true, true);
-			imghelper.CropAndSavePoints(User.Identity.GetUserId(), path,originalimage,x,y,wh);
+			var originalimage = Image.FromStream(Imagepost.InputStream, true, true);
+			imghelper.CropAndSavePoints(User.Identity.GetUserId(), path, originalimage, x, y, wh);
 
 			//imghelper.SaveImage(User.Identity.GetUserId(),basestring,path);
 
 			userManager.UpdateUser(user);
 			return RedirectToAction("Index", "Home");
 		}
+		/// <summary>
+		/// Init get of all user lists
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		public JsonResult GetUsersList()
 		{
 			var userid = Convert.ToInt32(User.Identity.GetUserId());
-			var lists = toDoListManager.GetAll().Where(i=>i.User_Id==userid).ToList();
+			var lists = toDoListManager.GetAll().Where(i => i.User_Id == userid).ToList();
 			return Json(lists, JsonRequestBehavior.AllowGet);
 		}
 
@@ -136,8 +193,11 @@ namespace WebApp.Controllers
 
 			return View();
 		}
-		// POST api/Home/Logout
 
+		/// <summary>
+		/// Post for logout
+		/// </summary>
+		/// <returns></returns>
 		public ActionResult Logout()
 		{
 			AuthenticationManager.SignOut(CookieAuthenticationDefaults.AuthenticationType);
@@ -146,12 +206,12 @@ namespace WebApp.Controllers
 		[HttpGet]
 		public ActionResult RegisterInvitedUser(string guid)
 		{
-			User userDb=null;
+			User userDb = null;
 			var invitedUser = inviteUserManager.GetByGuId(guid);
 			if (invitedUser != null)
 			{
 				userDb = userManager.GetByEmail(invitedUser.Email);
-				if(userDb==null)
+				if (userDb == null)
 				{
 					userDb = new User()
 					{
@@ -161,19 +221,31 @@ namespace WebApp.Controllers
 			}
 			return View(userDb);
 		}
+		/// <summary>
+		/// Register new user.
+		/// </summary>
+		/// <param name="user"></param>
+		/// <returns></returns>
 		[HttpPost]
 		public ActionResult RegisterUser(User user)
 		{
 			userManager.Insert(user);
 			return RedirectToAction("Index", "Home");
 		}
-
-
+		/// <summary>
+		/// Invite user with email.
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		public ActionResult InviteUser()
 		{
 			return View();
 		}
+		/// <summary>
+		/// Send invite to email with emailservice.
+		/// </summary>
+		/// <param name="email"></param>
+		/// <returns></returns>
 		[HttpPost]
 		public ActionResult SendInvite(string email)
 		{
@@ -185,13 +257,10 @@ namespace WebApp.Controllers
 			{
 				Email = user.Email
 			};
-			var guid=inviteUserManager.CreateInvite(user);
+			var guid = inviteUserManager.CreateInvite(user);
 			var email_s = ConfigurationManager.AppSettings["Email"];
 			var pass_s = ConfigurationManager.AppSettings["Password"];
-			emailService.SendEmail(usersend, "localhost/ToDoWebApi/Home/RegisterInvitedUser/?guid="+guid, email_s, pass_s);
-			
-
-
+			emailService.SendEmail(usersend, "localhost/ToDoWebApi/Home/RegisterInvitedUser/?guid=" + guid, email_s, pass_s);
 			return RedirectToAction("Index", "Home");
 		}
 
@@ -203,7 +272,11 @@ namespace WebApp.Controllers
 			return View(model);
 		}
 
-		// POST api/Home/Login
+		/// <summary>
+		/// Method for login post;
+		/// </summary>
+		/// <param name="loguser"></param>
+		/// <returns></returns>
 		[HttpPost]
 		public ActionResult Login(LoginModel loguser)
 		{

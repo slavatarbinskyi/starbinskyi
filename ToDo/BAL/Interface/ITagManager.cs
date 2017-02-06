@@ -13,7 +13,9 @@ namespace BAL.Interface
 		Tag Insert(Tag tag);
 		List<Tag> GetAll();
 		void UpdateTag(Tag tag);
-		void RemoveTag(int id);
+		void RemoveTag(string Name);
 		Tag GetById(int id);
+		void RemoveTagList(string Name, int listId);
+		Tag GetByName(string Name);
 	}
 }
