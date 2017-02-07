@@ -24,8 +24,13 @@ namespace BAL.Manager
 				TagId = tagId,
 				ToDoListId = listId
 			};
-			uOW.TagToDoListsRepo.Insert(tagToDo);
-			uOW.Save();
+			var taglist=uOW.TagToDoListsRepo.All.Where(i => i.TagId == tagId && i.ToDoListId == listId).FirstOrDefault();
+			if (taglist == null)
+			{
+				uOW.TagToDoListsRepo.Insert(tagToDo);
+				uOW.Save();
+			}
+			
 		}
 
 		public List<Tag> GetAll()

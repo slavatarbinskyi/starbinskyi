@@ -168,7 +168,9 @@
                 if (o.clickDelete && (e.ctrlKey || e.which > 1)) return false;
 
                 if (!$(this).hasClass('active')) {
-                    var tag = $(this).text();
+                	var tag = $(this).text();
+                	if (tag == "")
+						{
                     // guess cursor position in text input
                     var left_percent = Math.abs(($(this).offset().left - e.pageX)/$(this).width()), caret_pos = parseInt(tag.length*left_percent),
                         input = $(this).html('<input type="text" maxlength="'+o.maxLength+'" value="'+escape(tag)+'">').addClass('active').find('input');
@@ -182,6 +184,7 @@
                         }, 20); };
                         input.autocomplete(aco);
                     }
+						}
                 }
                 return false;
             });

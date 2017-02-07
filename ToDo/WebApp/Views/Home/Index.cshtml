@@ -21,8 +21,10 @@
 						<span data-bind="click: $root.removeList" class="btn btn-xs icon deleteicon">X</span>
 						<h1 class="text-center"><strong class="title " data-bind="inline: Name"></strong></h1>
 
-						<div data-bind="template: { afterRender: bindTagsEditor }">
-							<input type="text" class="tag-editor" />
+						<div data-bind="template: { afterRender: FindByTag }">
+							<div data-bind="template: { afterRender: bindTagsEditor }">
+								<input type="text" class="tag-editor" />
+							</div>
 						</div>
 
 						<span data-bind="click: $root.addItem.bind($data)" class="btn btn-xs glyphicon left glyphicon-plus"></span>
@@ -40,7 +42,6 @@
 	</script>
 </body>
 @section scripts{
-
 @Scripts.Render("~/bundles/homeko")
 @Scripts.Render("~/bundles/tageditor")
 @Scripts.Render("~/bundles/knockout")

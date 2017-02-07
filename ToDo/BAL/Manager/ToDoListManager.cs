@@ -96,5 +96,21 @@ namespace BAL.Manager
 			return uOW.ToDoListRepo.GetByID(id);
 		}
 
+		public List<ListTagsDTO> GetListsByTagName(string Name)
+		{
+			var tagDb = uOW.TagRepo.All.FirstOrDefault(o=>o.Name==Name).Id;
+			var listsId = uOW.TagToDoListsRepo.All.Where(q => q.TagId == tagDb).Select(q=>q.ToDoListId).ToList();
+			var resultLists = new List<ListTagsDTO>();
+			foreach (var listid in listsId)
+			{
+				var list = uOW.ToDoListRepo.Get(includeProperties: "Items").Where(i=>i.Id==listid).FirstOrDefault();
+				var listDTO = Mapper.Map<ListTagsDTO>(list);
+				var ids = uOW.TagToDoListsRepo.All.Where(i => i.ToDoListId == list.Id).Select(i => i.TagId).ToList();
+				var tags = uOW.TagRepo.All.Where(m => ids.Contains(m.Id)).ToList();
+				listDTO.Tags.AddRange(tags);
+				resultLists.Add(listDTO);
+			}
+			return resultLists;
+		}
 	}
 }

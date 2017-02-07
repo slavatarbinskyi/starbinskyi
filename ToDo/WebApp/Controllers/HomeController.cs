@@ -112,7 +112,6 @@ namespace WebApp.Controllers
 			var tag = new Tag() {Name=Name};
 			tagManager.AttachTag(tag,listId);
 		}
-
 		/// <summary>
 		/// Method for removing tag from db;
 		/// </summary>
@@ -193,7 +192,12 @@ namespace WebApp.Controllers
 
 			return View();
 		}
-
+		[HttpGet]
+		public JsonResult GetUsersListsByTag(string Name)
+		{
+			var lists = toDoListManager.GetListsByTagName(Name);
+			return Json(lists, JsonRequestBehavior.AllowGet);
+		}
 		/// <summary>
 		/// Post for logout
 		/// </summary>

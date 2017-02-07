@@ -102,6 +102,7 @@ function viewModel() {
 		var tags = [];
 		$.each(m.Tags(), function (index, elem) {
 			tags.push(elem.Name());
+
 		});
 		m.bindTagsEditor = function (elements) {
 			$.each(elements, function (index, elem) {
@@ -119,6 +120,30 @@ function viewModel() {
 				}
 			});
 		}
+		m.FindByTag = function () {
+			$('.tag-editor-tag').each(function () {
+				$(this).click(function () {
+					var name = $(this).html();
+					
+					$.ajax({
+						type: 'GET',
+						contentType: 'application/json',
+						url: appContext.buildUrl('/Home/GetUsersListsByTag/?Name='+name),
+						dataType: 'JSON',
+						success: function (data) {
+							self.toDoLists.removeAll();
+							$.each(data, function (index, element) {
+								var model = newList(element);
+								self.toDoLists.push(model);
+							});
+						},
+						error: function () {
+						}
+					});
+				});
+			}
+			)
+		};
 
 		return m;
 	};
@@ -240,6 +265,7 @@ function viewModel() {
 
 	//init load of all lists
 	self.loadLists = function () {
+		self.toDoLists.removeAll();
 		$.ajax({
 			type: 'GET',
 			contentType: 'application/json',
