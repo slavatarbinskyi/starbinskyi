@@ -10,7 +10,17 @@ body {
 	background: #666;
 	color: #fff;
 }
+h1
+{
+	font-family: 'Reenie Beanie',serif;
+}
+.filtertag {
+	font-size: 60px !important;
+}
 
+.delfilter {
+	font-size: 45px !important;
+}
 
 .notes-board .lineThrough {
 	text-decoration: line-through;
@@ -37,21 +47,22 @@ h2, span {
 .delicon {
 	margin-top: 10px;
 }
-.deleteicon
-{
-	font-size:35px;
+
+.deleteicon {
+	font-size: 35px;
 	color: red;
 }
+
 .newlist {
 	font-size: 35px;
 }
-.left
-{
-	float:left;
+
+.left {
+	float: left;
 }
-.right
-{
-	float:right;
+
+.right {
+	float: right;
 }
 
 .notes-board ul li a {
@@ -112,8 +123,24 @@ h2, span {
 	z-index: 5;
 }
 
+.notes-board ul .note {
+	float: left;
+	margin-right: 30px;
+    margin-bottom: 40px;
+}
+
+
 .notes-board ul li {
-	margin: 1em;
+
+	float: left;
+}
+.notes-board .tag-editor {
+    overflow: hidden;
+    padding: 0em;
+}
+
+.notes-board .items li {
+	margin: 0.4em;
 	float: left;
 }
 

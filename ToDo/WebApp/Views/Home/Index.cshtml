@@ -8,18 +8,24 @@
 <body>
 	
 	<div data-bind="template:{name:'sticker-board', data:$data}">
+		
 	</div>
 
 
-	<script type="text/html" id="sticker-board">	
+	<script type="text/html" id="sticker-board">
+		<div class="text-center filtertag hidden">
+			<span id="tagName" style="display:inline"></span>
+			<span data-bind="click: $root.loaddef" class="btn btn-xs deleteicon text-center delfilter" style="display:inline">X</span>
+		</div>	
+
 		<span data-bind="click:$root.addList" class="btn btn-lg newlist">Add new list</span>
 		<div class="notes-board">
 			<ul class="toDoList" data-bind="foreach:{data: toDoLists}">
-				<li>
+				<li class="note">
 					<a href="#">
 
 						<span data-bind="click: $root.removeList" class="btn btn-xs icon deleteicon">X</span>
-						<h1 class="text-center"><strong class="title " data-bind="inline: Name"></strong></h1>
+						<h1 class="text-center"><span class="title " data-bind="inline: Name"></span></h1>
 
 						<div data-bind="template: { afterRender: FindByTag }">
 							<div data-bind="template: { afterRender: bindTagsEditor }">

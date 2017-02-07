@@ -179,11 +179,19 @@ namespace WebApp.Controllers
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet]
-		public JsonResult GetUsersList()
+		public JsonResult GetUsersList(string tagName)
 		{
-			var userid = Convert.ToInt32(User.Identity.GetUserId());
-			var lists = toDoListManager.GetAll().Where(i => i.User_Id == userid).ToList();
-			return Json(lists, JsonRequestBehavior.AllowGet);
+			if (tagName == null)
+			{
+				var userid = Convert.ToInt32(User.Identity.GetUserId());
+				var lists = toDoListManager.GetAll().Where(i => i.User_Id == userid).ToList();
+				return Json(lists, JsonRequestBehavior.AllowGet);
+			}
+			else
+			{
+				var lists = toDoListManager.GetListsByTagName(tagName);
+				return Json(lists, JsonRequestBehavior.AllowGet);
+			}
 		}
 
 		public ActionResult Index()
@@ -191,12 +199,6 @@ namespace WebApp.Controllers
 			ViewBag.Title = "Home Page";
 
 			return View();
-		}
-		[HttpGet]
-		public JsonResult GetUsersListsByTag(string Name)
-		{
-			var lists = toDoListManager.GetListsByTagName(Name);
-			return Json(lists, JsonRequestBehavior.AllowGet);
 		}
 		/// <summary>
 		/// Post for logout

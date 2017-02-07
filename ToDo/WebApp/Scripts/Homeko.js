@@ -128,10 +128,12 @@ function viewModel() {
 					$.ajax({
 						type: 'GET',
 						contentType: 'application/json',
-						url: appContext.buildUrl('/Home/GetUsersListsByTag/?Name='+name),
+						url: appContext.buildUrl('/Home/GetUsersList/?tagName=' + name),
 						dataType: 'JSON',
 						success: function (data) {
 							self.toDoLists.removeAll();
+							$(".filtertag").removeClass("hidden");
+							$("#tagName").text("#"+name);
 							$.each(data, function (index, element) {
 								var model = newList(element);
 								self.toDoLists.push(model);
@@ -148,7 +150,11 @@ function viewModel() {
 		return m;
 	};
 
-
+	self.loaddef=function()
+	{
+		self.loadLists();
+		$(".filtertag").addClass("hidden");
+	}
 	//map new Tag and subscribes
 	var newTag = function (data) {
 		var m = ko.mapping.fromJS(data, tagMapping);

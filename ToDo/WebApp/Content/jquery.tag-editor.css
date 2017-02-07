@@ -1,7 +1,7 @@
 /* surrounding tag container */
 .tag-editor {
     list-style-type: none; padding: 0 5px 0 0; margin: 0; overflow: hidden;cursor: text;
-    font: normal 14px sans-serif; color: #555; line-height: 20px;
+   font-family: 'Reenie Beanie',serif; color: #555; line-height: 20px;
 }
 
 /* core styles usually need no change */
@@ -21,14 +21,14 @@
 
 /* tag style */
 .tag-editor .tag-editor-tag {
-    padding-left: 5px; color: #46799b; background: #e0eaf1; white-space: nowrap;
+    padding-left: 5px; color: #46799b; white-space: nowrap;
     overflow: hidden; cursor: pointer; border-radius: 2px 0 0 2px;
 }
 
 /* delete icon */
-.tag-editor .tag-editor-delete { background: #e0eaf1; cursor: pointer; border-radius: 0 2px 2px 0; padding-left: 3px; padding-right: 4px; }
+.tag-editor .tag-editor-delete { cursor: pointer; border-radius: 0 2px 2px 0; padding-left: 3px; padding-right: 4px; font-weight: bold; }
 .tag-editor .tag-editor-delete i { line-height: 18px; display: inline-block; }
-.tag-editor .tag-editor-delete i:before { font-size: 16px; color: #8ba7ba; content: "×"; font-style: normal; }
+.tag-editor .tag-editor-delete i:before { font-size: 18px; color: #8ba7ba; content: "X"; font-style: normal; }
 .tag-editor .tag-editor-delete:hover i:before { color: #d65454; }
 .tag-editor .tag-editor-tag.active+.tag-editor-delete, .tag-editor .tag-editor-tag.active+.tag-editor-delete i { visibility: hidden; cursor: text; }
 
