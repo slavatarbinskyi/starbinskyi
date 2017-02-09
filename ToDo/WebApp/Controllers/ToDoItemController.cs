@@ -12,6 +12,7 @@ using WebApp.Helpers;
 
 namespace WebApp.Controllers
 {
+	[RoutePrefix("api/ToDoItem")]
 	[Authorize]
 	public class ToDoItemController : ApiController
     {
@@ -39,6 +40,7 @@ namespace WebApp.Controllers
 				return NotFound();
 			}
 		}
+
 		/// <summary>
 		/// Get All Not Completed Items.
 		/// </summary>
@@ -82,6 +84,7 @@ namespace WebApp.Controllers
 		/// </summary>
 		/// <param name="id"></param>
 		[HttpDelete]
+		[Route("RemoveItem/{id}")]
 		public IHttpActionResult RemoveItem(int id)
 		{
 			try
@@ -97,10 +100,31 @@ namespace WebApp.Controllers
 		}
 
 		/// <summary>
-		/// Update item in database
+		/// Mark item as completed in db;
 		/// </summary>
-		/// <param name="item"></param>
-		
+		/// <param name="id"></param>
+		/// <param name="newvalue"></param>
+		/// <returns></returns>
+		[HttpPut]
+		[Route("MarkItem/{id}/{newvalue}")]
+		public IHttpActionResult MarkItem(int id, bool newvalue)
+		{
+			try
+			{ 
+			toDoItemManager.ChangeIsCompletedValue(id, newvalue);
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
+		}
+
+		///// <summary>
+		///// Update item in database
+		///// </summary>
+		///// <param name="item"></param>
 		[HttpPut]
 		public IHttpActionResult UpdateItem(ToDoItem item)
 		{
@@ -116,6 +140,22 @@ namespace WebApp.Controllers
 			}
 		}
 
+		[Route("SetText/{itemId}/{newText}")]
+		[HttpPut]
+		public IHttpActionResult SetText(int itemId, string newText)
+		{
+			try
+			{
+				toDoItemManager.SetText(itemId, newText);
+				return Ok();
+			}
+			catch  (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
+		}
+
 		/// <summary>
 		/// Insert Item
 		/// </summary>
@@ -125,8 +165,8 @@ namespace WebApp.Controllers
 		{
 			try
 			{
-				toDoItemManager.InsertItem(item);
-				return Ok();
+				var model=toDoItemManager.InsertItem(item);
+				return Ok(model);
 			}
 			catch (Exception ex)
 			{

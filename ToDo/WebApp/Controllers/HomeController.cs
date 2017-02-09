@@ -207,6 +207,7 @@ namespace WebApp.Controllers
 		public ActionResult Logout()
 		{
 			AuthenticationManager.SignOut(CookieAuthenticationDefaults.AuthenticationType);
+			HttpContext.Response.Cookies.Set(new HttpCookie("token") { Value = string.Empty });
 			return RedirectToAction("Index", "Home");
 		}
 		[HttpGet]

@@ -19,8 +19,8 @@ namespace WebApp
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
-            // Web API routes
-            config.MapHttpAttributeRoutes();
+			// Web API routes
+			config.MapHttpAttributeRoutes();
 			config.Filters.Add(new LoggingFilterAttribute());
 			config.Filters.Add(new GlobalExceptionAttribute());
 			config.Routes.MapHttpRoute(

@@ -1,4 +1,5 @@
 ﻿using BAL.Interface;
+using Microsoft.AspNet.Identity;
 using Model.DB;
 using NLog;
 using System;
@@ -11,6 +12,8 @@ using System.Web.Http.Description;
 
 namespace WebApp.Controllers
 {
+	[RoutePrefix("api/ToDoList")]
+	[Authorize]
 	public class ToDoListController : ApiController
 	{
 		private IToDoListManager toDoListManager;
@@ -21,16 +24,46 @@ namespace WebApp.Controllers
 			this.toDoListManager = toDoListManger;
 			this.toDoItemManager = toDoItemManager;
 		}
-		
-		/// <summary>
-		/// Get All lists from database
-		/// </summary>
+
 		[ResponseType(typeof(List<ToDoList>))]
+		[HttpGet]
 		public IHttpActionResult GetAll()
 		{
 			try
 			{
-				var lists = toDoListManager.GetAll();
+				var userId = User.Identity.GetUserId();
+				if (userId == null)
+				{
+					return Json(new
+					{
+						message = "You need to LogIn"
+					});
+				}
+				var lists = toDoListManager.GetAll().Where(u => u.User_Id == Convert.ToInt32(userId)).ToList();
+				return Ok(lists);
+
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
+		}
+
+		/// <summary>
+		/// Get lists by tag name
+		/// </summary>
+		/// <param name="tagName"></param>
+		/// <returns></returns>
+		//GET: api/ToDoList/tagName
+		[HttpGet]
+		[Route("GetAllByTagName/{tagName}")]
+		public IHttpActionResult GetAllByTagName(string tagName)
+		{
+			try
+			{
+				var lists = toDoListManager.GetListsByTagName(tagName);
+
 				return Ok(lists);
 			}
 			catch (Exception ex)
@@ -39,6 +72,7 @@ namespace WebApp.Controllers
 				return NotFound();
 			}
 		}
+
 		/// <summary>
 		/// Update list in database
 		/// </summary>
@@ -60,11 +94,28 @@ namespace WebApp.Controllers
 		/// Insert list in database
 		/// </summary>
 		[HttpPost]
+		[Route("InsertList")]
 		public IHttpActionResult InsertList(ToDoList list)
 		{
 			try
 			{
-				toDoListManager.InsertList(list);
+				list.User_Id = Convert.ToInt32(User.Identity.GetUserId());
+				var result = toDoListManager.InsertList(list);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
+		}
+		[HttpPut]
+		[Route("SetName/{listId}/{newName}")]
+		public IHttpActionResult SetName(int listId, string newName)
+		{
+			try
+			{
+				toDoListManager.SetName(listId, newName);
 				return Ok();
 			}
 			catch (Exception ex)

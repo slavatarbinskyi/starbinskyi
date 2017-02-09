@@ -17,6 +17,8 @@ namespace WebApp
 
 			bundles.Add(new ScriptBundle("~/bundles/homeko").Include(
 				"~/Scripts/Homeko.js"));
+			bundles.Add(new ScriptBundle("~/bundles/cookies").Include(
+	"~/Scripts/jquery.cookie.js"));
 			bundles.Add(new ScriptBundle("~/bundles/tageditor").Include(
 			"~/Scripts/jquery.tag-editor.min.js",
 			"~/Scripts/jquery.tag-editor.js",

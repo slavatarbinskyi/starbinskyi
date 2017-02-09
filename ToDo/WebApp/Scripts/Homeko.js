@@ -56,9 +56,9 @@ function viewModel() {
 	self.removeItem = function (data, item) {
 		data.Items.remove(item);
 		$.ajax({
-			type: 'POST',
-			url: appContext.buildUrl('/Home/RemoveItem'),
-			data: { 'id': item.Id },
+			type: 'DELETE',
+			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
+			url: appContext.buildUrl('/api/ToDoItem/RemoveItem/'+item.Id),
 			success: function (data) {
 			},
 			error: function () {
@@ -69,10 +69,11 @@ function viewModel() {
 	//function to remove list
 	self.removeList = function (list) {
 		self.toDoLists.remove(list);
+		var Id = list.Id();
 		$.ajax({
-			type: 'POST',
-			url: appContext.buildUrl('/Home/RemoveList'),
-			data: { 'id': list.Id },
+			type: 'DELETE',
+			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
+			url: appContext.buildUrl('/api/ToDoList/RemoveList/'+Id),
 			success: function (data) {
 			},
 			error: function () {
@@ -83,7 +84,6 @@ function viewModel() {
 	//map new Item and subscribe
 	var newItem = function (data) {
 		var m = ko.mapping.fromJS(data, itemMapping);
-
 		m.Text.subscribe(function (newValue) {
 			//send ajax
 			self.setText(m.Id, newValue);
@@ -128,7 +128,8 @@ function viewModel() {
 					$.ajax({
 						type: 'GET',
 						contentType: 'application/json',
-						url: appContext.buildUrl('/Home/GetUsersList/?tagName=' + name),
+						beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
+						url: appContext.buildUrl('/api/ToDoList/GetAllByTagName/'+ name),
 						dataType: 'JSON',
 						success: function (data) {
 							self.toDoLists.removeAll();
@@ -165,8 +166,8 @@ function viewModel() {
 	self.AddTag = function (data,id) {
 		$.ajax({
 			type: 'POST',
-			url: appContext.buildUrl('/Home/AddTag'),
-			data: { 'Name': data,'listId':id },
+			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
+			url: appContext.buildUrl('/api/Tag/AddTag/'+data+"/"+id()),
 			success: function (data) {
 
 			},
@@ -178,9 +179,9 @@ function viewModel() {
 	//function to delete tag
 	self.deleteTag = function (data,id) {
 		$.ajax({
-			type: 'POST',
-			url: appContext.buildUrl('/Home/RemoveTag'),
-			data: { 'Name': data,'listId': id },
+			type: 'DELETE',
+			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
+			url: appContext.buildUrl('/api/Tag/RemoveTag/' + data + "/" + id()),
 			success: function (data) {
 
 			},
@@ -196,7 +197,8 @@ function viewModel() {
 
 		$.ajax({
 			type: 'POST',
-			url: appContext.buildUrl('/Home/AddItem'),
+			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
+			url: appContext.buildUrl('/api/ToDoItem/InsertItem'),
 			data: { 'ToDoList_Id': listid, 'Text': "newItem", 'IsCompleted': false },
 			success: function (item) {
 
@@ -224,7 +226,8 @@ function viewModel() {
 			});
 		$.ajax({
 			type: 'POST',
-			url: appContext.buildUrl('/Home/AddList'),
+			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
+			url: appContext.buildUrl('/api/ToDoList/InsertList'),
 			contentType: 'application/json',
 			data: data,
 			dataType: 'JSON',
@@ -275,14 +278,13 @@ function viewModel() {
 		$.ajax({
 			type: 'GET',
 			contentType: 'application/json',
-			url: appContext.buildUrl('/Home/GetUsersList'),
+			url: appContext.buildUrl('/api/ToDoList/GetAll/'),
+			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer '+appContext.token); },
 			dataType: 'JSON',
 			success: function (data) {
 				$.each(data, function (index, element) {
-
 					var model = newList(element);
 					self.toDoLists.push(model);
-
 				});
 			},
 			error: function () {
@@ -291,29 +293,27 @@ function viewModel() {
 	}
 	//function to change name
 	self.setText = function (itemid, value) {
-		var data = JSON.stringify({
-			'id': itemid,
-			'newText': value
-		});
+		var itemId = itemid;
+		var newText = value;
 		$.ajax({
-			type: 'POST',
+			type: 'PUT',
 			contentType: 'application/json',
-			url: appContext.buildUrl('/Home/SetText'),
+			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
+			url: appContext.buildUrl('/api/ToDoItem/SetText/' + itemId + "/" + newText),
 			dataType: 'JSON',
-			data: data,
 			success: function (data) {
 			},
-			error: function () {
+			error: function (data) {
 			}
 		});
 	}
 
-	//function to change name
+	//function to change name of list
 	self.setName = function (itemid, value) {
 		$.ajax({
-			type: 'POST',
-			url: appContext.buildUrl('/Home/SetName'),
-			data: { 'id': itemid, 'newName': value },
+			type: 'PUT',
+			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
+			url: appContext.buildUrl('/api/ToDoList/SetName/'+itemid+"/"+value),
 			success: function (data) {
 			},
 			error: function () {
@@ -322,16 +322,11 @@ function viewModel() {
 	}
 	//function for marking item as completed
 	self.markItem = function (itemid, value) {
-		var data = JSON.stringify({
-			'id': itemid,
-			'newValue': value
-		});
 		$.ajax({
-			type: 'POST',
+			type: 'PUT',
 			contentType: 'application/json',
-			url: appContext.buildUrl('/Home/MarkItem'),
-			dataType: 'JSON',
-			data: data,
+			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
+			url: appContext.buildUrl('/api/ToDoItem/MarkItem/'+itemid+"/"+value),
 			success: function (data) {
 			},
 			error: function () {

@@ -257,6 +257,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ClaimsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\ToDoItemController.cs" />
     <Compile Include="Controllers\ToDoListController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -325,6 +326,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.caret.min.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.tag-editor.js" />
     <Content Include="Scripts\jquery.tag-editor.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -370,6 +372,7 @@
     <Folder Include="Views\BaseApi\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Claims\" />
+    <Folder Include="Views\Tag\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
