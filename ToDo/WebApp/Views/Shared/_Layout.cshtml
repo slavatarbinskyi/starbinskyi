@@ -8,6 +8,24 @@
 	@Styles.Render("~/Content/css")
 	@Styles.Render("~/Content/home")
 	@Scripts.Render("~/bundles/modernizr")
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/knockout")
+	@Scripts.Render("~/bundles/bootstrap")
+	@Scripts.Render("~/bundles/cookies")
+	<script>
+		var appContext = {};
+		function mainAppInit() {
+			appContext.baseUrl = "@HttpRuntime.AppDomainAppVirtualPath";
+			appContext.buildUrl = function (url) {
+				return appContext.baseUrl + url;
+			}
+		}
+		function getToken() {
+			appContext.token = $.cookie("token");
+		}
+		getToken();
+		mainAppInit();
+	</script>
 
 </head>
 <body>
@@ -22,6 +40,7 @@
 				@Html.ActionLink("ToDo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
 				@Html.ActionLink("Invite users", "InviteUser", "Home", new { area = "" }, new { @class = "navbar-brand" })
 				@Html.ActionLink("Configure users", "ConfigureUser", "Home", new { area = "" }, new { @class = "navbar-brand" })
+				@Html.ActionLink("Top of tags", "TopTags", "Home", new { area = "" }, new { @class = "navbar-brand" })
 
 			</div>
 			<div class="navbar-collapse collapse">
@@ -35,24 +54,8 @@
 	<div class="">
 		@RenderBody()
 	</div>
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/knockout")
-	@Scripts.Render("~/bundles/bootstrap")
-	@Scripts.Render("~/bundles/cookies")
+	
+
 	@RenderSection("scripts", required: false)
 </body>
 </html>
-<script>
-		var appContext = {};
-		function mainAppInit() {
-			appContext.baseUrl = "@HttpRuntime.AppDomainAppVirtualPath";
-			appContext.buildUrl = function (url) {
-				return appContext.baseUrl + url;
-			}
-		}
-		function getToken() {
-			appContext.token = $.cookie("token");
-		}
-		getToken();
-		mainAppInit();
-</script>

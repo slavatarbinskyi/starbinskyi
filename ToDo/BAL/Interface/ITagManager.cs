@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebApp.Models;
 
 namespace BAL.Interface
 {
@@ -17,5 +18,6 @@ namespace BAL.Interface
 		Tag GetById(int id);
 		void RemoveTagList(string Name, int listId);
 		Tag GetByName(string Name);
+		List<TopTagViewModel> GetTopTags();
 	}
 }

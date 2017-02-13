@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL;
 using Model.DB;
 using DAL.Interface;
+using WebApp.Models;
 
 namespace BAL.Manager
 {
@@ -13,6 +15,21 @@ namespace BAL.Manager
 	{
 		public TagManager(IUnitOfWork uOW) : base(uOW)
 		{
+		}
+
+		public List<TopTagViewModel> GetTopTags()
+		{
+			using (MainContext maincontext = new MainContext(@"Data Source=CH977\SQLEXPRESS;Initial Catalog=ToDo;Persist Security Info=True;User ID=vtarb;Password=qwerty"))
+			{
+				var result = new List<TopTagViewModel>();
+				var tags=(maincontext.Database.SqlQuery<TopTagViewModel>(@"SELECT TOP 10 TagToDoLists.TagId, COUNT(*) AS COUNTOF,Tags.Name FROM TagToDoLists
+							INNER JOIN Tags 
+							ON TagToDoLists.TagId = Tags.Id
+							GROUP BY TagId, Tags.Name
+							ORDER BY COUNT(*) DESC"));
+				result.AddRange(tags);
+				return result;
+			}
 		}
 
 		public void AttachTag(Tag tag, int listId)
@@ -24,7 +41,7 @@ namespace BAL.Manager
 				TagId = tagId,
 				ToDoListId = listId
 			};
-			var taglist=uOW.TagToDoListsRepo.All.Where(i => i.TagId == tagId && i.ToDoListId == listId).FirstOrDefault();
+			var taglist=uOW.TagToDoListsRepo.All.FirstOrDefault(i => i.TagId == tagId && i.ToDoListId == listId);
 			if (taglist == null)
 			{
 				uOW.TagToDoListsRepo.Insert(tagToDo);

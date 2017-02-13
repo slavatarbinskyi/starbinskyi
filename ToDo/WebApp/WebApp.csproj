@@ -315,6 +315,7 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\chart.js" />
     <Content Include="Scripts\croppie.js" />
     <Content Include="Scripts\croppie.min.js" />
     <Content Include="Scripts\deploy.js" />
@@ -367,6 +368,7 @@
     <Content Include="Views\Home\InviteUser.cshtml" />
     <Content Include="Views\Home\RegisterInvitedUser.cshtml" />
     <Content Include="Views\Home\Photo.cshtml" />
+    <Content Include="Views\Home\TopTags.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

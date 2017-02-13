@@ -6,9 +6,9 @@
 @Styles.Render("~/Content/TagEditor")
 <link href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
 <body>
-	
+
 	<div data-bind="template:{name:'sticker-board', data:$data}">
-		
+
 	</div>
 
 
@@ -16,7 +16,7 @@
 		<div class="text-center filtertag hidden">
 			<span id="tagName" style="display:inline"></span>
 			<span data-bind="click: $root.loaddef" class="btn btn-xs deleteicon text-center delfilter" style="display:inline">X</span>
-		</div>	
+		</div>
 
 		<span data-bind="click:$root.addList" class="btn btn-lg newlist">Add new list</span>
 		<div class="notes-board">
@@ -37,6 +37,7 @@
 						<ul class="items text-left" data-bind="foreach: Items">
 							<li>
 								<input type="checkbox" data-bind="checked:IsCompleted" />
+								<span  class="btn btn-sm glyphicon  glyphicon-bell"></span>
 								<span data-bind="inline: Text,css:{lineThrough:IsCompleted}"></span>
 								<span data-bind="click: $root.removeItem.bind($data,$parent)" class="btn btn-xs icon delicon glyphicon glyphicon-remove"></span>
 							</li>
@@ -48,8 +49,8 @@
 	</script>
 </body>
 @section scripts{
-@Scripts.Render("~/bundles/homeko")
-@Scripts.Render("~/bundles/tageditor")
-@Scripts.Render("~/bundles/jqueryui")
-@Scripts.Render("~/bundles/knockout")
+	@Scripts.Render("~/bundles/homeko")
+	@Scripts.Render("~/bundles/tageditor")
+	@Scripts.Render("~/bundles/jqueryui")
+	@Scripts.Render("~/bundles/knockout")
 }

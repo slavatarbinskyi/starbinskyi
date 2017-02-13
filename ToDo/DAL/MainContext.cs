@@ -11,6 +11,12 @@ namespace DAL
 			this.Configuration.LazyLoadingEnabled = false;
 			this.Configuration.ProxyCreationEnabled = false;
 		}
+		public MainContext(string connString)
+			: base(connString)
+		{
+			this.Configuration.LazyLoadingEnabled = false;
+			this.Configuration.ProxyCreationEnabled = false;
+		}
 
 		public DbSet<ToDoItem> Items { get; set; }
 		public DbSet<ToDoList> Lists { get; set; }

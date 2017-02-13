@@ -18,13 +18,16 @@ namespace WebApp
 			bundles.Add(new ScriptBundle("~/bundles/homeko").Include(
 				"~/Scripts/Homeko.js"));
 			bundles.Add(new ScriptBundle("~/bundles/cookies").Include(
-	"~/Scripts/jquery.cookie.js"));
+			"~/Scripts/jquery.cookie.js"));
 			bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-"~/Scripts/jquery-ui.min.js"));
+			"~/Scripts/jquery-ui.min.js"));
+			bundles.Add(new ScriptBundle("~/bundles/chartjs").Include(
+			"~/Scripts/chart.js"));
 			bundles.Add(new ScriptBundle("~/bundles/tageditor").Include(
 			"~/Scripts/jquery.tag-editor.min.js",
 			"~/Scripts/jquery.tag-editor.js",
 			"~/Scripts/jquery.caret.min.js"));
+			
 
 
 			// Use the development version of Modernizr to develop with and learn from. Then, when you're

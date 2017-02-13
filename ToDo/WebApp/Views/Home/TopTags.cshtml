@@ -1,0 +1,70 @@
+﻿
+@{
+	ViewBag.Title = "TopTags";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+	body {
+		background:white
+	}
+</style>
+<center>
+<h2 style="color:black">Top Tags</h2>
+<hr/>
+<div style="width: 1300px;height: 500px;">
+	<canvas id="priceStat"></canvas>
+</div>
+</center>
+
+@Scripts.Render("~/bundles/chartjs")
+<script>
+	$.ajax({
+		type: "POST",
+		url: appContext.buildUrl('/Home/GetTopTags'),
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		success: OnSuccess_,
+		error: console.log("error")
+	});
+
+	function OnSuccess_(response) {
+		var aData = [];
+		var aLabels = [];
+		$.each(response, function (index, element) {
+			aData.push(element.CountOf);
+			aLabels.push(element.Name);
+		});
+
+		var data = {
+			labels: aLabels,
+			datasets: [
+				{
+					label: "Top Tags",
+					backgroundColor: "rgba(75,192,192,0.4)",
+					borderColor: "rgba(75,192,192,1)",
+					borderCapStyle: 'butt',
+					borderDash: [],
+					borderDashOffset: 0.0,
+					borderJoinStyle: 'miter',
+					pointBorderColor: "rgba(75,192,192,1)",
+					pointBackgroundColor: "#fff",
+					pointBorderWidth: 1,
+					pointHoverRadius: 5,
+					pointHoverBackgroundColor: "rgba(75,192,192,1)",
+					pointHoverBorderColor: "rgba(220,220,220,1)",
+					pointHoverBorderWidth: 2,
+					pointRadius: 1,
+					pointHitRadius: 10,
+					data: aData
+				}
+			]
+		};
+
+		var ctx = $("#priceStat").get(0).getContext('2d');
+		var myNewChart = new Chart(ctx, {
+			type: "line",
+			data: data,
+			bezierCurve: false
+		});
+	}
+</script>

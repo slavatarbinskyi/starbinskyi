@@ -76,6 +76,7 @@ namespace WebApp.Controllers
 		{
 			toDoListManager.RemoveList(id);
 		}
+
 		/// <summary>
 		/// Method for removing item from db.
 		/// </summary>
@@ -238,6 +239,21 @@ namespace WebApp.Controllers
 		{
 			userManager.Insert(user);
 			return RedirectToAction("Index", "Home");
+		}
+		[HttpPost]
+		public JsonResult GetTopTags()
+		{
+			var tags = tagManager.GetTopTags();
+			return Json(tags, JsonRequestBehavior.AllowGet);
+		}
+		/// <summary>
+		/// Top tags.
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet]
+		public ActionResult TopTags()
+		{
+			return View();
 		}
 		/// <summary>
 		/// Invite user with email.
