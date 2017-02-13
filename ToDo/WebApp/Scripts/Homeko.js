@@ -109,6 +109,12 @@ function viewModel() {
 				if (elem.nodeName == "INPUT") {
 					$(elem).tagEditor({
 						initialTags: tags,
+						autocomplete: {
+							delay: 0,
+							minLength: 2,
+							position: { collision: 'flip' },
+							source: TagsAutoComplete
+						},
 						placeholder: 'Enter tags ...',
 						beforeTagSave: function (field, editor, tags, tag, val) {
 							self.AddTag(val,m.Id);
@@ -150,6 +156,23 @@ function viewModel() {
 
 		return m;
 	};
+
+	var TagsAutoComplete = [];
+	self.GetTags = function () {
+		$.ajax({
+			type: 'GET',
+			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
+			url: appContext.buildUrl('/api/Tag/GetAll'),
+			dataType: "json",
+			success: function (data) {
+				$.each(data, function (index, element) {
+					TagsAutoComplete.push(element.Name);
+				});
+			},
+		});
+	}
+
+
 
 	self.loaddef=function()
 	{
@@ -341,8 +364,8 @@ function viewModel() {
 
 
 $(function () {
-
 	var vm = new viewModel();
 	vm.loadLists();
+	vm.GetTags();
 	ko.applyBindings(vm);
 });

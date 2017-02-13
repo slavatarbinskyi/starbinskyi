@@ -19,9 +19,5 @@ namespace Model.DB
 		[ForeignKey("User_Id")]
 		public virtual User User { get; set; }
 		public int User_Id { get; set; }
-		public ToDoList()
-		{
-			Items = new List<ToDoItem>();
-		}
 	}
 }

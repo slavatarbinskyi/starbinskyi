@@ -19,6 +19,23 @@ namespace WebApp.Controllers
 		{
 			this.tagManager = tagManager;
 		}
+
+		[Route("GetAll")]
+		[HttpGet]
+		public IHttpActionResult GetAll()
+		{
+			try
+			{
+				var tags = tagManager.GetAll().ToList();
+				return Ok(tags);
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
+		}
+
 		[Route("AddTag/{Name}/{listId}")]
 		[HttpPost]
 		public IHttpActionResult AddTag(string Name, int listId)

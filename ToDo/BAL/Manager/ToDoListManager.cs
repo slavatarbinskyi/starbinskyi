@@ -33,22 +33,23 @@ namespace BAL.Manager
 		/// <returns></returns>
 		public List<ListTagsDTO> GetAll()
 		{
-			var result = new List<ListTagsDTO>();
-			List<ToDoList> toDoLists = uOW.ToDoListRepo.Get(includeProperties: "Items").ToList();
+            var result = new List<ListTagsDTO>();
+            List<ToDoList> toDoLists = uOW.ToDoListRepo.Get(includeProperties: "Items").ToList();
 
-			foreach (var list in toDoLists)
-			{
-				var listTag = Mapper.Map<ListTagsDTO>(list);
-				//get ids of tags with list
-				var ids = uOW.TagToDoListsRepo.All.Where(i => i.ToDoListId == list.Id).Select(i => i.TagId).ToList();
-				//get tags with list
-				var tags = uOW.TagRepo.All.Where(m => ids.Contains(m.Id)).ToList();
+            foreach (var list in toDoLists)
+            {
+                var listTag = Mapper.Map<ListTagsDTO>(list);
 
-				listTag.Tags.AddRange(tags);
+                //get ids of tags with list
+                var ids = uOW.TagToDoListsRepo.All.Where(i => i.ToDoListId == list.Id).Select(i => i.TagId).ToList();
+                //get tags with list
+                var tags = uOW.TagRepo.All.Where(m => ids.Contains(m.Id)).ToList();
 
-				result.Add(listTag);
-			}
-			return result;
+                listTag.Tags.AddRange(tags);
+
+                result.Add(listTag);
+            }
+            return result;
 		}
 		/// <summary>
 		/// Insert list into db.

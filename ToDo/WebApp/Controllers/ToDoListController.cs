@@ -9,6 +9,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace WebApp.Controllers
 {
@@ -25,7 +27,6 @@ namespace WebApp.Controllers
 			this.toDoItemManager = toDoItemManager;
 		}
 
-		[ResponseType(typeof(List<ToDoList>))]
 		[HttpGet]
 		public IHttpActionResult GetAll()
 		{
