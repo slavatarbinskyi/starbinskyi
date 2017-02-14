@@ -304,9 +304,24 @@ function viewModel() {
 		data.picker = function () {
 			$('#datetime24').combodate();
 		};
+		data.SetNotification = function () {
+			var date = $('#datetime24').combodate('getValue', null);
+			var id = $("#itemId").val();
+			var data = JSON.stringify({ItemId:id,Date:date});
+			$.ajax({
+				type: 'PUT',
+				contentType: 'application/json',
+				beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
+				url: appContext.buildUrl('/api/ToDoItem/SetNotifyTime'),
+				dataType: 'JSON',
+				data:data,
+				success: function (data) {
+				},
+				error: function (data) {
+				}
+			});
+		};
 		ko.applyBindings(data, $(".modalDateView")[0]);
-
-		
 	}
 
 	//init load of all lists

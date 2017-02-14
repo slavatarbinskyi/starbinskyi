@@ -18,6 +18,6 @@ namespace BAL.Interface
 		ToDoItem GetById(int id);
 		void ChangeIsCompletedValue(int id, bool newValue);
 		void SetText(int id, string newName);
-
+		void SetNotifyTime(int itemId,DateTime date);
 	}
 }

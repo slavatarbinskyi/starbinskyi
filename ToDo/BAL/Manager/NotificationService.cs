@@ -1,28 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
-using DAL.Interface;
 using BAL.Interface;
-using Model.DB;
-using System.Net.Mail;
-using System.Net;
+using DAL.Interface;
 
 namespace BAL.Manager
 {
-	public class EmailService : BaseManager, IEmailService
+	public class NotificationService:BaseManager,INotificationService
 	{
-		public EmailService(IUnitOfWork uOW) : base(uOW)
+		public NotificationService(IUnitOfWork uOW) : base(uOW)
 		{
 		}
 
-		public bool SendEmail(User model, string link, string email, string password)
+		public bool NotifyOnEmail(string email, string password)
 		{
-		
 			var _email = email;
 			var pass = password;
-
+			var items=uOW.ToDoItemRepo.All.Where(i=>i.IsNotify==true)
 			using (SmtpClient client = new SmtpClient())
 			{
 				client.EnableSsl = true;
@@ -32,13 +30,11 @@ namespace BAL.Manager
 
 				client.Credentials = new NetworkCredential(_email, pass);
 				client.DeliveryMethod = SmtpDeliveryMethod.Network;
-				string bodymail="To login on todoweb follow the link " + link;
 				var from = _email;
-				var to = model.Email;
+				//var to = model.Email;
 				MailMessage message = new MailMessage(from, to);
-				message.Subject = "Invite to ToDo";
+				message.Subject = "Notify item to ToDo";
 				message.IsBodyHtml = true;
-				message.Body = bodymail;
 
 				client.Send(message);
 			}

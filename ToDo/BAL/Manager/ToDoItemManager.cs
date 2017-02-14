@@ -111,5 +111,13 @@ namespace BAL.Manager
 		{
 			return uOW.ToDoItemRepo.GetByID(id);
 		}
+
+		public void SetNotifyTime(int itemId, DateTime date)
+		{
+			var item = uOW.ToDoItemRepo.GetByID(itemId);
+			item.IsNotify = true;
+			item.NextNotifyTime = date;
+			uOW.Save();
+		}
 	}
 }

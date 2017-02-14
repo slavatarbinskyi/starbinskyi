@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Model.DTO;
 using WebApp.Helpers;
 
 namespace WebApp.Controllers
@@ -120,6 +121,28 @@ namespace WebApp.Controllers
 				return NotFound();
 			}
 		}
+
+		/// <summary>
+		/// Set notify time.
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
+	    [HttpPut]
+	    [Route("SetNotifyTime")]
+	    public IHttpActionResult SetNotifyTime(SetNotifyDTO model)
+		{
+			try
+			{
+				toDoItemManager.SetNotifyTime(model.ItemId,model.Date);
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
+		}
+
 
 		///// <summary>
 		///// Update item in database
