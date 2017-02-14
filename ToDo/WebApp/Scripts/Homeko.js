@@ -9,6 +9,7 @@ function Item(Text, isCompleted) {
 	this.Text = ko.observable(Text);
 	this.IsCompleted = ko.observable(isCompleted);
 }
+
 //viewmodel
 function viewModel() {
 	var self = this;
@@ -58,7 +59,7 @@ function viewModel() {
 		$.ajax({
 			type: 'DELETE',
 			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
-			url: appContext.buildUrl('/api/ToDoItem/RemoveItem/'+item.Id),
+			url: appContext.buildUrl('/api/ToDoItem/RemoveItem/' + item.Id),
 			success: function (data) {
 			},
 			error: function () {
@@ -73,7 +74,7 @@ function viewModel() {
 		$.ajax({
 			type: 'DELETE',
 			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
-			url: appContext.buildUrl('/api/ToDoList/RemoveList/'+Id),
+			url: appContext.buildUrl('/api/ToDoList/RemoveList/' + Id),
 			success: function (data) {
 			},
 			error: function () {
@@ -117,10 +118,10 @@ function viewModel() {
 						},
 						placeholder: 'Enter tags ...',
 						beforeTagSave: function (field, editor, tags, tag, val) {
-							self.AddTag(val,m.Id);
+							self.AddTag(val, m.Id);
 						},
 						beforeTagDelete: function (field, editor, tags, val) {
-							self.deleteTag(val,m.Id);
+							self.deleteTag(val, m.Id);
 						}
 					});
 				}
@@ -130,17 +131,17 @@ function viewModel() {
 			$('.tag-editor-tag').each(function () {
 				$(this).click(function () {
 					var name = $(this).html();
-					
+
 					$.ajax({
 						type: 'GET',
 						contentType: 'application/json',
 						beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
-						url: appContext.buildUrl('/api/ToDoList/GetAllByTagName/'+ name),
+						url: appContext.buildUrl('/api/ToDoList/GetAllByTagName/' + name),
 						dataType: 'JSON',
 						success: function (data) {
 							self.toDoLists.removeAll();
 							$(".filtertag").removeClass("hidden");
-							$("#tagName").text("#"+name);
+							$("#tagName").text("#" + name);
 							$.each(data, function (index, element) {
 								var model = newList(element);
 								self.toDoLists.push(model);
@@ -174,8 +175,7 @@ function viewModel() {
 
 
 
-	self.loaddef=function()
-	{
+	self.loaddef = function () {
 		self.loadLists();
 		$(".filtertag").addClass("hidden");
 	}
@@ -186,11 +186,11 @@ function viewModel() {
 	};
 
 	//function to add new tag
-	self.AddTag = function (data,id) {
+	self.AddTag = function (data, id) {
 		$.ajax({
 			type: 'POST',
 			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
-			url: appContext.buildUrl('/api/Tag/AddTag/'+data+"/"+id()),
+			url: appContext.buildUrl('/api/Tag/AddTag/' + data + "/" + id()),
 			success: function (data) {
 
 			},
@@ -200,7 +200,7 @@ function viewModel() {
 	};
 
 	//function to delete tag
-	self.deleteTag = function (data,id) {
+	self.deleteTag = function (data, id) {
 		$.ajax({
 			type: 'DELETE',
 			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
@@ -295,6 +295,20 @@ function viewModel() {
 		}
 	};
 
+
+
+
+	self.SetNotificationTime = function (data) {
+		var element = $(".modalDateView")[0];
+		ko.cleanNode(element);
+		data.picker = function () {
+			$('#datetime24').combodate();
+		};
+		ko.applyBindings(data, $(".modalDateView")[0]);
+
+		
+	}
+
 	//init load of all lists
 	self.loadLists = function () {
 		self.toDoLists.removeAll();
@@ -302,7 +316,7 @@ function viewModel() {
 			type: 'GET',
 			contentType: 'application/json',
 			url: appContext.buildUrl('/api/ToDoList/GetAll/'),
-			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer '+appContext.token); },
+			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
 			dataType: 'JSON',
 			success: function (data) {
 				$.each(data, function (index, element) {
@@ -336,7 +350,7 @@ function viewModel() {
 		$.ajax({
 			type: 'PUT',
 			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
-			url: appContext.buildUrl('/api/ToDoList/SetName/'+itemid+"/"+value),
+			url: appContext.buildUrl('/api/ToDoList/SetName/' + itemid + "/" + value),
 			success: function (data) {
 			},
 			error: function () {
@@ -349,7 +363,7 @@ function viewModel() {
 			type: 'PUT',
 			contentType: 'application/json',
 			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
-			url: appContext.buildUrl('/api/ToDoItem/MarkItem/'+itemid+"/"+value),
+			url: appContext.buildUrl('/api/ToDoItem/MarkItem/' + itemid + "/" + value),
 			success: function (data) {
 			},
 			error: function () {
@@ -367,5 +381,5 @@ $(function () {
 	var vm = new viewModel();
 	vm.loadLists();
 	vm.GetTags();
-	ko.applyBindings(vm);
+	ko.applyBindings(vm, $(".stickerBoard")[0]);
 });

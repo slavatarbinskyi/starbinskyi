@@ -316,6 +316,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\chart.js" />
+    <Content Include="Scripts\combodate.js" />
     <Content Include="Scripts\croppie.js" />
     <Content Include="Scripts\croppie.min.js" />
     <Content Include="Scripts\deploy.js" />
@@ -341,6 +342,7 @@
     <Content Include="Scripts\knockout.mapping-latest.debug.js" />
     <Content Include="Scripts\knockout.mapping-latest.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\tag-it.js" />
@@ -369,6 +371,7 @@
     <Content Include="Views\Home\RegisterInvitedUser.cshtml" />
     <Content Include="Views\Home\Photo.cshtml" />
     <Content Include="Views\Home\TopTags.cshtml" />
+    <Content Include="Views\Home\DateTimePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

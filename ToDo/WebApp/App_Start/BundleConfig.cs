@@ -23,11 +23,15 @@ namespace WebApp
 			"~/Scripts/jquery-ui.min.js"));
 			bundles.Add(new ScriptBundle("~/bundles/chartjs").Include(
 			"~/Scripts/chart.js"));
+			bundles.Add(new ScriptBundle("~/bundles/combodate").Include(
+			"~/Scripts/moment.js",
+			"~/Scripts/combodate.js"
+			));
 			bundles.Add(new ScriptBundle("~/bundles/tageditor").Include(
 			"~/Scripts/jquery.tag-editor.min.js",
 			"~/Scripts/jquery.tag-editor.js",
 			"~/Scripts/jquery.caret.min.js"));
-			
+
 
 
 			// Use the development version of Modernizr to develop with and learn from. Then, when you're
