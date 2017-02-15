@@ -119,5 +119,12 @@ namespace BAL.Manager
 			item.NextNotifyTime = date;
 			uOW.Save();
 		}
+
+		public void MarkAsNotified(string name)
+		{
+			var item = uOW.ToDoItemRepo.All.FirstOrDefault(i => i.Text == name);
+			item.IsNotify = false;
+			uOW.Save();
+		}
 	}
 }

@@ -7,7 +7,7 @@ using Model.DB;
 
 namespace BAL.Interface
 {
-	public interface INotificationService
+	public interface INotificationEmailService
 	{
 		bool NotifyOnEmail(string email, string password);
 	}

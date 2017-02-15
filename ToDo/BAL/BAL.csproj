@@ -48,7 +48,7 @@
     <Compile Include="AutoMapperConfig.cs" />
     <Compile Include="Interface\IEmailService.cs" />
     <Compile Include="Interface\IInviteUserManager.cs" />
-    <Compile Include="Interface\INotificationService.cs" />
+    <Compile Include="Interface\INotificationEmailService.cs" />
     <Compile Include="Interface\ITagManager.cs" />
     <Compile Include="Interface\IToDoItemManager.cs" />
     <Compile Include="Interface\IToDoListManager.cs" />
@@ -56,7 +56,7 @@
     <Compile Include="Manager\BaseManager.cs" />
     <Compile Include="Manager\EmailService.cs" />
     <Compile Include="Manager\InviteUserManager.cs" />
-    <Compile Include="Manager\NotificationService.cs" />
+    <Compile Include="Manager\NotificationEmailService.cs" />
     <Compile Include="Manager\TagManager.cs" />
     <Compile Include="Manager\ToDoItemManager.cs" />
     <Compile Include="Manager\ToDoListManager.cs" />

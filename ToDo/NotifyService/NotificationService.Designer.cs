@@ -1,6 +1,6 @@
 ﻿namespace NotifyService
 {
-	partial class Service1
+	partial class NotificationService
 	{
 		/// <summary> 
 		/// Required designer variable.

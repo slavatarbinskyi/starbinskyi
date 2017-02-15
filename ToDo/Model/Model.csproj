@@ -53,6 +53,7 @@
     <Compile Include="DB\ToDoList.cs" />
     <Compile Include="DB\User.cs" />
     <Compile Include="DTO\ListTagsDTO.cs" />
+    <Compile Include="DTO\NotifyDTO.cs" />
     <Compile Include="DTO\SetNotifyDTO.cs" />
     <Compile Include="DTO\TopTagViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

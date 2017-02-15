@@ -19,5 +19,6 @@ namespace BAL.Interface
 		void ChangeIsCompletedValue(int id, bool newValue);
 		void SetText(int id, string newName);
 		void SetNotifyTime(int itemId,DateTime date);
+		void MarkAsNotified(string name);
 	}
 }

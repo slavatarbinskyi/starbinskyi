@@ -28,7 +28,8 @@ namespace WebApp.Controllers
 		private IInviteUserManager inviteUserManager;
 		private IEmailService emailService;
 		private ITagManager tagManager;
-		public HomeController(IUserManager userManager, ITagManager tagManager, IToDoItemManager toDoItemManager, IToDoListManager toDoListManager, IInviteUserManager inviteUserManager, IEmailService emailService)
+		private INotificationEmailService notificationService;
+		public HomeController(IUserManager userManager, ITagManager tagManager, IToDoItemManager toDoItemManager, IToDoListManager toDoListManager, IInviteUserManager inviteUserManager, IEmailService emailService,INotificationEmailService notificationService)
 		{
 			this.emailService = emailService;
 			this.inviteUserManager = inviteUserManager;
@@ -36,6 +37,7 @@ namespace WebApp.Controllers
 			this.toDoItemManager = toDoItemManager;
 			this.toDoListManager = toDoListManager;
 			this.tagManager = tagManager;
+			this.notificationService = notificationService;
 		}
 		private IAuthenticationManager AuthenticationManager
 		{
@@ -198,7 +200,6 @@ namespace WebApp.Controllers
 		public ActionResult Index()
 		{
 			ViewBag.Title = "Home Page";
-
 			return View();
 		}
 		/// <summary>
