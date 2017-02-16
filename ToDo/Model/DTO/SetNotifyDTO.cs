@@ -10,5 +10,6 @@ namespace Model.DTO
 	{
 		public DateTime Date { get; set; }
 		public int ItemId { get; set; }
+		public bool NewValue { get; set; }
 	}
 }

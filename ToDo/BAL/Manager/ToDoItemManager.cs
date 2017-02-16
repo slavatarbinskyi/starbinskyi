@@ -112,17 +112,26 @@ namespace BAL.Manager
 			return uOW.ToDoItemRepo.GetByID(id);
 		}
 
-		public void SetNotifyTime(int itemId, DateTime date)
-		{
-			var item = uOW.ToDoItemRepo.GetByID(itemId);
-			item.IsNotify = true;
-			item.NextNotifyTime = date;
-			uOW.Save();
-		}
+
 
 		public void MarkAsNotified(string name)
 		{
 			var item = uOW.ToDoItemRepo.All.FirstOrDefault(i => i.Text == name);
+			item.IsNotify = true;
+			uOW.Save();
+		}
+
+		public void SetNotification(int itemId)
+		{
+			var item = uOW.ToDoItemRepo.GetByID(itemId);
+			item.NextNotifyTime=DateTime.UtcNow;
+			item.IsNotify = true;
+			uOW.Save();
+		}
+
+		public void DismissNotification(int itemId)
+		{
+			var item = uOW.ToDoItemRepo.GetByID(itemId);
 			item.IsNotify = false;
 			uOW.Save();
 		}

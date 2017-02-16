@@ -22,7 +22,7 @@ namespace BAL.Manager
 		{
 			var _email = email;
 			var pass = password;
-			var notifyItems = uOW.ToDoItemRepo.Get(includeProperties: "ToDoList.User").Where(i => i.IsNotify == true).ToList();
+			var notifyItems = uOW.ToDoItemRepo.Get(includeProperties: "ToDoList.User").Where(i => i.IsNotify == true && i.NextNotifyTime<DateTime.UtcNow).ToList();
 
 			List<NotifyDTO> result = new List<NotifyDTO>();
 			foreach (var item in notifyItems)
@@ -32,8 +32,7 @@ namespace BAL.Manager
 			}
 			foreach (var notify in result)
 			{
-				if (notify.NotifyTime == DateTime.UtcNow)
-				{
+
 					using (SmtpClient client = new SmtpClient())
 					{
 						client.EnableSsl = true;
@@ -54,10 +53,7 @@ namespace BAL.Manager
 						var toDoItemManager = new ToDoItemManager(new UnitOfWork());
 						toDoItemManager.MarkAsNotified(notify.ItemName);
 					}
-				}
-
 				return true;
-				
 			}
 			return true;
 		}

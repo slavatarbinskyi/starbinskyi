@@ -3,6 +3,14 @@
 	padding: 0;
 }
 
+.datetimepick {
+	font-size: 19px;
+}
+
+.notified {
+	color: green;
+}
+
 body {
 	font-size: 28px !important;
 	font-family: 'Reenie Beanie',serif;

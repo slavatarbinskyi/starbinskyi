@@ -38,7 +38,7 @@
 					<ul class="items text-left" data-bind="foreach: Items">
 						<li>
 							<input type="checkbox" data-bind="checked:IsCompleted" />
-							<span data-toggle="modal" data-target="#modalDateTime" data-bind="click:$root.SetNotificationTime" class="btn btn-sm glyphicon datetimepick glyphicon-bell"></span>
+							<span data-toggle="modal" data-target="#modalDateTime" data-bind="click:$root.SetNotificationTime,css:{'notified': IsNotify }" class="btn btn-sm glyphicon datetimepick glyphicon-bell"></span>
 							
 								<span data-bind="inline: Text,css:{lineThrough:IsCompleted}"></span>
 								<span data-bind="click: $root.removeItem.bind($data,$parent)" class="btn btn-xs icon delicon glyphicon glyphicon-remove"></span>
@@ -56,3 +56,11 @@
 	@Scripts.Render("~/bundles/jqueryui")
 	@Scripts.Render("~/bundles/knockout")
 }
+<script>
+		$('#modalDateTime').on('show.bs.modal', function (e) {
+	var button = e.relatedTarget;
+	if ($(button).hasClass('notified')) {
+	e.stopPropagation();
+	}
+	});
+</script>

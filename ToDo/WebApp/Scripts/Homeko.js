@@ -17,7 +17,7 @@ function viewModel() {
 
 	//mappings
 	var itemMapping = {
-		'ignore': ["Created", "Modified", "IsNotify", "Priority", "NextNotifyTime", "ToDoList_Id"],
+		'ignore': ["Created", "Modified","Priority", "NextNotifyTime", "ToDoList_Id"],
 		'copy': ["Id"]
 	}
 	var tagMapping =
@@ -215,53 +215,57 @@ function viewModel() {
 
 	//function to add new Item
 	self.addItem = function (data) {
+		var length = data.Items().length;
+		if (length < 5) {
+			var listid = data.Id;
 
-		var listid = data.Id;
+			$.ajax({
+				type: 'POST',
+				beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
+				url: appContext.buildUrl('/api/ToDoItem/InsertItem'),
+				data: { 'ToDoList_Id': listid, 'Text': "newItem", 'IsCompleted': false },
+				success: function(item) {
 
-		$.ajax({
-			type: 'POST',
-			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
-			url: appContext.buildUrl('/api/ToDoItem/InsertItem'),
-			data: { 'ToDoList_Id': listid, 'Text': "newItem", 'IsCompleted': false },
-			success: function (item) {
-
-				var m = newItem(item);
-				data.Items.push(m);
-			},
-			error: function () {
-			}
-		});
-
+					var m = newItem(item);
+					data.Items.unshift(m);
+				},
+				error: function() {
+				}
+			});
+		}
 
 	};
 
 	//function to add list
 	self.addList = function (data) {
-		var data =
-			JSON.stringify({
-				'Name': "DefaultTitle",
-				'Items': [
-					{
-						'Text': 'newItem',
-						'IsCompleted': false
-					}
-				]
-			});
-		$.ajax({
-			type: 'POST',
-			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
-			url: appContext.buildUrl('/api/ToDoList/InsertList'),
-			contentType: 'application/json',
-			data: data,
-			dataType: 'JSON',
-			success: function (list) {
-				var model = newList(list);
-				self.toDoLists.push(model);
+		var length = data.toDoLists().length;
+		if (length < 50) {
+			var data =
+				JSON.stringify({
+					'Name': "DefaultTitle",
+					'Items': [
+						{
+							'Text': 'newItem',
+							'IsCompleted': false
+						}
+					]
+				});
+			$.ajax({
+				type: 'POST',
+				beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
+				url: appContext.buildUrl('/api/ToDoList/InsertList'),
+				contentType: 'application/json',
+				data: data,
+				dataType: 'JSON',
+				success: function(list) {
+					var model = newList(list);
+					self.toDoLists.push(model);
 
-			},
-			error: function () {
-			}
-		});
+				},
+				error: function() {
+				}
+			});
+		}
 	};
 
 	//Binding for edit name
@@ -298,28 +302,46 @@ function viewModel() {
 
 
 
-	self.SetNotificationTime = function (data) {
+	self.SetNotificationTime = function (data,e) {
 		var element = $(".modalDateView")[0];
 		ko.cleanNode(element);
-		data.picker = function () {
-			$('#datetime24').combodate();
-		};
-		data.SetNotification = function () {
-			var date = $('#datetime24').combodate('getValue', null);
-			var id = $("#itemId").val();
-			var data = JSON.stringify({ItemId:id,Date:date});
+		if (data.IsNotify() == true) {
+
+			var id = data.Id;
 			$.ajax({
 				type: 'PUT',
 				contentType: 'application/json',
 				beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
-				url: appContext.buildUrl('/api/ToDoItem/SetNotifyTime'),
+				url: appContext.buildUrl('/api/ToDoItem/DismissNotification/' + id),
 				dataType: 'JSON',
-				data:data,
 				success: function (data) {
 				},
 				error: function (data) {
 				}
 			});
+			data.IsNotify(false);
+			e.preventDefault();
+			e.stopPropagation();
+		}
+		data.picker = function () {
+			$('#datetime24').combodate();
+		};
+
+
+		data.SetNotification = function (data) {
+			var Id = data.Id;
+				data.IsNotify(true);
+				$.ajax({
+					type: 'PUT',
+					contentType: 'application/json',
+					beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
+					url: appContext.buildUrl('/api/ToDoItem/SetNotification/'+Id),
+					dataType: 'JSON',
+					success: function (data) {
+					},
+					error: function (data) {
+					}
+				});
 		};
 		ko.applyBindings(data, $(".modalDateView")[0]);
 	}
@@ -380,6 +402,12 @@ function viewModel() {
 			beforeSend: function (xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
 			url: appContext.buildUrl('/api/ToDoItem/MarkItem/' + itemid + "/" + value),
 			success: function (data) {
+
+					var i = self.numbers().indexOf(number);
+				if (i < self.numbers().length - 1) {
+					var rawNumbers = self.numbers();
+					self.numbers.splice(i, 2, rawNumbers[i + 1], rawNumbers[i]);
+				}
 			},
 			error: function () {
 			}

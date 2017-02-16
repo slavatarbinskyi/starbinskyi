@@ -34,7 +34,7 @@ namespace BAL.Manager
 		public List<ListTagsDTO> GetAll()
 		{
             var result = new List<ListTagsDTO>();
-            List<ToDoList> toDoLists = uOW.ToDoListRepo.Get(includeProperties: "Items").ToList();
+            List<ToDoList> toDoLists = uOW.ToDoListRepo.All.ToList();
 
             foreach (var list in toDoLists)
             {
@@ -44,6 +44,9 @@ namespace BAL.Manager
                 var ids = uOW.TagToDoListsRepo.All.Where(i => i.ToDoListId == list.Id).Select(i => i.TagId).ToList();
                 //get tags with list
                 var tags = uOW.TagRepo.All.Where(m => ids.Contains(m.Id)).ToList();
+	            var items = uOW.ToDoItemRepo.All.Where(i => i.ToDoList_Id == list.Id).OrderBy(o => o.IsCompleted).ToList();
+
+				listTag.Items.AddRange(items);
 
                 listTag.Tags.AddRange(tags);
 
@@ -51,6 +54,13 @@ namespace BAL.Manager
             }
             return result;
 		}
+
+
+
+
+
+
+
 		/// <summary>
 		/// Insert list into db.
 		/// </summary>

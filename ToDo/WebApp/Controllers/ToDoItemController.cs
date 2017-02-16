@@ -121,19 +121,38 @@ namespace WebApp.Controllers
 				return NotFound();
 			}
 		}
-
 		/// <summary>
-		/// Set notify time.
+		/// Set notification to item;
 		/// </summary>
-		/// <param name="model"></param>
+		/// <param name="itemId"></param>
 		/// <returns></returns>
-	    [HttpPut]
-	    [Route("SetNotifyTime")]
-	    public IHttpActionResult SetNotifyTime(SetNotifyDTO model)
+		[HttpPut]
+		[Route("SetNotification/{itemId}")]
+		public IHttpActionResult SetNotification(int itemId)
 		{
 			try
 			{
-				toDoItemManager.SetNotifyTime(model.ItemId,model.Date);
+				toDoItemManager.SetNotification(itemId);
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
+		}
+		/// <summary>
+		/// Dismiss notification to item;
+		/// </summary>
+		/// <param name="itemId"></param>
+		/// <returns></returns>
+		[HttpPut]
+		[Route("DismissNotification/{itemId}")]
+		public IHttpActionResult DismissNotification(int itemId)
+		{
+			try
+			{
+				toDoItemManager.DismissNotification(itemId);
 				return Ok();
 			}
 			catch (Exception ex)
