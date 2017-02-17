@@ -22,7 +22,7 @@ namespace BAL.Manager
 		{
 			var _email = email;
 			var pass = password;
-			var notifyItems = uOW.ToDoItemRepo.Get(includeProperties: "ToDoList.User").Where(i => i.IsNotify == true && i.NextNotifyTime < DateTime.UtcNow).ToList();
+			var notifyItems = uOW.ToDoItemRepo.Get(includeProperties: "ToDoList.User").Where(i => i.IsNotify==true && i.NextNotifyTime < DateTime.UtcNow).ToList();
 
 			List<NotifyDTO> result = new List<NotifyDTO>();
 			foreach (var item in notifyItems)

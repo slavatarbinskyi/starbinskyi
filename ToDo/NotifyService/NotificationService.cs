@@ -19,8 +19,8 @@ namespace NotifyService
 {
 	public partial class NotificationService : ServiceBase
 	{
-	 private int sleepTime = 2000;
-        CancellationTokenSource tokenSource = new CancellationTokenSource();
+	 private readonly int sleepTime = 2000;
+        CancellationTokenSource  tokenSource = new CancellationTokenSource();
 		
         public NotificationService()
         {
@@ -29,8 +29,7 @@ namespace NotifyService
 
         protected override void OnStart(string[] args)
         {
-            //set only one thread(ex:  task.sleep(5sec))
-            var t = Task.Run(() => {
+            var task = Task.Run(() => {
 
                 while (!tokenSource.Token.IsCancellationRequested)
                 {

@@ -3,7 +3,7 @@ function readFile(input) {
 
 	if (input.files && input.files[0]) {
 		if (input.files[0].size > 2500000) {
-			alert('big size');
+			console.log("big size of image");
 			return;
 		}
 		var reader = new FileReader();
@@ -34,7 +34,6 @@ var crop = function (src) {
 	});
 	$("#form").on('submit', function () {
 		var pos = c.get();
-		console.log(c.get());
 		$("#points").val(pos.points);
 		$("#zoom").val(pos.zoom);
 		c.result("base64", "viewport").then(function (resp) {

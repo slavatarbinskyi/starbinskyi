@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using NLog;
 
 namespace DAL.Repositories
 {
@@ -10,8 +11,8 @@ namespace DAL.Repositories
     {
         internal MainContext context;
         internal DbSet<TEntity> dbSet;
-
-        public BaseRepository(MainContext context)
+		private readonly Logger _logger = LogManager.GetCurrentClassLogger();
+		public BaseRepository(MainContext context)
         {
             this.context = context;
             this.dbSet = context.Set<TEntity>();
@@ -69,11 +70,15 @@ namespace DAL.Repositories
 
         public virtual void Update(TEntity entityToUpdate)
         {
-            try
-            {
-                dbSet.Attach(entityToUpdate);
-            }
-            catch { }
+	        try
+	        {
+		        dbSet.Attach(entityToUpdate);
+	        }
+	        catch
+	        {
+				_logger.Error("Error while updating entity");
+
+			}
             context.Entry(entityToUpdate).State = EntityState.Modified;
         }
 

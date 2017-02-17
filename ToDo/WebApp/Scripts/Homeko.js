@@ -67,7 +67,7 @@ function viewModel() {
 		});
 	};
 
-	//function to remove list
+	//function to remove list 
 	self.removeList = function (list) {
 		self.toDoLists.remove(list);
 		var Id = list.Id();
@@ -173,8 +173,7 @@ function viewModel() {
 		return m;
 	};
 
-
-
+	//autocomplete for tags
 	var TagsAutoComplete = [];
 	self.GetTags = function () {
 		$.ajax({
@@ -190,12 +189,11 @@ function viewModel() {
 		});
 	}
 
-
-
 	self.loaddef = function () {
 		self.loadLists();
 		$(".filtertag").addClass("hidden");
 	}
+
 	//map new Tag and subscribes
 	var newTag = function (data) {
 		var m = ko.mapping.fromJS(data, tagMapping);
@@ -257,7 +255,7 @@ function viewModel() {
 	self.addList = function (data) {
 		var length = data.toDoLists().length;
 		if (length < 50) {
-			var data =
+			var jsonData =
 				JSON.stringify({
 					'Name': "DefaultTitle",
 					'Items': [
@@ -272,7 +270,7 @@ function viewModel() {
 				beforeSend: function(xhr) { xhr.setRequestHeader('Authorization', 'Bearer ' + appContext.token); },
 				url: appContext.buildUrl('/api/ToDoList/InsertList'),
 				contentType: 'application/json',
-				data: data,
+				data: jsonData,
 				dataType: 'JSON',
 				success: function(list) {
 					var model = newList(list);
@@ -311,14 +309,12 @@ function viewModel() {
 				if (e.keyCode == 13) {
 					span.show();
 					input.hide();
-				};
+				}
 			});
 		}
 	};
 
-
-
-
+	//set notification time of item
 	self.SetNotificationTime = function (data,e) {
 		var element = $(".modalDateView")[0];
 		ko.cleanNode(element);
@@ -382,6 +378,7 @@ function viewModel() {
 			}
 		});
 	}
+
 	//function to change name
 	self.setText = function (itemid, value) {
 		var itemId = itemid;
@@ -411,6 +408,7 @@ function viewModel() {
 			}
 		});
 	}
+
 	//function for marking item as completed
 	self.markItem = function (itemid, value) {
 		$.ajax({
@@ -425,8 +423,6 @@ function viewModel() {
 			}
 		});
 	}
-
-
 
 	self.toDoLists = ko.observableArray([]);
 }
