@@ -23,6 +23,8 @@ namespace WebApp
 			"~/Scripts/jquery-ui.min.js"));
 			bundles.Add(new ScriptBundle("~/bundles/chartjs").Include(
 			"~/Scripts/chart.js"));
+			bundles.Add(new ScriptBundle("~/bundles/configureuser").Include(
+			"~/Scripts/configureUser.js"));
 			bundles.Add(new ScriptBundle("~/bundles/combodate").Include(
 			"~/Scripts/moment.js",
 			"~/Scripts/combodate.js"
@@ -55,6 +57,8 @@ namespace WebApp
 
 			bundles.Add(new StyleBundle("~/Content/TagEditor").Include(
 		"~/Content/jquery.tag-editor.css"));
+			bundles.Add(new StyleBundle("~/Content/datetimepartial").Include(
+		"~/Content/dateTimepartial.css"));
 
 		}
 	}

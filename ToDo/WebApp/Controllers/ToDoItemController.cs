@@ -113,7 +113,8 @@ namespace WebApp.Controllers
 			try
 			{ 
 			toDoItemManager.ChangeIsCompletedValue(id, newvalue);
-				return Ok();
+				var item = toDoItemManager.GetById(id);
+				return Ok(item);
 			}
 			catch (Exception ex)
 			{

@@ -46,95 +46,12 @@ namespace WebApp.Controllers
 				return HttpContext.GetOwinContext().Authentication;
 			}
 		}
+
+
 		/// <summary>
-		/// Method for adding list to db.
+		/// View for configuring user.
 		/// </summary>
-		/// <param name="list"></param>
 		/// <returns></returns>
-		[HttpPost]
-		public JsonResult AddList(ToDoList list)
-		{
-			list.User_Id = Convert.ToInt32(User.Identity.GetUserId());
-			var result = toDoListManager.InsertList(list);
-			return Json(result, JsonRequestBehavior.AllowGet);
-		}
-		/// <summary>
-		/// Method for adding item to db
-		/// </summary>
-		/// <param name="item"></param>
-		/// <returns></returns>
-		[HttpPost]
-		public JsonResult AddItem(ToDoItem item)
-		{
-			var model = toDoItemManager.InsertItem(item);
-			return Json(model, JsonRequestBehavior.AllowGet);
-		}
-		/// <summary>
-		/// Method for removing list from db.
-		/// </summary>
-		/// <param name="id"></param>
-		[HttpPost]
-		public void RemoveList(int id)
-		{
-			toDoListManager.RemoveList(id);
-		}
-
-		/// <summary>
-		/// Method for removing item from db.
-		/// </summary>
-		/// <param name="id"></param>
-		[HttpPost]
-		public void RemoveItem(int? id)
-		{
-			toDoItemManager.RemoveItem(id);
-		}
-		/// <summary>
-		/// Method to mark item as completed
-		/// </summary>
-		/// <param name="id"></param>
-		/// <param name="newvalue"></param>
-		[HttpPost]
-		public void MarkItem(int id, bool newvalue)
-		{
-			toDoItemManager.ChangeIsCompletedValue(id, newvalue);
-		}
-		/// <summary>
-		/// Method for changing name of list.
-		/// </summary>
-		/// <param name="id"></param>
-		/// <param name="newName"></param>
-		[HttpPost]
-		public void SetName(int id, string newName)
-		{
-			toDoListManager.SetName(id, newName);
-		}
-
-		[HttpPost]
-		public void AddTag(string Name,int listId)
-		{
-			var tag = new Tag() {Name=Name};
-			tagManager.AttachTag(tag,listId);
-		}
-		/// <summary>
-		/// Method for removing tag from db;
-		/// </summary>
-		/// <param name="Name"></param>
-		[HttpPost]
-		public void RemoveTag(string Name,int listId)
-		{
-			tagManager.RemoveTagList(Name,listId);
-		}
-		/// <summary>
-		/// Method for changing text of item.
-		/// </summary>
-		/// <param name="id"></param>
-		/// <param name="newText"></param>
-		[HttpPost]
-		public void SetText(int id, string newText)
-		{
-			toDoItemManager.SetText(id, newText);
-		}
-
 		[HttpGet]
 		public ActionResult ConfigureUser()
 		{
@@ -170,31 +87,14 @@ namespace WebApp.Controllers
 			var x = Convert.ToInt32(pointsArray[0]);
 			var y = Convert.ToInt32(pointsArray[1]);
 			var originalimage = Image.FromStream(Imagepost.InputStream, true, true);
-			imghelper.CropAndSavePoints(User.Identity.GetUserId(), path, originalimage, x, y, wh);
 
-			//imghelper.SaveImage(User.Identity.GetUserId(),basestring,path);
+			//the one of ways to save image via bitmap
+			//imghelper.CropAndSavePoints(User.Identity.GetUserId(), path, originalimage, x, y, wh);
+
+			imghelper.SaveImage(User.Identity.GetUserId(),basestring,path);
 
 			userManager.UpdateUser(user);
 			return RedirectToAction("Index", "Home");
-		}
-		/// <summary>
-		/// Init get of all user lists
-		/// </summary>
-		/// <returns></returns>
-		[HttpGet]
-		public JsonResult GetUsersList(string tagName)
-		{
-			if (tagName == null)
-			{
-				var userid = Convert.ToInt32(User.Identity.GetUserId());
-				var lists = toDoListManager.GetAll().Where(i => i.User_Id == userid).ToList();
-				return Json(lists, JsonRequestBehavior.AllowGet);
-			}
-			else
-			{
-				var lists = toDoListManager.GetListsByTagName(tagName);
-				return Json(lists, JsonRequestBehavior.AllowGet);
-			}
 		}
 
 		public ActionResult Index()

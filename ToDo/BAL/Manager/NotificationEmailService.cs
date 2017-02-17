@@ -22,7 +22,7 @@ namespace BAL.Manager
 		{
 			var _email = email;
 			var pass = password;
-			var notifyItems = uOW.ToDoItemRepo.Get(includeProperties: "ToDoList.User").Where(i => i.IsNotify == true && i.NextNotifyTime<DateTime.UtcNow).ToList();
+			var notifyItems = uOW.ToDoItemRepo.Get(includeProperties: "ToDoList.User").Where(i => i.IsNotify == true && i.NextNotifyTime < DateTime.UtcNow).ToList();
 
 			List<NotifyDTO> result = new List<NotifyDTO>();
 			foreach (var item in notifyItems)
@@ -33,27 +33,26 @@ namespace BAL.Manager
 			foreach (var notify in result)
 			{
 
-					using (SmtpClient client = new SmtpClient())
-					{
-						client.EnableSsl = true;
-						client.Port = 587;
-						client.Host = "smtp.gmail.com";
-						client.UseDefaultCredentials = false;
+				using (SmtpClient client = new SmtpClient())
+				{
+					client.EnableSsl = true;
+					client.Port = 587;
+					client.Host = "smtp.gmail.com";
+					client.UseDefaultCredentials = false;
 
-						client.Credentials = new NetworkCredential(_email, pass);
-						client.DeliveryMethod = SmtpDeliveryMethod.Network;
-						var from = _email;
-						var to = notify.Email;
-						MailMessage message = new MailMessage(from, to);
-						message.Subject = "Notify todo";
-						message.Body = "Notify item to ToDo in list: " + notify.ListName + "item : " + notify.ItemName;
-						message.IsBodyHtml = true;
+					client.Credentials = new NetworkCredential(_email, pass);
+					client.DeliveryMethod = SmtpDeliveryMethod.Network;
+					var from = _email;
+					var to = notify.Email;
+					MailMessage message = new MailMessage(from, to);
+					message.Subject = "Notify todo";
+					message.Body = "Notify item to ToDo in list: " + notify.ListName + "item : " + notify.ItemName;
+					message.IsBodyHtml = true;
 
-						client.Send(message);
-						var toDoItemManager = new ToDoItemManager(new UnitOfWork());
-						toDoItemManager.MarkAsNotified(notify.ItemName);
-					}
-				return true;
+					client.Send(message);
+					var toDoItemManager = new ToDoItemManager(new UnitOfWork());
+					toDoItemManager.MarkAsNotified(notify.ItemName);
+				}
 			}
 			return true;
 		}

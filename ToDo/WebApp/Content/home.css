@@ -6,9 +6,20 @@
 .datetimepick {
 	font-size: 19px;
 }
+.titleText {
+	    margin-bottom: -7px;
+}
 
 .notified {
-	color: green;
+	color: #666666;
+}
+.completed {
+	color: #666666;
+}
+.title {
+	overflow: hidden;
+    width: 200px;
+	display: inline-block;
 }
 
 body {

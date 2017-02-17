@@ -283,6 +283,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\croppie.css" />
+    <Content Include="Content\dateTimepartial.css" />
     <Content Include="Content\home.css" />
     <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\jquery.tag-editor.css" />
@@ -317,6 +318,7 @@
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\chart.js" />
     <Content Include="Scripts\combodate.js" />
+    <Content Include="Scripts\configureUser.js" />
     <Content Include="Scripts\croppie.js" />
     <Content Include="Scripts\croppie.min.js" />
     <Content Include="Scripts\deploy.js" />

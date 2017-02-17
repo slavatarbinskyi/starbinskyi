@@ -26,7 +26,7 @@
 				<a href="#">
 
 					<span data-bind="click: $root.removeList" class="btn btn-xs icon deleteicon">X</span>
-					<h1 class="text-center"><span class="title " data-bind="inline: Name"></span></h1>
+					<h1 class="text-center titleText"><div class="title" data-bind="inline: Name"></div></h1>
 
 					<div data-bind="template: { afterRender: FindByTag }">
 						<div data-bind="template: { afterRender: bindTagsEditor }">
@@ -35,12 +35,12 @@
 					</div>
 
 					<span data-bind="click: $root.addItem.bind($data)" class="btn btn-xs glyphicon left glyphicon-plus"></span>
-					<ul class="items text-left" data-bind="foreach: Items">
+					<ul class="items text-left" data-bind="foreach: sortedItems">
 						<li>
 							<input type="checkbox" data-bind="checked:IsCompleted" />
 							<span data-toggle="modal" data-target="#modalDateTime" data-bind="click:$root.SetNotificationTime,css:{'notified': IsNotify }" class="btn btn-sm glyphicon datetimepick glyphicon-bell"></span>
 							
-								<span data-bind="inline: Text,css:{lineThrough:IsCompleted}"></span>
+								<span data-bind="inline: Text,css:{lineThrough:IsCompleted,'completed': IsCompleted }"></span>
 								<span data-bind="click: $root.removeItem.bind($data,$parent)" class="btn btn-xs icon delicon glyphicon glyphicon-remove"></span>
 							</li>
 						</ul>
@@ -56,11 +56,3 @@
 	@Scripts.Render("~/bundles/jqueryui")
 	@Scripts.Render("~/bundles/knockout")
 }
-<script>
-		$('#modalDateTime').on('show.bs.modal', function (e) {
-	var button = e.relatedTarget;
-	if ($(button).hasClass('notified')) {
-	e.stopPropagation();
-	}
-	});
-</script>

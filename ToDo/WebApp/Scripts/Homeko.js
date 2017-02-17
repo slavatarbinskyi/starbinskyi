@@ -100,6 +100,7 @@ function viewModel() {
 	var newList = function (data) {
 		var m = ko.mapping.fromJS(data, listmapping);
 
+
 		var tags = [];
 		$.each(m.Tags(), function (index, elem) {
 			tags.push(elem.Name());
@@ -155,8 +156,24 @@ function viewModel() {
 			)
 		};
 
+
+		m.sortedItems = ko.pureComputed(function () {
+			var k = m.Items();
+			var incompleted = [];
+			var completed = [];
+			for (var i = 0; i < k.length; i++) {
+				if (k[i].IsCompleted())
+					completed.push(k[i]);
+				else
+					incompleted.push(k[i]);
+			}
+
+			return incompleted.concat(completed);
+		}, m);
 		return m;
 	};
+
+
 
 	var TagsAutoComplete = [];
 	self.GetTags = function () {
@@ -403,11 +420,6 @@ function viewModel() {
 			url: appContext.buildUrl('/api/ToDoItem/MarkItem/' + itemid + "/" + value),
 			success: function (data) {
 
-					var i = self.numbers().indexOf(number);
-				if (i < self.numbers().length - 1) {
-					var rawNumbers = self.numbers();
-					self.numbers.splice(i, 2, rawNumbers[i + 1], rawNumbers[i]);
-				}
 			},
 			error: function () {
 			}
@@ -415,9 +427,9 @@ function viewModel() {
 	}
 
 
+
 	self.toDoLists = ko.observableArray([]);
 }
-
 
 
 $(function () {
