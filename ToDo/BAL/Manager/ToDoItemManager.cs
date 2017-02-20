@@ -1,10 +1,8 @@
-﻿using BAL.Interface;
-using DAL.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BAL.Interface;
+using DAL.Interface;
 using Model.DB;
 
 namespace BAL.Manager
@@ -14,8 +12,9 @@ namespace BAL.Manager
 		public ToDoItemManager(IUnitOfWork uOW) : base(uOW)
 		{
 		}
+
 		/// <summary>
-		/// Change Name value;
+		///     Change Name value;
 		/// </summary>
 		/// <returns></returns>
 		public void SetText(int id, string newText)
@@ -26,7 +25,7 @@ namespace BAL.Manager
 		}
 
 		/// <summary>
-		/// Change IsCompleted value;
+		///     Change IsCompleted value;
 		/// </summary>
 		/// <returns></returns>
 		public void ChangeIsCompletedValue(int id, bool newValue)
@@ -35,16 +34,18 @@ namespace BAL.Manager
 			item.IsCompleted = newValue;
 			uOW.Save();
 		}
+
 		/// <summary>
-		/// Get all items from db.
+		///     Get all items from db.
 		/// </summary>
 		/// <returns></returns>
 		public List<ToDoItem> GetAll()
 		{
 			return uOW.ToDoItemRepo.All.ToList();
 		}
+
 		/// <summary>
-		/// Get All not completed items;
+		///     Get All not completed items;
 		/// </summary>
 		/// <returns></returns>
 		public List<ToDoItem> GetAllNotCompleted()
@@ -53,7 +54,7 @@ namespace BAL.Manager
 		}
 
 		/// <summary>
-		/// Insert item into db;
+		///     Insert item into db;
 		/// </summary>
 		/// <param name="item"></param>
 		public ToDoItem InsertItem(ToDoItem item)
@@ -63,8 +64,9 @@ namespace BAL.Manager
 			uOW.Save();
 			return item;
 		}
+
 		/// <summary>
-		/// Mark item as completed in db;
+		///     Mark item as completed in db;
 		/// </summary>
 		/// <param name="Id"></param>
 		public void MarkAsCompleted(int Id)
@@ -76,22 +78,23 @@ namespace BAL.Manager
 		}
 
 		/// <summary>
-		/// Remove item from db;
+		///     Remove item from db;
 		/// </summary>
 		/// <param name="item"></param>
 		public void RemoveItem(int? id)
 		{
 			if (id == null) return;
-			var item = new ToDoItem()
+			var item = new ToDoItem
 			{
 				Id = id.Value
 			};
-			
+
 			uOW.ToDoItemRepo.Delete(item);
 			uOW.Save();
 		}
+
 		/// <summary>
-		/// Update item ;
+		///     Update item ;
 		/// </summary>
 		/// <param name="item"></param>
 		public void UpdateItem(ToDoItem item)
@@ -102,8 +105,9 @@ namespace BAL.Manager
 			ItemDb.Priority = item.Priority;
 			uOW.Save();
 		}
+
 		/// <summary>
-		/// Get by id item;
+		///     Get by id item;
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
@@ -111,7 +115,6 @@ namespace BAL.Manager
 		{
 			return uOW.ToDoItemRepo.GetByID(id);
 		}
-
 
 
 		public void MarkAsNotified(string name)
@@ -124,7 +127,7 @@ namespace BAL.Manager
 		public void SetNotification(int itemId)
 		{
 			var item = uOW.ToDoItemRepo.GetByID(itemId);
-			item.NextNotifyTime=DateTime.UtcNow;
+			item.NextNotifyTime = DateTime.UtcNow;
 			item.IsNotify = true;
 			uOW.Save();
 		}

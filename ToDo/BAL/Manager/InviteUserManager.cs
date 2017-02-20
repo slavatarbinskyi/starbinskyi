@@ -1,20 +1,17 @@
-﻿using BAL.Interface;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Model.DB;
+using BAL.Interface;
 using DAL.Interface;
+using Model.DB;
 
 namespace BAL.Manager
 {
-	public class InviteUserManager : BaseManager,IInviteUserManager
+	public class InviteUserManager : BaseManager, IInviteUserManager
 	{
 		public InviteUserManager(IUnitOfWork uOW) : base(uOW)
 		{
-
 		}
+
 		public InviteUser GetByGuId(string guid)
 		{
 			return uOW.InviteUserRepo.All.Where(i => i.GuidId == guid).FirstOrDefault();
@@ -30,7 +27,7 @@ namespace BAL.Manager
 		public void Remove(int? id)
 		{
 			if (id == null) return;
-			var user = new InviteUser()
+			var user = new InviteUser
 			{
 				Id = id.Value
 			};
@@ -47,6 +44,7 @@ namespace BAL.Manager
 			userDb.GuidId = user.GuidId;
 			uOW.Save();
 		}
+
 		public string CreateInvite(InviteUser user)
 		{
 			if (user == null) return null;

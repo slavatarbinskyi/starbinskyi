@@ -1,22 +1,18 @@
-﻿using BAL;
-using BAL.Interface;
-using BAL.Manager;
-using DAL;
-using DAL.Interface;
-using SimpleInjector;
-using SimpleInjector.Integration.Web;
-using SimpleInjector.Integration.Web.Mvc;
-using SimpleInjector.Integration.WebApi;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using BAL;
+using BAL.Interface;
+using BAL.Manager;
+using DAL;
+using DAL.Interface;
 using Newtonsoft.Json;
-using WebApp.Helpers;
+using SimpleInjector;
+using SimpleInjector.Integration.Web;
+using SimpleInjector.Integration.Web.Mvc;
+using SimpleInjector.Integration.WebApi;
 
 namespace WebApp
 {
@@ -33,12 +29,11 @@ namespace WebApp
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 			AutoMapperConfig.Configure();
 			GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings
-			.ReferenceLoopHandling =ReferenceLoopHandling.Ignore;
+				.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 			GlobalConfiguration.Configuration.Formatters
-			.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
-
-
+				.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
 		}
+
 		private void InjectorContainer()
 		{
 			var container = new Container();
@@ -54,7 +49,6 @@ namespace WebApp
 			container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
 			GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
 			DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
-
 		}
 	}
 }

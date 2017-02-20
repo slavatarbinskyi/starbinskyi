@@ -1,8 +1,6 @@
-﻿#modalDateTime {
-	color: black;
-}
+﻿#modalDateTime { color: black; }
 
 h4 {
+	font-family: 'Reenie Beanie', serif;
 	font-size: 28px !important;
-	font-family: 'Reenie Beanie',serif;
 }

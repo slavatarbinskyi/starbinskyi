@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace WebApp
@@ -14,16 +10,15 @@ namespace WebApp
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 			routes.MapRoute(
-			 name: "RegisterInvitedUser",
-				 url: "RegisterInvitedUser/{guid}",
-				 defaults: new { controller = "Home", action = "RegisterInvitedUser", id = "" }
-			 );
-			routes.MapRoute(
-				name: "Default",
-				url: "{controller}/{action}/{id}",
-				defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+				"RegisterInvitedUser",
+				"RegisterInvitedUser/{guid}",
+				new {controller = "Home", action = "RegisterInvitedUser", id = ""}
 			);
-
+			routes.MapRoute(
+				"Default",
+				"{controller}/{action}/{id}",
+				new {controller = "Home", action = "Index", id = UrlParameter.Optional}
+			);
 		}
 	}
 }

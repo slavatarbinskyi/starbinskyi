@@ -4,35 +4,49 @@
 }
 
 .datetimepick {
-	font-size: 19px;
+	font-size: 16px;
+	margin-left: -10px;
 }
+
 .titleText {
-	    margin-bottom: -7px;
+	margin-bottom: -7px;
+}
+
+.textItem {
+	overflow: hidden;
 }
 
 .notified {
 	color: #666666;
 }
+
 .completed {
 	color: #666666;
 }
+
 .title {
-	overflow: hidden;
-    width: 200px;
 	display: inline-block;
+	overflow: hidden;
+	width: 200px;
+}
+
+.singleItem {
+	display: block;
+	min-width: 250px;
 }
 
 body {
-	font-size: 28px !important;
-	font-family: 'Reenie Beanie',serif;
-	margin: 3em;
 	background: #666;
 	color: #fff;
+	font-family: 'Reenie Beanie', serif;
+	font-size: 28px !important;
+	margin: 3em;
 }
-h1
-{
-	font-family: 'Reenie Beanie',serif;
+
+h1 {
+	font-family: 'Reenie Beanie', serif;
 }
+
 .filtertag {
 	font-size: 60px !important;
 }
@@ -68,8 +82,8 @@ h2, span {
 }
 
 .deleteicon {
-	font-size: 35px;
 	color: red;
+	font-size: 35px;
 }
 
 .newlist {
@@ -85,20 +99,20 @@ h2, span {
 }
 
 .notes-board ul li a {
-	text-decoration: none;
-	color: #000;
+	-moz-transform: rotate(-6deg);
+	-moz-transition: -moz-transform .15s linear;
+	-o-transform: rotate(-6deg);
+	-o-transition: -o-transform .15s linear;
+	-webkit-box-shadow: 5px 5px 7px rgba(33, 33, 33, .7);
+	-webkit-transform: rotate(-6deg);
+	-webkit-transition: -webkit-transform .15s linear;
 	background: #ffc;
+	color: #000;
 	display: block;
 	height: auto;
-	width: 13em;
 	padding: 1em;
-	-webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
-	-moz-transition: -moz-transform .15s linear;
-	-webkit-transform: rotate(-6deg);
-	-o-transform: rotate(-6deg);
-	-moz-transform: rotate(-6deg);
-	-o-transition: -o-transform .15s linear;
-	-webkit-transition: -webkit-transform .15s linear;
+	text-decoration: none;
+	width: 13em;
 }
 
 .notes-board .icon {
@@ -106,68 +120,69 @@ h2, span {
 }
 
 .notes-board ul li:nth-child(even) a {
+	-moz-transform: rotate(4deg);
 	-o-transform: rotate(4deg);
 	-webkit-transform: rotate(4deg);
-	-moz-transform: rotate(4deg);
+	background: #cfc;
 	position: relative;
 	top: 5px;
-	background: #cfc;
 }
 
 .notes-board ul li:nth-child(3n) a {
+	-moz-transform: rotate(-3deg);
 	-o-transform: rotate(-3deg);
 	-webkit-transform: rotate(-3deg);
-	-moz-transform: rotate(-3deg);
+	background: #ccf;
 	position: relative;
 	top: -5px;
-	background: #ccf;
 }
 
 .notes-board ul li:nth-child(5n) a {
+	-moz-transform: rotate(5deg);
 	-o-transform: rotate(5deg);
 	-webkit-transform: rotate(5deg);
-	-moz-transform: rotate(5deg);
 	position: relative;
 	top: -10px;
 }
 
 .notes-board ul li a:hover, ul li a:focus {
-	-moz-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
-	-webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
-	box-shadow: 10px 10px 7px rgba(0,0,0,.7);
-	-webkit-transform: scale(1.25);
+	-moz-box-shadow: 10px 10px 7px rgba(0, 0, 0, .7);
 	-moz-transform: scale(1.25);
 	-o-transform: scale(1.25);
+	-webkit-box-shadow: 10px 10px 7px rgba(0, 0, 0, .7);
+	-webkit-transform: scale(1.25);
+	box-shadow: 10px 10px 7px rgba(0, 0, 0, .7);
 	position: relative;
 	z-index: 5;
 }
 
 .notes-board ul .note {
 	float: left;
+	margin-bottom: 40px;
 	margin-right: 30px;
-    margin-bottom: 40px;
 }
 
 
 .notes-board ul li {
-
 	float: left;
 }
+
 .notes-board .tag-editor {
-    overflow: hidden;
-    padding: 0em;
+	overflow: hidden;
+	padding: 0em;
+	margin-bottom: 6px;
 }
 
 .notes-board .items li {
-	margin: 0.4em;
 	float: left;
+	margin: 0.3em 0em 0em 0em;
 }
 
-	.notes-board ul li h2 {
-		font-size: 140%;
-		font-weight: bold;
-		padding-bottom: 10px;
-	}
+.notes-board ul li h2 {
+	font-size: 140%;
+	font-weight: bold;
+	padding-bottom: 10px;
+}
 
 .notes-board label:hover {
 	background: #f2f5ff;

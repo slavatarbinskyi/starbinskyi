@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace WebApp
 {
@@ -9,7 +8,7 @@ namespace WebApp
 		public static void RegisterBundles(BundleCollection bundles)
 		{
 			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-						"~/Scripts/jquery-{version}.js"));
+				"~/Scripts/jquery-{version}.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
 				"~/Scripts/knockout-{version}.js",
@@ -18,48 +17,46 @@ namespace WebApp
 			bundles.Add(new ScriptBundle("~/bundles/homeko").Include(
 				"~/Scripts/Homeko.js"));
 			bundles.Add(new ScriptBundle("~/bundles/cookies").Include(
-			"~/Scripts/jquery.cookie.js"));
+				"~/Scripts/jquery.cookie.js"));
 			bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-			"~/Scripts/jquery-ui.min.js"));
+				"~/Scripts/jquery-ui.min.js"));
 			bundles.Add(new ScriptBundle("~/bundles/chartjs").Include(
-			"~/Scripts/chart.js"));
+				"~/Scripts/chart.js"));
 			bundles.Add(new ScriptBundle("~/bundles/configureuser").Include(
-			"~/Scripts/configureUser.js"));
+				"~/Scripts/configureUser.js"));
 			bundles.Add(new ScriptBundle("~/bundles/combodate").Include(
-			"~/Scripts/moment.js",
-			"~/Scripts/combodate.js"
+				"~/Scripts/moment.js",
+				"~/Scripts/combodate.js"
 			));
 			bundles.Add(new ScriptBundle("~/bundles/tageditor").Include(
-			"~/Scripts/jquery.tag-editor.min.js",
-			"~/Scripts/jquery.tag-editor.js",
-			"~/Scripts/jquery.caret.min.js"));
-
+				"~/Scripts/jquery.tag-editor.min.js",
+				"~/Scripts/jquery.tag-editor.js",
+				"~/Scripts/jquery.caret.min.js"));
 
 
 			// Use the development version of Modernizr to develop with and learn from. Then, when you're
 			// ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
 			bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-						"~/Scripts/modernizr-*"));
+				"~/Scripts/modernizr-*"));
 
 			bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-					  "~/Scripts/bootstrap.js",
-					  "~/Scripts/respond.js"));
+				"~/Scripts/bootstrap.js",
+				"~/Scripts/respond.js"));
 
 			bundles.Add(new StyleBundle("~/Content/css").Include(
-					  "~/Content/bootstrap.css",
-					  "~/Content/site.css"));
+				"~/Content/bootstrap.css",
+				"~/Content/site.css"));
 
 			bundles.Add(new StyleBundle("~/Content/home").Include(
-		  "~/Content/home.css"));
+				"~/Content/home.css"));
 
 			bundles.Add(new StyleBundle("~/Content/uni").Include(
-		  "~/Content/uni.css"));
+				"~/Content/uni.css"));
 
 			bundles.Add(new StyleBundle("~/Content/TagEditor").Include(
-		"~/Content/jquery.tag-editor.css"));
+				"~/Content/jquery.tag-editor.css"));
 			bundles.Add(new StyleBundle("~/Content/datetimepartial").Include(
-		"~/Content/dateTimepartial.css"));
-
+				"~/Content/dateTimepartial.css"));
 		}
 	}
 }

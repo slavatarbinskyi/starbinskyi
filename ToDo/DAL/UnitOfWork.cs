@@ -1,28 +1,16 @@
-﻿using DAL.Interface;
-using DAL.Repositories;
-using Model.DB;
-using System;
+﻿using System;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
+using DAL.Interface;
+using DAL.Repositories;
+using Model.DB;
 
 namespace DAL
 {
 	public class UnitOfWork : IUnitOfWork, IDisposable
 	{
 		private MainContext context;
-
-		#region Private Repositories
-
-		private IGenericRepository<User> userRepo;
-		private IGenericRepository<ToDoItem> toDoItemRepo;
-		private IGenericRepository<ToDoList> toDoListRepo;
-		private IGenericRepository<InviteUser> inviteUserRepo;
-		private IGenericRepository<Tag> tagRepo;
-		private IGenericRepository<TagToDoLists> tagToDoListsRepo;
-
-
-		#endregion Private Repositories
 
 		public UnitOfWork()
 		{
@@ -35,7 +23,45 @@ namespace DAL
 			tagToDoListsRepo = new GenericRepository<TagToDoLists>(context);
 		}
 
+		public int Save()
+		{
+			try
+			{
+				UpdateTrackedEntities();
+				return context.SaveChanges();
+			}
+			catch (DbEntityValidationException ex)
+			{
+				return 0;
+			}
+		}
+
+		public void UpdateContext()
+		{
+			context = new MainContext();
+		}
+
+		private void UpdateTrackedEntities()
+		{
+			var entities = context.ChangeTracker.Entries().Where(x => x.State == EntityState.Modified);
+
+			foreach (var ent in entities)
+				((BaseEntity) ent.Entity).Modified = DateTime.UtcNow;
+		}
+
+		#region Private Repositories
+
+		private IGenericRepository<User> userRepo;
+		private IGenericRepository<ToDoItem> toDoItemRepo;
+		private IGenericRepository<ToDoList> toDoListRepo;
+		private IGenericRepository<InviteUser> inviteUserRepo;
+		private IGenericRepository<Tag> tagRepo;
+		private IGenericRepository<TagToDoLists> tagToDoListsRepo;
+
+		#endregion Private Repositories
+
 		#region Repositories Getters
+
 		public IGenericRepository<TagToDoLists> TagToDoListsRepo
 		{
 			get
@@ -44,6 +70,7 @@ namespace DAL
 				return tagToDoListsRepo;
 			}
 		}
+
 		public IGenericRepository<Tag> TagRepo
 		{
 			get
@@ -52,6 +79,7 @@ namespace DAL
 				return tagRepo;
 			}
 		}
+
 		public IGenericRepository<InviteUser> InviteUserRepo
 		{
 			get
@@ -60,6 +88,7 @@ namespace DAL
 				return inviteUserRepo;
 			}
 		}
+
 		public IGenericRepository<User> UserRepo
 		{
 			get
@@ -68,6 +97,7 @@ namespace DAL
 				return userRepo;
 			}
 		}
+
 		public IGenericRepository<ToDoItem> ToDoItemRepo
 		{
 			get
@@ -76,6 +106,7 @@ namespace DAL
 				return toDoItemRepo;
 			}
 		}
+
 		public IGenericRepository<ToDoList> ToDoListRepo
 		{
 			get
@@ -87,48 +118,18 @@ namespace DAL
 
 		#endregion Repositories Getters
 
-		public void UpdateContext()
-	    {
-	        context = new MainContext();
-	    }
-		public int Save()
-		{
-			try
-			{
-				UpdateTrackedEntities();
-				return context.SaveChanges();
-			}
-			catch (DbEntityValidationException ex)
-			{
-			    return 0;
-			}
-		}
-		private void UpdateTrackedEntities()
-		{
-			var entities = context.ChangeTracker.Entries().Where(x=>x.State == EntityState.Modified);
-
-			foreach (var ent in entities)
-			{
-					((BaseEntity)ent.Entity).Modified = DateTime.UtcNow;
-			}
-		}
-
 		#region Dispose
 
 		// https://msdn.microsoft.com/ru-ru/library/system.idisposable(v=vs.110).aspx
 
-		private bool disposed = false;
+		private bool disposed;
 
 		protected virtual void Dispose(bool disposing)
 		{
-			if (!this.disposed)
-			{
+			if (!disposed)
 				if (disposing)
-				{
 					context.Dispose();
-				}
-			}
-			this.disposed = true;
+			disposed = true;
 		}
 
 		public void Dispose()

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Http;
 using BAL.Interface;
 using Model.DB;
@@ -13,13 +11,17 @@ namespace WebApp.Controllers
 	[Authorize]
 	public class TagController : ApiController
 	{
-		private readonly ITagManager tagManager;
 		private readonly Logger _logger = LogManager.GetCurrentClassLogger();
+		private readonly ITagManager tagManager;
+
 		public TagController(ITagManager tagManager)
 		{
 			this.tagManager = tagManager;
 		}
-
+		/// <summary>
+		/// Get all tags
+		/// </summary>
+		/// <returns></returns>
 		[Route("GetAll")]
 		[HttpGet]
 		public IHttpActionResult GetAll()
@@ -36,13 +38,19 @@ namespace WebApp.Controllers
 			}
 		}
 
+		/// <summary>
+		/// Add tag
+		/// </summary>
+		/// <param name="Name"></param>
+		/// <param name="listId"></param>
+		/// <returns></returns>
 		[Route("AddTag/{Name}/{listId}")]
 		[HttpPost]
 		public IHttpActionResult AddTag(string Name, int listId)
 		{
 			try
 			{
-				var tag = new Tag() { Name = Name };
+				var tag = new Tag {Name = Name};
 				tagManager.AttachTag(tag, listId);
 				return Ok();
 			}
@@ -52,8 +60,9 @@ namespace WebApp.Controllers
 				return NotFound();
 			}
 		}
+
 		/// <summary>
-		/// Method for removing tag from db;
+		///     Method for removing tag from db;
 		/// </summary>
 		/// <param name="Name"></param>
 		[HttpDelete]

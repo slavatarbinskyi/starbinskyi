@@ -1,19 +1,16 @@
-﻿
-@{
+﻿@{
 	ViewBag.Title = "TopTags";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
-	body {
-		background:white
-	}
+	body { background: white }
 </style>
 <center>
-<h2 style="color:black">Top Tags</h2>
-<hr/>
-<div style="width: 1300px;height: 500px;">
-	<canvas id="priceStat"></canvas>
-</div>
+	<h2 style="color: black">Top Tags</h2>
+	<hr/>
+	<div style="height: 500px; width: 1300px;">
+		<canvas id="priceStat"></canvas>
+	</div>
 </center>
 
 @Scripts.Render("~/bundles/chartjs")
@@ -30,10 +27,11 @@
 	function OnSuccess_(response) {
 		var aData = [];
 		var aLabels = [];
-		$.each(response, function (index, element) {
-			aData.push(element.CountOf);
-			aLabels.push(element.Name);
-		});
+		$.each(response,
+			function(index, element) {
+				aData.push(element.CountOf);
+				aLabels.push(element.Name);
+			});
 
 		var data = {
 			labels: aLabels,
@@ -61,7 +59,8 @@
 		};
 
 		var ctx = $("#priceStat").get(0).getContext('2d');
-		var myNewChart = new Chart(ctx, {
+		var myNewChart = new Chart(ctx,
+		{
 			type: "pie",
 			data: data,
 			bezierCurve: false

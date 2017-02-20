@@ -1,16 +1,15 @@
+using System.Data.Entity.Migrations;
+
 namespace DAL.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
-    public partial class AddedBaseEntity : DbMigration
-    {
-        public override void Up()
-        {
-        }
-        
-        public override void Down()
-        {
-        }
-    }
+	public partial class AddedBaseEntity : DbMigration
+	{
+		public override void Up()
+		{
+		}
+
+		public override void Down()
+		{
+		}
+	}
 }

@@ -1,5 +1,5 @@
-﻿using Model.DB;
-using System.Data.Entity;
+﻿using System.Data.Entity;
+using Model.DB;
 
 namespace DAL
 {
@@ -8,14 +8,15 @@ namespace DAL
 		public MainContext()
 			: base("MyToDo")
 		{
-			this.Configuration.LazyLoadingEnabled = false;
-			this.Configuration.ProxyCreationEnabled = false;
+			Configuration.LazyLoadingEnabled = false;
+			Configuration.ProxyCreationEnabled = false;
 		}
+
 		public MainContext(string connString)
 			: base(connString)
 		{
-			this.Configuration.LazyLoadingEnabled = false;
-			this.Configuration.ProxyCreationEnabled = false;
+			Configuration.LazyLoadingEnabled = false;
+			Configuration.ProxyCreationEnabled = false;
 		}
 
 		public DbSet<ToDoItem> Items { get; set; }

@@ -2,8 +2,8 @@
 <html>
 <head>
 	<link href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width" />
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width"/>
 	<title>@ViewBag.Title</title>
 	@Styles.Render("~/Content/css")
 	@Styles.Render("~/Content/home")
@@ -14,48 +14,51 @@
 	@Scripts.Render("~/bundles/cookies")
 	<script>
 		var appContext = {};
+
 		function mainAppInit() {
 			appContext.baseUrl = "@HttpRuntime.AppDomainAppVirtualPath";
-			appContext.buildUrl = function (url) {
+			appContext.buildUrl = function(url) {
 				return appContext.baseUrl + url;
-			}
+			};
 		}
+
 		function getToken() {
 			appContext.token = $.cookie("token");
 		}
+
 		getToken();
 		mainAppInit();
 	</script>
 
 </head>
 <body>
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				@Html.ActionLink("ToDo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-				@Html.ActionLink("Invite users", "InviteUser", "Home", new { area = "" }, new { @class = "navbar-brand" })
-				@Html.ActionLink("Configure users", "ConfigureUser", "Home", new { area = "" }, new { @class = "navbar-brand" })
-				@Html.ActionLink("Top of tags", "TopTags", "Home", new { area = "" }, new { @class = "navbar-brand" })
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			@Html.ActionLink("ToDo", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
+			@Html.ActionLink("Invite users", "InviteUser", "Home", new {area = ""}, new {@class = "navbar-brand"})
+			@Html.ActionLink("Configure users", "ConfigureUser", "Home", new {area = ""}, new {@class = "navbar-brand"})
+			@Html.ActionLink("Top of tags", "TopTags", "Home", new {area = ""}, new {@class = "navbar-brand"})
 
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<li>@Html.Action("Photo", "Home")</li>
-					@Html.Partial("_LoginPartial")
-				</ul>
-			</div>
+		</div>
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li>@Html.Action("Photo", "Home")</li>
+				@Html.Partial("_LoginPartial")
+			</ul>
 		</div>
 	</div>
-	<div class="">
-		@RenderBody()
-	</div>
-	
+</div>
+<div class="">
+	@RenderBody()
+</div>
 
-	@RenderSection("scripts", required: false)
+
+@RenderSection("scripts", false)
 </body>
 </html>

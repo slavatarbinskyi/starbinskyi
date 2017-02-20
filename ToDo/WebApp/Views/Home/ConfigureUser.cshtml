@@ -6,60 +6,60 @@
 }
 @Styles.Render("~/Content/uni")
 
-@using (Html.BeginForm("ConfiguringUser", "Home", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data", @id = "form" }))
+@using (Html.BeginForm("ConfiguringUser", "Home", FormMethod.Post, new {@class = "form-horizontal", enctype = "multipart/form-data", id = "form"}))
 {
 	<div class="form-horizontal">
-		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		@Html.ValidationSummary(true, "", new {@class = "text-danger"})
 
 		@Html.HiddenFor(model => model.Id)
 
 		<div class="form-group">
-			@Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+			@Html.LabelFor(model => model.UserName, new {@class = "control-label col-md-2"})
 			<div class="col-md-10">
-				@Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+				@Html.EditorFor(model => model.UserName, new {htmlAttributes = new {@class = "form-control"}})
+				@Html.ValidationMessageFor(model => model.UserName, "", new {@class = "text-danger"})
 			</div>
 		</div>
 
 		<div class="form-group">
-			@Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+			@Html.LabelFor(model => model.Password, new {@class = "control-label col-md-2"})
 			<div class="col-md-10">
-				@Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+				@Html.EditorFor(model => model.Password, new {htmlAttributes = new {@class = "form-control"}})
+				@Html.ValidationMessageFor(model => model.Password, "", new {@class = "text-danger"})
 			</div>
 		</div>
 
 		<div class="form-group">
-			@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+			@Html.LabelFor(model => model.Email, new {@class = "control-label col-md-2"})
 			<div class="col-md-10">
-				@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+				@Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
+				@Html.ValidationMessageFor(model => model.Email, "", new {@class = "text-danger"})
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="Imagepost" class="control-label col-md-2">FileName:</label>
 			<div class="col-md-10">
 
-				<input name="Imagepost" id="Imagepost" type="file" onchange="readFile(this)" />
+				<input name="Imagepost" id="Imagepost" type="file" onchange="readFile(this)"/>
 
 				<div id="crop_image" style="width: 300px;">
-					<img class="my-img hidden" id="img" src="#" width="200" height="200" />
+					<img class="my-img hidden" id="img" src="#" width="200" height="200"/>
 				</div>
 			</div>
 		</div>
-		<input id="basestring" class="hidden" name="basestring" />
-		<input id="points" class="hidden" name="points" />
-		<input id="zoom" class="hidden" name="zoom" />
+		<input id="basestring" class="hidden" name="basestring"/>
+		<input id="points" class="hidden" name="points"/>
+		<input id="zoom" class="hidden" name="zoom"/>
 		<div class="form-group">
 
 			<div class="col-md-offset-2 col-md-10">
-				<input type="submit" value="Save" class="btn btn-default" id="submitbutt" />
+				<input type="submit" value="Save" class="btn btn-default" id="submitbutt"/>
 			</div>
 
 		</div>
 	</div>
 }
 @Scripts.Render("~/bundles/jquery")
-<link rel="stylesheet" href="~/Content/croppie.css" />
+<link rel="stylesheet" href="~/Content/croppie.css"/>
 <script src="~/Scripts/croppie.js"></script>
 @Scripts.Render("~/bundles/configureuser")

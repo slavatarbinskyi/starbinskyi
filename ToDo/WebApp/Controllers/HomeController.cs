@@ -1,35 +1,33 @@
-﻿using BAL.Interface;
+﻿using System;
+using System.Configuration;
+using System.Drawing;
+using System.Security.Claims;
+using System.Web;
+using System.Web.Mvc;
+using BAL.Interface;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Model.DB;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Web;
-using Microsoft.AspNet.Identity;
-using System.Web.Mvc;
 using webApiTask.Controllers;
-using WebApp.Models;
-using System.IO;
-using System.Drawing;
-using System.Configuration;
 using WebApp.Helpers;
-using System.Drawing.Imaging;
+using WebApp.Models;
 
 namespace WebApp.Controllers
 {
 	public class HomeController : BaseController
 	{
-		private IUserManager userManager;
-		private IToDoListManager toDoListManager;
-		private IToDoItemManager toDoItemManager;
-		private IInviteUserManager inviteUserManager;
-		private IEmailService emailService;
-		private ITagManager tagManager;
+		private readonly IEmailService emailService;
+		private readonly IInviteUserManager inviteUserManager;
 		private INotificationEmailService notificationService;
-		public HomeController(IUserManager userManager, ITagManager tagManager, IToDoItemManager toDoItemManager, IToDoListManager toDoListManager, IInviteUserManager inviteUserManager, IEmailService emailService,INotificationEmailService notificationService)
+		private readonly ITagManager tagManager;
+		private IToDoItemManager toDoItemManager;
+		private IToDoListManager toDoListManager;
+		private readonly IUserManager userManager;
+
+		public HomeController(IUserManager userManager, ITagManager tagManager, IToDoItemManager toDoItemManager,
+			IToDoListManager toDoListManager, IInviteUserManager inviteUserManager, IEmailService emailService,
+			INotificationEmailService notificationService)
 		{
 			this.emailService = emailService;
 			this.inviteUserManager = inviteUserManager;
@@ -39,17 +37,15 @@ namespace WebApp.Controllers
 			this.tagManager = tagManager;
 			this.notificationService = notificationService;
 		}
+
 		private IAuthenticationManager AuthenticationManager
 		{
-			get
-			{
-				return HttpContext.GetOwinContext().Authentication;
-			}
+			get { return HttpContext.GetOwinContext().Authentication; }
 		}
 
 
 		/// <summary>
-		/// View for configuring user.
+		///     View for configuring user.
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet]
@@ -57,24 +53,23 @@ namespace WebApp.Controllers
 		{
 			var userid = Convert.ToInt32(User.Identity.GetUserId());
 			if (userid == 0)
-			{
 				return HttpNotFound();
-			}
 			var user = userManager.GetById(userid);
 
 			return View(user);
 		}
+
 		/// <summary>
-		/// Method for getting photo path.
+		///     Method for getting photo path.
 		/// </summary>
 		/// <returns></returns>
 		public ActionResult Photo()
 		{
 			var id = User.Identity.GetUserId();
-			if (id == null) { return null; }
+			if (id == null) return null;
 			var imghelper = new ImageHelper();
 			var path = imghelper.GetImagePath(id);
-			return View(new UserModel() { UserImgUrl = path });
+			return View(new UserModel {UserImgUrl = path});
 		}
 
 		[HttpPost]
@@ -82,7 +77,7 @@ namespace WebApp.Controllers
 		{
 			var imghelper = new ImageHelper();
 			var path = ConfigurationManager.AppSettings["imageroot"];
-			string[] pointsArray = points.Split(',');
+			var pointsArray = points.Split(',');
 			var wh = Convert.ToInt32(pointsArray[2]) - Convert.ToInt32(pointsArray[0]);
 			var x = Convert.ToInt32(pointsArray[0]);
 			var y = Convert.ToInt32(pointsArray[1]);
@@ -91,7 +86,7 @@ namespace WebApp.Controllers
 			//the one of ways to save image via bitmap
 			//imghelper.CropAndSavePoints(User.Identity.GetUserId(), path, originalimage, x, y, wh);
 
-			imghelper.SaveImage(User.Identity.GetUserId(),basestring,path);
+			imghelper.SaveImage(User.Identity.GetUserId(), basestring, path);
 
 			userManager.UpdateUser(user);
 			return RedirectToAction("Index", "Home");
@@ -102,16 +97,23 @@ namespace WebApp.Controllers
 			ViewBag.Title = "Home Page";
 			return View();
 		}
+
 		/// <summary>
-		/// Post for logout
+		///     Post for logout
 		/// </summary>
 		/// <returns></returns>
 		public ActionResult Logout()
 		{
 			AuthenticationManager.SignOut(CookieAuthenticationDefaults.AuthenticationType);
-			HttpContext.Response.Cookies.Set(new HttpCookie("token") { Value = string.Empty });
+			HttpContext.Response.Cookies.Set(new HttpCookie("token") {Value = string.Empty});
 			return RedirectToAction("Index", "Home");
 		}
+
+		/// <summary>
+		/// View for registering invited users
+		/// </summary>
+		/// <param name="guid"></param>
+		/// <returns></returns>
 		[HttpGet]
 		public ActionResult RegisterInvitedUser(string guid)
 		{
@@ -121,17 +123,16 @@ namespace WebApp.Controllers
 			{
 				userDb = userManager.GetByEmail(invitedUser.Email);
 				if (userDb == null)
-				{
-					userDb = new User()
+					userDb = new User
 					{
 						Email = invitedUser.Email
 					};
-				}
 			}
 			return View(userDb);
 		}
+
 		/// <summary>
-		/// Register new user.
+		///     Register new user.
 		/// </summary>
 		/// <param name="user"></param>
 		/// <returns></returns>
@@ -141,14 +142,20 @@ namespace WebApp.Controllers
 			userManager.Insert(user);
 			return RedirectToAction("Index", "Home");
 		}
+
+		/// <summary>
+		/// Get top tags
+		/// </summary>
+		/// <returns></returns>
 		[HttpPost]
 		public JsonResult GetTopTags()
 		{
 			var tags = tagManager.GetTopTags();
 			return Json(tags, JsonRequestBehavior.AllowGet);
 		}
+
 		/// <summary>
-		/// Top tags.
+		///     Top tags.
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet]
@@ -156,8 +163,9 @@ namespace WebApp.Controllers
 		{
 			return View();
 		}
+
 		/// <summary>
-		/// Invite user with email.
+		///     Invite user with email.
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet]
@@ -165,19 +173,20 @@ namespace WebApp.Controllers
 		{
 			return View();
 		}
+
 		/// <summary>
-		/// Send invite to email with emailservice.
+		///     Send invite to email with emailservice.
 		/// </summary>
 		/// <param name="email"></param>
 		/// <returns></returns>
 		[HttpPost]
 		public ActionResult SendInvite(string email)
 		{
-			var user = new InviteUser()
+			var user = new InviteUser
 			{
 				Email = email
 			};
-			var usersend = new User()
+			var usersend = new User
 			{
 				Email = user.Email
 			};
@@ -188,7 +197,10 @@ namespace WebApp.Controllers
 			return RedirectToAction("Index", "Home");
 		}
 
-
+		/// <summary>
+		/// View for login page
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		public ActionResult Login()
 		{
@@ -197,7 +209,7 @@ namespace WebApp.Controllers
 		}
 
 		/// <summary>
-		/// Method for login post;
+		///     Method for login post;
 		/// </summary>
 		/// <param name="loguser"></param>
 		/// <returns></returns>
@@ -205,19 +217,20 @@ namespace WebApp.Controllers
 		public ActionResult Login(LoginModel loguser)
 		{
 			var userDb = userManager.Find(loguser.Name, loguser.Password);
-			ApplicationUser user = new ApplicationUser()
+			var user = new ApplicationUser
 			{
 				Id = userDb.Id.ToString(),
 				Email = userDb.Email,
 				UserName = userDb.Email
 			};
 
-			ClaimsIdentity cookiesIdentity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationType, ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-			cookiesIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), ClaimValueTypes.String));
+			var cookiesIdentity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationType,
+				ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+			cookiesIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id, ClaimValueTypes.String));
 			cookiesIdentity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email, ClaimValueTypes.String));
 			cookiesIdentity.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/201..",
-			"OWIN Provider", ClaimValueTypes.String));
-			AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = true }, cookiesIdentity);
+				"OWIN Provider", ClaimValueTypes.String));
+			AuthenticationManager.SignIn(new AuthenticationProperties {IsPersistent = true}, cookiesIdentity);
 			return RedirectToAction("Index", "Home");
 		}
 	}

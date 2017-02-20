@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DAL.Interface;
-using BAL.Interface;
-using Model.DB;
+﻿using System.Net;
 using System.Net.Mail;
-using System.Net;
+using BAL.Interface;
+using DAL.Interface;
+using Model.DB;
 
 namespace BAL.Manager
 {
@@ -19,11 +14,10 @@ namespace BAL.Manager
 
 		public bool SendEmail(User model, string link, string email, string password)
 		{
-		
 			var _email = email;
 			var pass = password;
 
-			using (SmtpClient client = new SmtpClient())
+			using (var client = new SmtpClient())
 			{
 				client.EnableSsl = true;
 				client.Port = 587;
@@ -32,10 +26,10 @@ namespace BAL.Manager
 
 				client.Credentials = new NetworkCredential(_email, pass);
 				client.DeliveryMethod = SmtpDeliveryMethod.Network;
-				string bodymail="To login on todoweb follow the link " + link;
+				var bodymail = "To login on todoweb follow the link " + link;
 				var from = _email;
 				var to = model.Email;
-				MailMessage message = new MailMessage(from, to);
+				var message = new MailMessage(from, to);
 				message.Subject = "Invite to ToDo";
 				message.IsBodyHtml = true;
 				message.Body = bodymail;

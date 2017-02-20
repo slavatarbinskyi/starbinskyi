@@ -2,13 +2,13 @@
 
 namespace BAL.Manager
 {
-    public class BaseManager
-    {
-        protected IUnitOfWork uOW;
+	public class BaseManager
+	{
+		protected IUnitOfWork uOW;
 
-        public BaseManager(IUnitOfWork uOW)
-        {
-            this.uOW = uOW;
-        }
-    }
+		public BaseManager(IUnitOfWork uOW)
+		{
+			this.uOW = uOW;
+		}
+	}
 }

@@ -1,26 +1,25 @@
-﻿using BAL.Interface;
-using Model.DB;
-using NLog;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using BAL.Interface;
+using Model.DB;
+using NLog;
 
 namespace WebApp.Controllers
 {
-    public class UserController : ApiController
-    {
-		private IUserManager userManager;
+	public class UserController : ApiController
+	{
 		private readonly Logger _logger = LogManager.GetCurrentClassLogger();
+		private readonly IUserManager userManager;
+
 		public UserController(IUserManager userManager)
 		{
 			this.userManager = userManager;
 		}
+
 		/// <summary>
-		/// Get All users from database
+		///     Get All users from database
 		/// </summary>
 		[ResponseType(typeof(List<User>))]
 		public IHttpActionResult GetAll()
@@ -36,8 +35,9 @@ namespace WebApp.Controllers
 				return NotFound();
 			}
 		}
+
 		/// <summary>
-		/// Update user in database
+		///     Update user in database
 		/// </summary>
 		/// <param name="user"></param>
 		[HttpPut]
@@ -54,8 +54,9 @@ namespace WebApp.Controllers
 				return NotFound();
 			}
 		}
+
 		/// <summary>
-		/// Insert user in database
+		///     Insert user in database
 		/// </summary>
 		/// <param name="user"></param>
 		[HttpPost]
@@ -72,8 +73,9 @@ namespace WebApp.Controllers
 				return NotFound();
 			}
 		}
+
 		/// <summary>
-		/// Get user by email
+		///     Get user by email
 		/// </summary>
 		/// <param name="email"></param>
 		/// <returns></returns>
@@ -90,8 +92,9 @@ namespace WebApp.Controllers
 				return NotFound();
 			}
 		}
+
 		/// <summary>
-		/// Remove user from database
+		///     Remove user from database
 		/// </summary>
 		/// <param name="user"></param>
 		[HttpDelete]

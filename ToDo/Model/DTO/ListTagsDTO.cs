@@ -1,9 +1,5 @@
-﻿using Model.DB;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Model.DB;
 
 namespace Model.DTO
 {
@@ -14,6 +10,7 @@ namespace Model.DTO
 			Tags = new List<Tag>();
 			Items = new List<ToDoItem>();
 		}
+
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public int User_Id { get; set; }
