@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Name="Softserve NotifyService"
+             Id="*"
+             UpgradeCode="82b95f78-c041-45ab-9c06-6cd2e77c55f4"
+             Manufacturer="My Company"
+             Version="!(bind.FileVersion.NotifyService.exe)"
+             Language="1033">
+		<Package InstallerVersion="200"
+                 Compressed="yes" />
+		<Media Id="1"
+               Cabinet="media1.cab"
+               EmbedCab="yes" />
+		<Directory Id="TARGETDIR"
+                   Name="SourceDir">
+			<Directory Id="INSTALLDIR"
+                       Name="PFiles">
+				<Directory Id="Softserve"
+                           Name="Softserve">
+					<Directory Id="NotifyService"
+                               Name="NotifyService">
+						<Component Id="Softserve.NotifyService"
+                                   Guid="82b95f78-c041-45ab-9c06-6cd2e77c55f4">
+							<File Id="NotifyService.exe"
+                                  Name="NotifyService.exe"
+                                  Source="..\NotifyService\bin\Debug\NotifyService.exe"
+                                  Vital="yes"
+                                  KeyPath="yes"
+                                  DiskId="1" />
+							<File Id="NotifyService.exe.config"
+                                  Name="NotifyService.exe.config"
+                                  Source="..\NotifyService\bin\Debug\NotifyService.exe.config"
+                                  Vital="yes"
+                                  KeyPath="no"
+                                  DiskId="1" />
+							<ServiceInstall Id="ServiceInstaller"
+                                            Type="ownProcess"
+                                            Vital="yes"
+                                            Name="Softserve:NotifyService"
+                                            DisplayName="Softserve:NotifyService"
+                                            Description="My Product Description"
+                                            Start="auto"
+                                            Account="LocalSystem"
+                                            ErrorControl="ignore"
+                                            Interactive="no" />
+							<ServiceControl Id="StartService"
+                                            Start="install"
+                                            Stop="both"
+                                            Remove="uninstall"
+                                            Name="Softserve:NotifyService"
+                                            Wait="yes" />
+						</Component>
+					</Directory>
+				</Directory>
+			</Directory>
+		</Directory>
+		<Feature Id="ProductFeature"
+                 Title="Softserve:NotifyService"
+                 Level="1">
+			<ComponentRef Id="Softserve.NotifyService" />
+		</Feature>
+	</Product>
+</Wix>

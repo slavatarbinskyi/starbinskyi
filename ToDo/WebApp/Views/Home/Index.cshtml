@@ -42,7 +42,7 @@
 							<input type="checkbox" data-bind="checked:IsCompleted"/>
 							<span data-toggle="modal" data-target="#modalDateTime" data-bind="click:$root.SetNotificationTime,css:{'notified': IsNotify }" class="btn btn-sm glyphicon datetimepick glyphicon-bell"></span>
 
-							<span data-bind="inline: Text,css:{lineThrough:IsCompleted,'completed': IsCompleted }" class="textItem"></span>
+							<div  data-bind="inline: Text,css:{lineThrough:IsCompleted,'completed': IsCompleted },attr:{title:Text}" class="textItem"></div>
 							<span data-bind="click: $root.removeItem.bind($data,$parent)" class="btn btn-xs icon delicon glyphicon glyphicon-remove"></span>
 						</li>
 					</ul>

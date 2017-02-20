@@ -13,7 +13,12 @@
 }
 
 .textItem {
+	white-space: nowrap;
+	display:inline-flex;
 	overflow: hidden;
+	text-overflow: ellipsis;
+	 max-width: 250px;
+	width: 60%;
 }
 
 .notified {
@@ -27,12 +32,15 @@
 .title {
 	display: inline-block;
 	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 	width: 200px;
 }
 
 .singleItem {
 	display: block;
 	min-width: 250px;
+	max-width: 250px;
 }
 
 body {
