@@ -286,6 +286,10 @@ function viewModel() {
 			});
 		}
 	};
+	self.ExportToExc = function () {
+		var url = appContext.buildUrl("/Home/ExportToExcel");
+		window.location=url;
+	}
 
 	//Binding for edit name
 	ko.bindingHandlers.inline = {

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Configuration;
 using System.Drawing;
+using System.IO;
 using System.Security.Claims;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using BAL.Interface;
@@ -9,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Model.DB;
+using Model.DTO;
 using webApiTask.Controllers;
 using WebApp.Helpers;
 using WebApp.Models;
@@ -207,6 +210,48 @@ namespace WebApp.Controllers
 			var model = new LoginModel();
 			return View(model);
 		}
+
+		[HttpGet]
+		public ActionResult Location()
+		{
+
+			return View();
+		}
+
+
+
+		/// <summary>
+		/// Export to xml todo.
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet]
+		public ActionResult ExportToExcel()
+		{
+			var converter = new ListToDataTableConverter();
+			var lists = toDoListManager.GetAll();
+			var wb=converter.ExportToExcel(lists);
+
+			Response.Clear();
+			Response.Buffer = true;
+			Response.ContentEncoding = Encoding.UTF8;
+			Response.Charset = "";
+			Response.AddHeader("Content-Disposition",
+			  "attachment; filename=MyToDo.xls");
+			Response.ContentType =
+			  "application/vnd.ms-excel";
+
+			using (MemoryStream memoryStream = new MemoryStream())
+			{
+				wb.SaveAs(memoryStream);
+				memoryStream.WriteTo(Response.OutputStream);
+				memoryStream.Close();
+			}
+
+			Response.End();
+
+			return RedirectToAction("Index", "Home");
+		}
+
 
 		/// <summary>
 		///     Method for login post;

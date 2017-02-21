@@ -18,7 +18,7 @@
 				<Directory Id="Softserve"
                            Name="Softserve">
 					<Directory Id="NotifyService"
-                               Name="NotifyService">
+                               Name="Notify Service">
 						<Component Id="Softserve.NotifyService"
                                    Guid="82b95f78-c041-45ab-9c06-6cd2e77c55f4">
 							<File Id="NotifyService.exe"
@@ -36,7 +36,7 @@
 							<ServiceInstall Id="ServiceInstaller"
                                             Type="ownProcess"
                                             Vital="yes"
-                                            Name="Softserve:NotifyService"
+                                            Name="Notify Service"
                                             DisplayName="Softserve:NotifyService"
                                             Description="My Product Description"
                                             Start="auto"
@@ -47,7 +47,7 @@
                                             Start="install"
                                             Stop="both"
                                             Remove="uninstall"
-                                            Name="Softserve:NotifyService"
+                                            Name="Notify Service"
                                             Wait="yes" />
 						</Component>
 					</Directory>
@@ -55,7 +55,7 @@
 			</Directory>
 		</Directory>
 		<Feature Id="ProductFeature"
-                 Title="Softserve:NotifyService"
+                 Title="Notify Service"
                  Level="1">
 			<ComponentRef Id="Softserve.NotifyService" />
 		</Feature>

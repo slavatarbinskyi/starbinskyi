@@ -24,6 +24,8 @@ namespace WebApp
 				"~/Scripts/chart.js"));
 			bundles.Add(new ScriptBundle("~/bundles/configureuser").Include(
 				"~/Scripts/configureUser.js"));
+			bundles.Add(new ScriptBundle("~/bundles/gmaps").Include(
+	"~/Scripts/gmaps.js"));
 			bundles.Add(new ScriptBundle("~/bundles/combodate").Include(
 				"~/Scripts/moment.js",
 				"~/Scripts/combodate.js"

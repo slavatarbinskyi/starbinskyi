@@ -14,10 +14,10 @@
 
 .textItem {
 	white-space: nowrap;
-	display:inline-flex;
+	display: inline-flex;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	 max-width: 250px;
+	max-width: 250px;
 	width: 60%;
 }
 
@@ -39,8 +39,7 @@
 
 .singleItem {
 	display: block;
-	min-width: 250px;
-	max-width: 250px;
+	width: 250px;
 }
 
 body {

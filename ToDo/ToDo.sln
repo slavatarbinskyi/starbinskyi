@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotifyService", "NotifyService\NotifyService.csproj", "{D75C838A-8A69-4609-A234-F0CD6F0F575D}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupService", "SetupService\SetupService.vdproj", "{B91901DC-627A-4CE7-AEA0-D9C160A13C7C}"
-EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "NotifiyServiceInstaller", "NotifiyServiceInstaller\NotifiyServiceInstaller.wixproj", "{0528882C-D030-4EF4-823A-2B7A3B9A7DF5}"
 EndProject
 Global
@@ -85,12 +83,6 @@ Global
 		{D75C838A-8A69-4609-A234-F0CD6F0F575D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D75C838A-8A69-4609-A234-F0CD6F0F575D}.Release|x86.ActiveCfg = Release|Any CPU
 		{D75C838A-8A69-4609-A234-F0CD6F0F575D}.Release|x86.Build.0 = Release|Any CPU
-		{B91901DC-627A-4CE7-AEA0-D9C160A13C7C}.Debug|Any CPU.ActiveCfg = Debug
-		{B91901DC-627A-4CE7-AEA0-D9C160A13C7C}.Debug|x86.ActiveCfg = Debug
-		{B91901DC-627A-4CE7-AEA0-D9C160A13C7C}.Debug|x86.Build.0 = Debug
-		{B91901DC-627A-4CE7-AEA0-D9C160A13C7C}.Release|Any CPU.ActiveCfg = Release
-		{B91901DC-627A-4CE7-AEA0-D9C160A13C7C}.Release|x86.ActiveCfg = Release
-		{B91901DC-627A-4CE7-AEA0-D9C160A13C7C}.Release|x86.Build.0 = Release
 		{0528882C-D030-4EF4-823A-2B7A3B9A7DF5}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{0528882C-D030-4EF4-823A-2B7A3B9A7DF5}.Debug|x86.ActiveCfg = Debug|x86
 		{0528882C-D030-4EF4-823A-2B7A3B9A7DF5}.Debug|x86.Build.0 = Debug|x86
