@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity.Spatial;
 using Model.DB;
 using Model.DTO;
 
@@ -13,5 +14,6 @@ namespace BAL.Interface
 		ToDoList GetById(int id);
 		void SetName(int id, string newName);
 		List<ListTagsDTO> GetListsByTagName(string Name);
+		void AttachToLocation(List<string> ids, DbGeography location);
 	}
 }

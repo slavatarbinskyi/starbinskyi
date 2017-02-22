@@ -255,6 +255,7 @@ function viewModel() {
 
 	};
 
+
 	//function to add list
 	self.addList = function(data) {
 		var length = data.toDoLists().length;
@@ -434,6 +435,7 @@ function viewModel() {
 	};
 	self.toDoLists = ko.observableArray([]);
 }
+
 
 
 $(function() {

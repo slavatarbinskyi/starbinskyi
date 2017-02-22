@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BAL.Interface;
 using Microsoft.AspNet.Identity;
 using Model.DB;
+using Model.DTO;
 using NLog;
 
 namespace WebApp.Controllers
@@ -122,6 +124,32 @@ namespace WebApp.Controllers
 				_logger.Error(ex.Message);
 				return NotFound();
 			}
+		}
+
+
+		[HttpPut]
+		[Route("AttachLocation")]
+		public IHttpActionResult AttachLocation(LocationDTO loc)
+		{
+			try
+			{
+				var geogh=CreatePoint(loc.Lat, loc.Lon);
+				toDoListManager.AttachToLocation(loc.IdsList,geogh);
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
+		}
+
+
+		public static DbGeography CreatePoint(double lat, double lon, int srid = 4326)
+		{
+			string wkt = String.Format("POINT({0} {1})", lon, lat);
+
+			return DbGeography.PointFromText(wkt, srid);
 		}
 
 		/// <summary>
