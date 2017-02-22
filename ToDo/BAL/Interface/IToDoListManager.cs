@@ -14,6 +14,7 @@ namespace BAL.Interface
 		ToDoList GetById(int id);
 		void SetName(int id, string newName);
 		List<ListTagsDTO> GetListsByTagName(string Name);
-		void AttachToLocation(List<string> ids, DbGeography location);
+		void AttachToLocation(List<int> ids, DbGeography location);
+		List<LocationDTO> GetPoints();
 	}
 }

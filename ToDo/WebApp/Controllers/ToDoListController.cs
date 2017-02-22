@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity.Spatial;
+using System.Globalization;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -133,7 +134,7 @@ namespace WebApp.Controllers
 		{
 			try
 			{
-				var geogh=CreatePoint(loc.Lat, loc.Lon);
+				var geogh= CreatePoint(loc.Lat, loc.Lon);
 				toDoListManager.AttachToLocation(loc.IdsList,geogh);
 				return Ok();
 			}
@@ -144,12 +145,29 @@ namespace WebApp.Controllers
 			}
 		}
 
-
-		public static DbGeography CreatePoint(double lat, double lon, int srid = 4326)
+		[HttpGet]
+		[Route("GetPoints")]
+		public IHttpActionResult GetPoints()
 		{
-			string wkt = String.Format("POINT({0} {1})", lon, lat);
+			try
+			{
+				var lists = toDoListManager.GetPoints();
+				return Ok(lists);
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
+		}
 
-			return DbGeography.PointFromText(wkt, srid);
+
+		public static DbGeography CreatePoint(double latitude, double longitude)
+		{
+			var point = string.Format(CultureInfo.InvariantCulture.NumberFormat,
+									 "POINT({0} {1})", longitude, latitude);
+			// 4326 is most common coordinate system used by GPS/Maps
+			return DbGeography.PointFromText(point, 4326);
 		}
 
 		/// <summary>

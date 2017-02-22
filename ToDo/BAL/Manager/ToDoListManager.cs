@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Spatial;
 using System.Linq;
 using AutoMapper;
@@ -121,7 +122,7 @@ namespace BAL.Manager
 			return resultLists;
 		}
 
-		public void AttachToLocation(List<string> ids, DbGeography location)
+		public void AttachToLocation(List<int> ids, DbGeography location)
 		{
 			foreach (var id in ids)
 			{
@@ -129,6 +130,23 @@ namespace BAL.Manager
 				list.Position = location;
 			}
 			uOW.Save();
+		}
+
+		public List<LocationDTO> GetPoints()
+		{
+			var res = new List<LocationDTO>();
+			var positions = uOW.ToDoListRepo.All.Where(w=>w.Position!=null).Select(w => w.Position).ToList();
+			foreach (var dbGeography in positions)
+			{
+				var obj = new LocationDTO();
+				var ids = uOW.ToDoListRepo.All.Where(q => q.Position.Latitude.Value == dbGeography.Latitude.Value && q.Position.Longitude.Value == dbGeography.Longitude.Value).Select(q => q.Id).ToList();
+				obj.IdsList = ids;
+				obj.Lat = dbGeography.Latitude.Value;
+				obj.Lon = dbGeography.Longitude.Value;
+				res.Add(obj);
+			}
+
+			return res;
 		}
 	}
 }
