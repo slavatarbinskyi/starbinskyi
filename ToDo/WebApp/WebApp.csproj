@@ -297,6 +297,7 @@
     <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\jquery.tag-editor.css" />
     <Content Include="Content\jquery.tagit.css" />
+    <Content Include="Content\Location.css" />
     <Content Include="Content\tagit.ui-zendesk.css" />
     <Content Include="Content\uni.css" />
     <Content Include="favicon.ico" />
@@ -353,6 +354,7 @@
     <Content Include="Scripts\knockout-3.4.1.js" />
     <Content Include="Scripts\knockout.mapping-latest.debug.js" />
     <Content Include="Scripts\knockout.mapping-latest.js" />
+    <Content Include="Scripts\location.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\respond.js" />

@@ -7,71 +7,21 @@
 
 
 @Styles.Render("~/Content/TagEditor")
+@Styles.Render("~/Content/Location")
 <link href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#map {
-		width: 100%;
-		height: 750px;
-	}
-
-	.toDoList {
-		display: inline-flex;
-		overflow: auto;
-		overflow-y: hidden;
-		max-width: 100%;
-		margin: 0 0 1em;
-	}
-
-		.toDoList li {
-			display: inline-block;
-		}
-
-	.note {
-		width: 200px;
-		height: auto;
-		background: #ffc;
-		margin-right: 1em;
-	}
-
-	body {
-		color: black;
-	}
-
-	.locationboard {
-		margin-top: 15px;
-	}
-
-	.sItem {
-		display: block;
-	}
-
-		.sItem div {
-			width: 190px;
-			display: block;
-		}
-
-	.right {
-		float: right;
-	}
-
-	.buttglobe {
-		font-size: 20px;
-		margin: 2px;
-	}
-</style>
-
 
 <h1>Attach to location</h1>
-<div id="map"></div>
+<div class="row">
+	<div id="map" class="col-md-10"></div>
 
-<div class="stickerBoard" data-bind="template:{name:'sticker-board', data:$data}">
+	<div class="stickerBoard col-md-2" data-bind="template:{name:'sticker-board', data:$data}">
+	</div>
 </div>
-
 <script type="text/html" id="sticker-board">
 
 	<div class="locationboard" style="height: 600px; width: auto">
 		<ul class="toDoList" data-bind="foreach:{data: toDoLists}">
-			<li class="note">
+			<li class="note" onclick="SetCenter(this)">
 				<span class="btn right buttglobe btn-xs icon glyphicon glyphicon-globe" onclick="markSelected(this)"></span>
 				<h1 class="text-center titleText">
 					<div class="title" data-bind="text: Name,attr:{title:Name}"></div>
@@ -96,96 +46,5 @@
 	@Scripts.Render("~/bundles/knockout")
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyB0qqVzSAuNKTG4iWMU6lozMhHMeMT8Ztg"></script>
 	@Scripts.Render("~/bundles/gmaps")
-	<script>
-		var markSelected = function (span) {
-			var list = span.closest("li");
-			if (list.classList.contains('selected')) {
-				list.classList.remove('selected');
-				span.style.color = "black";
-				return;
-			}
-			list.classList.add("selected");
-			span.style.color = "green";
-		};
-
-		var GetSelectedList = function () {
-			var result = [];
-			$('.note').each(function (index, element) {
-				if (element.classList.contains('selected')) {
-					result.push(element);
-				}
-			});
-			return result;
-
-		}
-
-
-		var map;
-		$(document).ready(function () {
-
-			map = new GMaps({
-				el: '#map',
-				lat: 48.29106893815631,
-				lng: 25.926307439804077,
-				click: function (e) {
-					var list = GetSelectedList();
-					var ids = [];
-					list.forEach(function (item) {
-						ids.push(item.children[2].value);
-					});
-					if (list.length != 0) {
-						map.addMarker({
-							lat: e.latLng.lat(),
-							lng: e.latLng.lng()
-						});
-						list.forEach(function (item) {
-							item.classList.remove("selected");
-							$(".glyphicon-globe").css("color", "black");
-						});
-						var jsonData = JSON.stringify({
-							'IdsList': ids,
-							'Lat': e.latLng.lat(),
-							'Lon': e.latLng.lng()
-						});
-						$.ajax({
-							type: "PUT",
-							beforeSend: function (xhr) { xhr.setRequestHeader("Authorization", "Bearer " + appContext.token); },
-							url: appContext.buildUrl("/api/ToDoList/AttachLocation"),
-							contentType: "application/json",
-							data: jsonData,
-							dataType: "JSON",
-							success: function () {
-							},
-							error: function () {
-							}
-						});
-					}
-
-
-				}
-			});
-			loadMarkers();
-		});
-		//load coordinates for markers
-		var loadMarkers = function () {
-
-			$.ajax({
-				type: "GET",
-				beforeSend: function (xhr) { xhr.setRequestHeader("Authorization", "Bearer " + appContext.token); },
-				url: appContext.buildUrl("/api/ToDoList/GetPoints"),
-				dataType: "json",
-				success: function (data) {
-
-					//add markers to map
-					$.each(data,
-						function (index, marker) {
-							map.addMarker({
-								lat: marker.Lat,
-								lng: marker.Lon
-							});
-						});
-				}
-			});
-		}
-	</script>
+	@Scripts.Render("~/bundles/locationscript")
 }

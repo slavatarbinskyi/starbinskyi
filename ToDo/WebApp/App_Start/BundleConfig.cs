@@ -22,6 +22,8 @@ namespace WebApp
 				"~/Scripts/jquery-ui.min.js"));
 			bundles.Add(new ScriptBundle("~/bundles/chartjs").Include(
 				"~/Scripts/chart.js"));
+			bundles.Add(new ScriptBundle("~/bundles/locationscript").Include(
+			"~/Scripts/location.js"));
 			bundles.Add(new ScriptBundle("~/bundles/configureuser").Include(
 				"~/Scripts/configureUser.js"));
 			bundles.Add(new ScriptBundle("~/bundles/gmaps").Include(
@@ -54,6 +56,9 @@ namespace WebApp
 
 			bundles.Add(new StyleBundle("~/Content/uni").Include(
 				"~/Content/uni.css"));
+			bundles.Add(new StyleBundle("~/Content/location").Include(
+	"~/Content/Location.css"));
+
 
 			bundles.Add(new StyleBundle("~/Content/TagEditor").Include(
 				"~/Content/jquery.tag-editor.css"));

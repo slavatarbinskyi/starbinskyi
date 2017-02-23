@@ -1,0 +1,53 @@
+﻿#map {
+	height: 750px;
+}
+
+.toDoList {
+	height: 770px;
+	display: block;
+	overflow: auto;
+	max-width: 100%;
+	margin: 0 0 1em;
+}
+
+	.toDoList li {
+		display: block;
+	}
+
+.note {
+	width: 200px;
+	height: auto;
+	background: #ffc;
+	margin-right: 1em;
+}
+
+body {
+	color: black;
+}
+
+.locationboard {
+	margin-top: -18px;
+}
+
+.sItem {
+	display: block;
+}
+
+	.sItem div {
+		width: 190px;
+		display: block;
+		margin-left: 20px;
+	}
+
+.right {
+	float: right;
+}
+
+.buttglobe {
+	font-size: 20px;
+	margin: 2px;
+}
+
+body {
+	padding-top: 0px;
+}

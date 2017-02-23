@@ -16,5 +16,6 @@ namespace BAL.Interface
 		List<ListTagsDTO> GetListsByTagName(string Name);
 		void AttachToLocation(List<int> ids, DbGeography location);
 		List<LocationDTO> GetPoints();
+		LocationDTO GetPointById(int id);
 	}
 }

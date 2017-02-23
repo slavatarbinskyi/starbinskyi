@@ -161,6 +161,22 @@ namespace WebApp.Controllers
 			}
 		}
 
+		[HttpGet]
+		[Route("GetPointById/{id}")]
+		public IHttpActionResult GetPointById(int id)
+		{
+			try
+			{
+				var point = toDoListManager.GetPointById(id);
+				return Ok(point);
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex.Message);
+				return NotFound();
+			}
+		}
+
 
 		public static DbGeography CreatePoint(double latitude, double longitude)
 		{

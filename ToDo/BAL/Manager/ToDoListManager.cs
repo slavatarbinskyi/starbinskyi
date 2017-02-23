@@ -140,12 +140,20 @@ namespace BAL.Manager
 			{
 				var obj = new LocationDTO();
 				var ids = uOW.ToDoListRepo.All.Where(q => q.Position.Latitude.Value == dbGeography.Latitude.Value && q.Position.Longitude.Value == dbGeography.Longitude.Value).Select(q => q.Id).ToList();
+				var names= uOW.ToDoListRepo.All.Where(q => q.Position.Latitude.Value == dbGeography.Latitude.Value && q.Position.Longitude.Value == dbGeography.Longitude.Value).Select(q => q.Name).ToList();
 				obj.IdsList = ids;
+				obj.ListsName = names;
 				obj.Lat = dbGeography.Latitude.Value;
 				obj.Lon = dbGeography.Longitude.Value;
 				res.Add(obj);
 			}
 
+			return res;
+		}
+		public LocationDTO GetPointById(int id)
+		{
+			var list = uOW.ToDoListRepo.GetByID(id);
+			var res = new LocationDTO() {Lat = list.Position.Latitude.Value,Lon = list.Position.Longitude.Value};
 			return res;
 		}
 	}
