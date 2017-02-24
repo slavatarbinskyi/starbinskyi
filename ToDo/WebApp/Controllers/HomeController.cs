@@ -211,10 +211,25 @@ namespace WebApp.Controllers
 			return View(model);
 		}
 
+		/// <summary>
+		/// View for attaching location to note.
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		public ActionResult Location()
 		{
 
+			return View();
+		}
+
+
+		/// <summary>
+		/// View for users chat;
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet]
+		public ActionResult UserChat()
+		{
 			return View();
 		}
 

@@ -387,6 +387,7 @@
     <Content Include="Views\Home\TopTags.cshtml" />
     <Content Include="Views\Home\DateTimePartial.cshtml" />
     <Content Include="Views\Home\Location.cshtml" />
+    <Content Include="Views\Home\UserChat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
