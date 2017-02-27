@@ -8,7 +8,11 @@ using System.Net;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
-using vtortola.WebSockets;	
+using BAL.Interface;
+using BAL.Manager;
+using DAL;
+using vtortola.WebSockets;
+using WebApp.Helpers;
 
 namespace ChatService
 {
@@ -18,6 +22,8 @@ namespace ChatService
 		public static List<WebSocket> sockets;
 		public static Dictionary<string, string> names;
 		public WebSocketEventListener server = null;
+		public static string ImgPath;
+
 		public ChatService()
 		{
 			InitializeComponent();
@@ -63,7 +69,11 @@ namespace ChatService
 			{
 				var wsContext = ws;
 				//Console.WriteLine("Message from [" + ws.RemoteEndpoint + "]: " + msg);
-				var msgData = msg.Split(":".ToArray(), StringSplitOptions.RemoveEmptyEntries)[1];
+				var msgSplitted = msg.Split(":".ToArray(), StringSplitOptions.RemoveEmptyEntries);
+				var msgData = msgSplitted[1];
+				var userId = msgSplitted[2];
+				var imghelper = new ImageHelper();
+				ImgPath = imghelper.GetImagePath(userId);
 				var msgToSend = string.Empty;
 				if (msg.StartsWith("Name"))
 				{
@@ -91,7 +101,7 @@ namespace ChatService
 
 		public static string ComposeMsg(string name, string msg)
 		{
-			return $"<div><strong>{name}</strong><span>  {msg}</span></div>";
+			return $"<div><img src='"+ImgPath+"'/><strong>{name}</strong><span>  {msg}</span></div>";
 		}
 	}
 }
